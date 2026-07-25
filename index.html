@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#177E74">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="SEJZ 壯遊">
+<title>SEJZ 北美壯遊 · 2026 行程 App</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+</head>
+<body>
+<style>
+:root{
+  --bg:#EFF4F2; --card:#FFFFFF; --card2:#F7FAF9; --ink:#1B2E29; --mut:#5E736D;
+  --line:#D9E3DF; --acc:#177E74; --acc-soft:#DCEEEB; --acc-ink:#0E5A52;
+  --amber:#B96F1E; --amber-soft:#F6E8D5; --red:#C24438; --red-soft:#F7E3E0;
+  --green:#2E7D4F; --green-soft:#DFEEE4; --nav:#FFFFFFF2; --shadow:0 1px 3px rgba(20,40,35,.08),0 4px 14px rgba(20,40,35,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0E1815; --card:#152420; --card2:#1B2C27; --ink:#E7F0EC; --mut:#8FA69E;
+    --line:#253832; --acc:#41B3A3; --acc-soft:#173832; --acc-ink:#7BD4C6;
+    --amber:#E09A48; --amber-soft:#3A2C17; --red:#E0705F; --red-soft:#3D211D;
+    --green:#5CB985; --green-soft:#1B3325; --nav:#152420F2; --shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#EFF4F2; --card:#FFFFFF; --card2:#F7FAF9; --ink:#1B2E29; --mut:#5E736D;
+  --line:#D9E3DF; --acc:#177E74; --acc-soft:#DCEEEB; --acc-ink:#0E5A52;
+  --amber:#B96F1E; --amber-soft:#F6E8D5; --red:#C24438; --red-soft:#F7E3E0;
+  --green:#2E7D4F; --green-soft:#DFEEE4; --nav:#FFFFFFF2; --shadow:0 1px 3px rgba(20,40,35,.08),0 4px 14px rgba(20,40,35,.06);
+}
+:root[data-theme="dark"]{
+  --bg:#0E1815; --card:#152420; --card2:#1B2C27; --ink:#E7F0EC; --mut:#8FA69E;
+  --line:#253832; --acc:#41B3A3; --acc-soft:#173832; --acc-ink:#7BD4C6;
+  --amber:#E09A48; --amber-soft:#3A2C17; --red:#E0705F; --red-soft:#3D211D;
+  --green:#5CB985; --green-soft:#1B3325; --nav:#152420F2; --shadow:0 1px 3px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-tap-highlight-color:transparent;
+}
+#app{max-width:560px;margin:0 auto;padding:0 14px calc(84px + env(safe-area-inset-bottom));}
+a{color:var(--acc);text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
+.small{font-size:12.5px;color:var(--mut)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ── header ── */
+header.top{
+  position:sticky;top:0;z-index:30;background:var(--bg);
+  padding:calc(10px + env(safe-area-inset-top)) 2px 8px;
+  display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);
+}
+.brand{font-weight:800;font-size:17px;letter-spacing:.14em}
+.brand b{color:var(--acc)}
+.brand-sub{font-size:11.5px;color:var(--mut);letter-spacing:.08em}
+header.top .sp{flex:1}
+#themeBtn{font-size:16px;line-height:1;padding:4px}
+
+/* ── tabs ── */
+nav.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  background:var(--nav);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-top:1px solid var(--line);
+  display:flex;justify-content:center;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+nav.tabbar .wrap{display:flex;width:100%;max-width:560px}
+.tabbtn{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:9px 0 7px;color:var(--mut);font-size:11px;letter-spacing:.05em;
+}
+.tabbtn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tabbtn.on{color:var(--acc)}
+.tabbtn.on svg{stroke-width:2.2}
+
+.page{display:none;animation:fadein .18s ease}
+.page.on{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.page{animation:none}}
+
+h2.sec{font-size:13px;letter-spacing:.18em;color:var(--mut);font-weight:700;margin:22px 2px 10px;text-transform:uppercase}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px;margin-bottom:10px}
+.card.tight{padding:11px 14px}
+
+/* chips & pills */
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.pill.acc{background:var(--acc-soft);color:var(--acc-ink)}
+.pill.amber{background:var(--amber-soft);color:var(--amber)}
+.pill.red{background:var(--red-soft);color:var(--red)}
+.pill.green{background:var(--green-soft);color:var(--green)}
+.pill.mut{background:var(--card2);color:var(--mut);border:1px solid var(--line)}
+
+/* ── home ── */
+.hero{
+  margin-top:14px;border-radius:16px;padding:20px 18px;color:#fff;
+  background:linear-gradient(150deg,#0E5A52 0%,#177E74 55%,#2E9E8F 100%);
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-30px;bottom:-42px;width:220px;height:150px;
+  background:
+    linear-gradient(115deg,transparent 46%,rgba(255,255,255,.13) 46.5%,rgba(255,255,255,.13) 53%,transparent 53.5%),
+    linear-gradient(245deg,transparent 46%,rgba(255,255,255,.10) 46.5%,rgba(255,255,255,.10) 55%,transparent 55.5%);
+  transform:rotate(-4deg);
+}
+.hero .eyebrow{font-size:11px;letter-spacing:.22em;opacity:.85;margin-bottom:4px}
+.hero .big{font-size:30px;font-weight:800;line-height:1.2;letter-spacing:.02em}
+.hero .sub{font-size:13px;opacity:.9;margin-top:6px}
+.clockrow{display:flex;gap:8px;margin-top:12px}
+.clock{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 4px;text-align:center;box-shadow:var(--shadow)}
+.clock .tz{font-size:10.5px;letter-spacing:.12em;color:var(--mut)}
+.clock .t{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.03em}
+.clock .d{font-size:10.5px;color:var(--mut);font-variant-numeric:tabular-nums}
+.alert{display:flex;gap:10px;align-items:flex-start;border-left:3px solid var(--amber);background:var(--amber-soft);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:13.5px}
+.alert.red{border-left-color:var(--red);background:var(--red-soft)}
+.alert b{display:block}
+
+/* ── itinerary ── */
+.day{display:flex;gap:0;margin-bottom:10px}
+.dcard{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.dhead{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;text-align:left}
+.dnum{
+  min-width:46px;height:46px;border-radius:11px;background:var(--acc-soft);color:var(--acc-ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;
+}
+.dnum .n{font-size:16px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.dnum .dt{font-size:10px;font-variant-numeric:tabular-nums;opacity:.85}
+.day.today .dnum{background:var(--acc);color:#fff}
+.dtitle{flex:1;min-width:0}
+.dtitle .t{font-weight:700;font-size:14.5px;line-height:1.4}
+.dtitle .meta{font-size:11.5px;color:var(--mut);display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.chev{color:var(--mut);transition:transform .18s;flex-shrink:0}
+.day.open .chev{transform:rotate(90deg)}
+.dbody{display:none;border-top:1px solid var(--line);padding:12px 14px;background:var(--card2)}
+.day.open .dbody{display:block}
+.dbody .route{font-size:13.5px;white-space:pre-line}
+.kv{display:grid;grid-template-columns:64px 1fr;gap:4px 10px;font-size:13px;margin-top:10px}
+.kv dt{color:var(--mut)}
+.kv dd{margin:0}
+.notebox{margin-top:10px;font-size:12.5px;background:var(--amber-soft);color:inherit;border-radius:9px;padding:8px 10px}
+.notebox p{margin:0 0 4px}.notebox p:last-child{margin:0}
+.tl{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.tl h4{margin:0 0 8px;font-size:12px;letter-spacing:.12em;color:var(--mut)}
+.tlrow{display:flex;gap:10px;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line)}
+.tlrow:last-child{border-bottom:none}
+.tlrow .tm{min-width:82px;color:var(--acc-ink);font-weight:600;font-variant-numeric:tabular-nums;font-size:12.5px;flex-shrink:0}
+.tlrow .grp{font-size:11px;margin-right:2px}
+.tlrow .what b{font-weight:700}
+.tlrow .rem{display:block;font-size:12px;color:var(--mut)}
+.grpfilter{display:flex;gap:6px;margin:4px 0 8px}
+.maplink{font-size:12.5px;font-weight:600}
+
+/* ── bookings ── */
+.bk{display:flex;align-items:center;gap:10px;padding:11px 2px;border-bottom:1px solid var(--line)}
+.bk:last-child{border-bottom:none}
+.bk .info{flex:1;min-width:0}
+.bk .cat{font-size:10.5px;letter-spacing:.1em;color:var(--mut)}
+.bk .nm{font-weight:700;font-size:13.5px;line-height:1.35}
+.bk .note{font-size:12px;color:var(--mut)}
+.codebtn{
+  flex-shrink:0;font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:700;
+  background:var(--acc-soft);color:var(--acc-ink);border-radius:8px;padding:6px 10px;
+  max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.codebtn.pending{background:var(--amber-soft);color:var(--amber)}
+.search{
+  width:100%;background:var(--card);border:1px solid var(--line);border-radius:11px;
+  padding:10px 14px;font:inherit;color:var(--ink);margin:14px 0 4px;
+}
+.search::placeholder{color:var(--mut)}
+
+/* ── todo ── */
+.prog{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px;margin-top:14px}
+.progbar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:8px}
+.progbar i{display:block;height:100%;background:var(--acc);border-radius:99px;transition:width .3s}
+.todo{display:flex;gap:11px;align-items:flex-start;padding:10px 2px;border-bottom:1px solid var(--line)}
+.todo:last-child{border-bottom:none}
+.todo input{width:19px;height:19px;margin-top:2px;accent-color:var(--acc);flex-shrink:0}
+.todo .tx{flex:1;font-size:13.5px}
+.todo .tcat{font-size:11px;color:var(--mut)}
+.todo.done .tx{color:var(--mut);text-decoration:line-through}
+
+/* ── more ── */
+.acc-item{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden}
+.acc-head{width:100%;display:flex;align-items:center;gap:12px;padding:13px 15px;text-align:left;font-weight:700;font-size:14.5px}
+.acc-head .ic{width:34px;height:34px;border-radius:9px;background:var(--acc-soft);color:var(--acc-ink);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.acc-head .ic svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.acc-head .sub{display:block;font-size:11.5px;color:var(--mut);font-weight:400}
+.acc-body{display:none;border-top:1px solid var(--line);padding:13px 15px;background:var(--card2);font-size:13.5px}
+.acc-item.open .acc-body{display:block}
+.acc-item.open .acc-head .chev{transform:rotate(90deg)}
+table.tb{width:100%;border-collapse:collapse;font-size:12.5px}
+table.tb th{text-align:left;color:var(--mut);font-weight:600;padding:5px 8px 5px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+table.tb td{padding:6px 8px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+table.tb tr:last-child td{border-bottom:none}
+.tscroll{overflow-x:auto}
+.trailcard{border-bottom:1px solid var(--line);padding:10px 0}
+.trailcard:last-child{border-bottom:none}
+.trailcard .tt{font-weight:700;font-size:13.5px}
+.trailcard .tm2{font-size:12px;color:var(--mut);margin-top:2px}
+.filterrow{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.fbtn{font-size:12px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:4px 12px;color:var(--mut);background:var(--card)}
+.fbtn.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.tel{font-weight:700;font-variant-numeric:tabular-nums}
+.footer{margin:26px 4px 8px;text-align:center;font-size:11.5px;color:var(--mut);letter-spacing:.06em}
+
+#toast{
+  position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(8px);
+  background:var(--ink);color:var(--bg);font-size:13px;font-weight:600;border-radius:99px;padding:8px 18px;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;white-space:nowrap;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+
+<div id="app">
+<header class="top">
+  <div>
+    <div class="brand"><b>SEJZ</b> 北美壯遊</div>
+    <div class="brand-sub num">2026.08.01 – 08.18 · 西雅圖 → 洛磯山脈 → 溫哥華</div>
+  </div>
+  <div class="sp"></div>
+  <button id="themeBtn" title="切換深淺色" aria-label="切換深淺色">◐</button>
+</header>
+
+<main>
+  <section class="page" id="pg-home"></section>
+  <section class="page" id="pg-days"></section>
+  <section class="page" id="pg-book"></section>
+  <section class="page" id="pg-todo"></section>
+  <section class="page" id="pg-more"></section>
+</main>
+
+<div class="footer">SEJZ 家族 · 美加露營車畢業旅行 · 定案版 0725b</div>
+</div>
+
+<nav class="tabbar"><div class="wrap">
+  <button class="tabbtn" data-pg="home"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9h13v-9"/></svg>今日</button>
+  <button class="tabbtn" data-pg="days"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 2.8v4M16 2.8v4"/></svg>行程</button>
+  <button class="tabbtn" data-pg="book"><svg viewBox="0 0 24 24"><path d="M20 7.5 12 3 4 7.5v9L12 21l8-4.5z"/><path d="M9.5 11.5 11.5 13.5 15 9.5"/></svg>訂位</button>
+  <button class="tabbtn" data-pg="todo"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.5 11 15l4.5-5"/></svg>待辦</button>
+  <button class="tabbtn" data-pg="more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="18.5" r="1.6"/></svg>更多</button>
+</div></nav>
+<div id="toast" role="status"></div>
+
+<script>
+"use strict";
+/* ===================== 資料 ===================== */
+const TRIP_START = "2026-08-01", TRIP_END = "2026-08-18";
+
+const DAYS = [
+{d:1,date:"8/1",dow:"六",title:"西雅圖：派克市場・太空針塔",km:"大眾運輸",stay:"西雅圖市中心飯店",power:"有電",trail:"Elliott Bay Trail（早到市區可先散步）",map:"Pike Place Market Seattle",
+ route:"搭 Delta 68（09:10 TPE → 06:00 抵 SEA）→ 08:15 進市區寄行李、早餐 → 09:30-12:00 派克市場（飛魚秀、一號店星巴克）→ 市場內午餐 → 13:30-16:30 回飯店補眠 → 17:15 奇胡利玻璃藝術館 → 19:00 晚餐 → 20:30 太空針塔（日落 20:45）",
+ notes:["票號 GER5AC／座 46A-D","派克市場已改上午（人少、飛魚秀熱鬧、星巴克排隊短）；下午務必補眠再撐晚間行程","太空針塔+Chihuly 買聯票並先預約時段","Kerry Park 改為晚餐後彈性選項"]},
+{d:2,date:"8/2",dow:"日",title:"西雅圖：飛行博物館・水手主場日（分流）",km:"大眾運輸 + Uber",stay:"西雅圖市中心飯店",power:"有電",trail:"海濱新公園步道（母女組順遊）",map:"T-Mobile Park Seattle",
+ route:"10:00 飛行博物館（全家）→ 11:00 ⚾爸爸+哥哥先撤往 T-Mobile Park（領 J-Rod 公仔、球場內午餐、13:10 開賽）→ 12:30 🌸媽媽+妹妹往海濱（水族館、摩天輪、Nordstrom 逛街）→ 18:30 市區會合晚餐 The Crab Pot",
+ notes:["8/2 為 Super Mario Day，前 20,000 名送 Power-Up Julio Rodríguez 公仔（Nintendo 贊助）；贈品日常提前 2 小時開門（11:10），故爸爸+哥哥博物館只逛 1 小時","若放棄公仔，可逛到 12:00 再走","賽後有 Kids Run the Bases（14 歲以下）","球場走回市區約 20 分或 Link 一站"]},
+{d:3,date:"8/3",dow:"一",title:"西雅圖 → 溫哥華（跨境巴士）",km:"跨境巴士",stay:"溫哥華市中心住宿",power:"有電",trail:"Canada Place 五帆木棧道",map:"Canada Place Vancouver",
+ route:"上午：華盛頓大學（Suzzallo 圖書館）、Gas Works Park（半天壓縮版）→ 約 13:00 跨境巴士西雅圖 → 溫哥華（17:30-18:00 抵）→ 18:30 FlyOver Canada 4D → 19:45 煤氣鎮晚餐+蒸氣鐘 → 20:50 加拿大廣場看夕陽",
+ notes:["巴士已改早班（原 17:00 出發），須確認新班次時刻與旺季海關緩衝","上午行程務必中午前結束","FlyOver 需先線上訂場次","溫哥華 8/3 日落約 20:50","D3 住宿仍待確認"]},
+{d:4,date:"8/4",dow:"二",title:"溫哥華取露營車 → Kamloops",km:"約 355 km",stay:"Kamloops 營地",power:"有電",trail:"Kenna Cartwright Park",map:"CanaDream Vancouver 8223 92 Street Delta BC",
+ route:"溫哥華取露營車（CanaDream，取車 13:00–16:00）→ Walmart/Costco 大採買 → 開往 Kamloops 過夜",
+ notes:["合約 KXE664251-1；取車為下午時段；抵 Kamloops 恐入夜"]},
+{d:5,date:"8/5",dow:"三",title:"Kamloops → Jasper（Yellowhead Hwy）",km:"約 440 km",stay:"Jasper – Whistlers 營地",power:"有電",trail:"Whistlers 抵達後輕鬆散步",map:"Whistlers Campground Jasper",
+ route:"Kamloops → Jasper（經 Hwy 5 Yellowhead）；Check-in Whistlers；沿途風景攝影",
+ notes:["訂位 INPC26-3596246B1","D5 拆天版第 2 段；原 650km 已拆兩天"]},
+{d:6,date:"8/6",dow:"四",title:"賈斯珀深度遊：瑪琳湖遊船",km:"約 80 km",stay:"Jasper – Whistlers 營地",power:"有電",trail:"Valley of the Five Lakes（2026 重開）",map:"Maligne Lake Jasper",
+ route:"瑪琳湖遊船（精靈島）、金字塔湖、野生動物觀察（★瑪琳峽谷 2026 野火仍關閉）",
+ notes:["訂位 INPC26-20961278B1","瑪琳湖遊船 Pursuit 4060105","峽谷關閉改走五湖谷"]},
+{d:7,date:"8/7",dow:"五",title:"冰原大道：雪車＋天空步道",km:"約 110 km",stay:"冰原核心區營地（Wilcox Creek 等）",power:"部分/無電",trail:"Wilcox Pass",map:"Columbia Icefield Discovery Centre",
+ route:"11:00 Jasper 退房 → Wilcox Pass 步道 → 12:15 哥倫比亞冰原雪車+天空步道 → 佩托湖",
+ notes:["冰原 Pursuit 4060105，提前 10 分排隊","營地先到先停須早卡位","22:00（台灣時間）= 08:00 MT 開放夢蓮湖接駁票"]},
+{d:8,date:"8/8",dow:"六",title:"弓湖・Bow Glacier Falls → 露易絲湖",km:"約 140 km",stay:"露易絲湖營地（已訂）",power:"有電",trail:"Bow Glacier Falls（2.5-3h）",map:"Bow Lake Alberta",
+ route:"弓湖（Bow Lake）、Bow Glacier Falls 步道 → 前往露易絲湖",
+ notes:["Bow Glacier Falls 步道需備熊噴霧"]},
+{d:9,date:"8/9",dow:"日",title:"雙湖日：夢蓮湖・露易絲湖（接駁）",km:"接駁車 + 約 30 km",stay:"Protection Mountain 營地",power:"無電（原始營地）",trail:"Lake Agnes Teahouse（2.5-3.5h）",map:"Moraine Lake",
+ route:"雙湖日（大車不動+接駁車）：夢蓮湖 Rockpile、露易絲湖 Lake Agnes 茶屋 → 傍晚移車至 Protection Mountain",
+ notes:["訂位 INPC26-2262842B2","私家車禁入須用 Parks Canada 接駁預約","當晚需拔營東移約 25-30 分，勿排太滿"]},
+{d:10,date:"8/10",dow:"一",title:"班夫小鎮・硫磺山纜車",km:"約 60 km",stay:"Tunnel Mountain Village I 營地",power:"有電",trail:"Sanson's Peak 木棧道（30-40 分）",map:"Banff Gondola",
+ route:"班夫纜車（硫磺山）、班夫大道購物、弓瀑（Bow Falls）",
+ notes:["鎮上補給採買好時機"]},
+{d:11,date:"8/11",dow:"二",title:"優鶴國家公園：翡翠湖獨木舟",km:"約 90 km",stay:"Yoho / Monarch 營地",power:"有電",trail:"Emerald Lake Loop（約 1.5h）",map:"Emerald Lake Yoho",
+ route:"優鶴國家公園：翡翠湖獨木舟+環湖、塔卡考瀑布、天然橋",
+ notes:["8:30 前到搶 RV 車位","獨木舟現場 walk-in"]},
+{d:12,date:"8/12",dow:"三",title:"Golden Skybridge → Revelstoke 溫泉",km:"約 220 km",stay:"Revelstoke RV 營地",power:"有電",trail:"Golden Skybridge 園區",map:"Golden Skybridge",
+ route:"Golden Skybridge（探險通行證）、Rogers Pass、Canyon 溫泉泡湯",
+ notes:["Pursuit 4060105，優惠碼 CANADREAM10","Rogers Pass 無訊號"]},
+{d:13,date:"8/13",dow:"四",title:"長征日：返回溫哥華近郊",km:"約 560 km",stay:"溫哥華近郊營地",power:"有電",trail:"Grey Canal Trail",map:"Revelstoke to Vancouver",
+ route:"橫越卑詩省內陸返回溫哥華郊區；露營車清潔、排灰/黑水箱",
+ notes:["當天約 560km 建議早出發","還車前清理內裝、排水箱"]},
+{d:14,date:"8/14",dow:"五",title:"還車・史丹利公園海堤單車",km:"大眾運輸 + Uber",stay:"溫哥華民宿",power:"有電",trail:"Stanley Park Seawall（單車環線約 9km）",map:"Stanley Park Vancouver",
+ route:"08:00-10:00 溫哥華還車（CanaDream Delta）→ 進市區民宿 Check-in（約 11:00）→ 午餐 → 13:00-16:30 史丹利公園海堤單車遊 → 17:00-19:30 Yaletown 水岸晚餐 → Uber 回民宿",
+ notes:["合約 KXE664251-1；還車在 Delta（8223 92 St），距市中心 35-40 分","海堤單車道為逆時針單行，自 Denman 街口往 English Bay 方向","園內遊樂場/沙灘可讓小孩放電","Yaletown 露天餐廳建議訂位"]},
+{d:15,date:"8/15",dow:"六",title:"固蘭湖島・本拿比朋友聚會",km:"Aquabus + Uber",stay:"溫哥華民宿",power:"有電",trail:"False Creek 水岸步道",map:"Granville Island Public Market",
+ route:"09:00-11:30 固蘭湖島（公眾市集買漿果/烘焙當早午餐、Kids Market、Aquabus 彩虹渡船）→ 11:30 Uber 前往本拿比朋友家聚會 → 傍晚回民宿早休息",
+ notes:["公眾市集 09:00 開門、18:00 關門，安排在上午最熱鬧","Aquabus 建議島上→Yaletown 來回都搭","8/15 需早休息，隔天清晨趕火車"]},
+{d:16,date:"8/16",dow:"日",title:"Amtrak 返美 → 機場飯店待命",km:"跨境列車+輕軌",stay:"西雅圖機場飯店",power:"有電",trail:"—",map:"Pacific Central Station Vancouver",
+ route:"05:45 叫 UberXL → 06:00 抵 Pacific Central Station 辦美國入境預檢 → 07:25 Amtrak Cascades 517 → King St Station（11:40）→ 輕軌轉 Sea-Tac 機場飯店",
+ notes:["Amtrak 8977A3","原訂 06:05 叫車只剩 77 分預檢緩衝，已提前為 05:45","CI21 報到 22:30，當晚紅眼待命"]},
+{d:17,date:"8/17",dow:"日",title:"CI21 紅眼返台",km:"—",stay:"飛機上",power:"—",trail:"—",map:null,
+ route:"搭 China Airlines CI21（01:55 SEA → 05:00 抵 TPE，飛行 12:05）；跨越換日線",
+ notes:["票號 EGLOQC","與去程 Delta 為分離票，兩端延誤不互相保護"]},
+{d:18,date:"8/18",dow:"一",title:"抵達桃園・返家",km:"—",stay:"溫暖的家",power:"—",trail:"—",map:null,
+ route:"抵達台北桃園（TPE 05:00）；返家休息",notes:[]},
+];
+
+/* 逐時細部（D1、D2 西雅圖；D3/D14/D15 溫哥華分段） */
+const TIMELINES = {
+1:[["06:00","全","Delta 68 落地 SEA","航班 GER5AC，座 46A-D"],
+   ["06:00-07:30","全","入境查驗、提領行李","旺季清關約 1-1.5 小時"],
+   ["07:30-08:15","全","Link 1 線 SeaTac → Westlake","約 40 分；週六首班約 05:00"],
+   ["08:15-08:30","全","飯店寄放行李","先確認可否 early check-in"],
+   ["08:30-09:30","全","早餐","市區或市場周邊"],
+   ["09:30-12:00","全","★派克市場：飛魚秀、一號店星巴克、Rachel 銅豬、花攤","上午人潮最少、飛魚秀最熱鬧"],
+   ["12:00-13:00","全","市場內午餐","Pike Place Chowder / Beecher's"],
+   ["13:30-16:30","全","★回飯店補眠（時差關鍵）","不可省，晚間行程才撐得住"],
+   ["17:00-17:15","全","單軌電車 Westlake Center → Seattle Center","約 2 分鐘，每 10 分一班"],
+   ["17:15-18:45","全","奇胡利玻璃藝術館","需先預約時段票"],
+   ["19:00-20:15","全","晚餐","Seattle Center / Queen Anne 一帶"],
+   ["20:30-21:45","全","★太空針塔（日落約 20:45）","夏季開放至深夜；聯票較划算"],
+   ["22:00","全","回飯店休息","彈性選項：Kerry Park 看夜景"]],
+2:[["08:00-09:15","全","飯店早餐、從容整裝",""],
+   ["09:30-09:55","全","Uber → 飛行博物館（Boeing Field）","約 20 分"],
+   ["10:00-11:00","全","飛行博物館（開門即入）","重點：太空梭訓練艙、協和號、空軍一號"],
+   ["11:00-11:20","⚾","★先撤，Uber → T-Mobile Park","球賽日網約車停 Occidental/Royal Brougham 一帶"],
+   ["11:20-11:45","⚾","★排隊入場領 Power-Up J-Rod 公仔（前 20,000 名）","贈品日開門常提前至開賽前 2 小時（11:10）"],
+   ["11:45-13:10","⚾","球場內午餐、逛球場、看賽前練習","T-Mobile Park 餐飲評價全聯盟前段"],
+   ["13:10-16:10","⚾","水手 vs 雙城（Sec 137, Row 14, Seats 5-6）","TickPick #1072480835"],
+   ["11:00-12:30","🌸","續逛飛行博物館（多 1.5 小時）",""],
+   ["12:30-13:00","🌸","Uber → 海濱，午餐","約 20 分"],
+   ["13:30-15:00","🌸","西雅圖水族館（Ocean Pavilion 新館）",""],
+   ["15:00-15:45","🌸","摩天輪 + 新海濱公園散步",""],
+   ["16:00-18:00","🌸","Nordstrom 旗艦店 / Westlake / Pacific Place 逛街",""],
+   ["18:30","全","市區會合晚餐 The Crab Pot","球場步行回市區約 20 分或 Link 一站"]],
+3:[["上午-12:00","全","華盛頓大學 Suzzallo 圖書館、Gas Works Park","★壓縮成半天，中午前必須結束"],
+   ["約 13:00","全","跨境巴士 西雅圖 → 溫哥華","★已改早班，須確認新班次時刻"],
+   ["17:30-18:00","全","抵達溫哥華、放行李","旺季陸路海關可能延誤，留緩衝"],
+   ["18:30-19:30","全","★FlyOver Canada 4D（加拿大廣場內）","懸空飛越冰川與極光；須先線上訂場次"],
+   ["19:40-20:45","全","煤氣鎮晚餐 + 百年蒸氣鐘","步行約 8 分；蒸氣鐘每 15 分噴氣一次"],
+   ["20:50-21:20","全","★加拿大廣場五帆木棧道看夕陽","8/3 溫哥華日落約 20:50，最佳光線"]],
+14:[["08:00-10:00","全","★露營車還車（CanaDream，Delta 8223 92 St）","還車窗口為上午；距市中心 35-40 分"],
+   ["10:00-11:00","全","交通進市區、民宿 Check-in","比原估的 12:00 早約 1 小時"],
+   ["11:30-12:30","全","午餐",""],
+   ["13:00-16:30","全","★史丹利公園海堤單車遊（家庭雙人車/拖車）","海堤逆時針單行；自 Denman 街口出發"],
+   ["（途中）","全","原住民圖騰柱、Brockton Point 燈塔、遊樂場/沙灘","讓兩個小孩下車放電"],
+   ["17:00-19:30","全","Yaletown 水岸晚餐（如 The Flying Pig）","舊倉庫改建美食區；露天座建議訂位"],
+   ["19:30-20:00","全","水岸步道散步 → Uber 回民宿","車程僅約 5 分"]],
+15:[["09:00-10:30","全","★固蘭湖島公眾市集（09:00 開門）","買櫻桃/藍莓、手作烘焙、濃湯當早午餐"],
+   ["10:30-11:00","全","★Aquabus 彩虹小渡船（福溪）","建議島上→Yaletown 來回都搭"],
+   ["11:00-11:30","全","Kids Market 兒童市場","玩具店與手作小店"],
+   ["11:30-12:00","全","Uber → 本拿比朋友家聚會","無縫接軌"],
+   ["傍晚","全","聚會結束回民宿，早休息","★隔日 05:45 就要叫車趕火車"]],
+};
+
+const BOOKINGS = [
+ {cat:"機票",nm:"去程 Delta 68（TPE→SEA）",code:"GER5AC",ok:1,note:"票號 0062420901008；座 46A-D；8/1 09:10"},
+ {cat:"機票",nm:"回程 China Airlines CI21（SEA→TPE）",code:"EGLOQC",ok:1,note:"票號 297 2425258862；8/17 01:55；報到 22:30"},
+ {cat:"列車",nm:"Amtrak Cascades（D3 去 / D16 回）",code:"8977A3",ok:1,note:"D16 為 Cascades 517，07:25→11:40"},
+ {cat:"露營車",nm:"CanaDream MH-B Midi（D4 取 / D14 還）",code:"KXE664251-1",ok:1,note:"溫哥華 Delta 取還；13:00 取 / 10:00 前還"},
+ {cat:"球票",nm:"MLB 水手 vs 雙城（D2 8/2 13:10）",code:"TickPick #1072480835",ok:1,note:"Sec 137, Row 14, Seats 5-6；已轉讓領取"},
+ {cat:"營地",nm:"Whistlers Campground D5",code:"INPC26-3596246B1",ok:1,note:"8/5→8/6"},
+ {cat:"營地",nm:"Whistlers Campground D6",code:"INPC26-20961278B1",ok:1,note:"8/6→8/7"},
+ {cat:"營地",nm:"露易絲湖營地 D8",code:"已確認",ok:1,note:"8/8→8/9；check-in 14:00 / out 11:00"},
+ {cat:"營地",nm:"Protection Mountain 營地 D9",code:"INPC26-2262842B2",ok:1,note:"8/9→8/10；★無電力，需傍晚移車"},
+ {cat:"活動",nm:"瑪琳湖遊船（精靈島）D6",code:"Pursuit 4060105",ok:1,note:"Pursuit 集團統一代號"},
+ {cat:"活動",nm:"哥倫比亞冰原雪車+天空步道 D7",code:"Pursuit 4060105",ok:1,note:"12:15 梯次，提前 10 分排隊"},
+ {cat:"活動",nm:"Golden Skybridge D12",code:"Pursuit 4060105",ok:1,note:"優惠碼 CANADREAM10"},
+ {cat:"接駁",nm:"夢蓮湖 / 露易絲湖接駁 D9",code:"需線上預約",ok:0,note:"8/7 22:00 台灣時間開賣（08:00 MT 滾動釋票）"},
+ {cat:"巴士",nm:"西雅圖 → 溫哥華跨境巴士 D3",code:"已改早班，待確認",ok:0,note:"需約 13:00 出發、17:30 前抵達"},
+ {cat:"門票",nm:"FlyOver Canada D3",code:"待預約",ok:0,note:"8/3 約 18:30 場次"},
+ {cat:"租借",nm:"史丹利公園家庭單車 D14",code:"待預約/現場",ok:0,note:"8/14 13:00；Denman 街口租車店"},
+ {cat:"餐廳",nm:"Yaletown 晚餐 D14",code:"待訂位",ok:0,note:"露天座（如 The Flying Pig）"},
+ {cat:"門票",nm:"太空針塔 + Chihuly 聯票 D1",code:"待預約",ok:0,note:"建議傍晚時段，先線上訂"},
+ {cat:"門票",nm:"飛行博物館 D2",code:"待預約",ok:0,note:"10:00 開門，線上先買省排隊"},
+ {cat:"營地",nm:"Kamloops 營地 D4",code:"待確認",ok:0,note:"拆天版新增，需自訂"},
+ {cat:"營地",nm:"冰原核心區營地 D7",code:"先到先停",ok:0,note:"首選 Wilcox Creek（限長 8.2m）"},
+];
+
+const TODOS = [
+ {id:"t1",p:"red",cat:"接駁預約",tx:"夢蓮湖接駁 8/7 22:00（台灣時間）開賣，設好手機提醒"},
+ {id:"t2",p:"red",cat:"營地訂位",tx:"自訂 Kamloops 營地（D4）、冰原沿線營地（D7 先到先停備案）"},
+ {id:"t3",p:"red",cat:"球票驗證",tx:"MLB Ballpark App 登入確認 2 張票有動態條碼（截圖無效）"},
+ {id:"t4",p:"red",cat:"門票預約",tx:"太空針塔 + Chihuly 聯票與時段（D1 傍晚）、飛行博物館（D2）"},
+ {id:"t5",p:"red",cat:"飯店",tx:"跟 D1 飯店確認可寄放行李 + 爭取 early check-in（下午補眠用）"},
+ {id:"t6",p:"done",cat:"營地訂位",tx:"Whistlers D5/D6、露易絲湖 D8、Protection Mtn D9"},
+ {id:"t7",p:"done",cat:"簽證",tx:"全員 ESTA 已確認 Authorization Approved；陸路入加不需 eTA"},
+ {id:"t8",p:"done",cat:"球票",tx:"TickPick #1072480835 已完成轉讓領取"},
+ {id:"t9",p:"red",cat:"跨境巴士",tx:"確認 8/3 改早後的巴士班次時刻（需 17:30 前抵溫哥華）"},
+ {id:"t10",p:"red",cat:"門票預約",tx:"FlyOver Canada 8/3 傍晚場次（確認當日最晚場）"},
+ {id:"t11",p:"orange",cat:"邊境",tx:"I-94 陸路入境預先申辦（D3 入加、D16 返美各一次，$30）"},
+ {id:"t12",p:"orange",cat:"溫哥華",tx:"史丹利公園家庭單車/拖車租借（8/14 下午，Denman 街口）"},
+ {id:"t13",p:"orange",cat:"溫哥華",tx:"Yaletown 餐廳訂位（8/14 晚，露天座）"},
+ {id:"t14",p:"orange",cat:"溫哥華",tx:"確認本拿比朋友家聚會時間與地址（8/15 中午）"},
+ {id:"t15",p:"orange",cat:"交通",tx:"8/16 05:45 UberXL 預約（Pacific Central Station）"},
+ {id:"t16",p:"orange",cat:"駕照",tx:"備妥國際駕照（IDP）＋ 台灣正本駕照"},
+ {id:"t17",p:"orange",cat:"保險",tx:"投保旅遊平安險/醫療險（含海外就醫、行李）"},
+ {id:"t18",p:"orange",cat:"航班",tx:"Fly Delta App 確認去程新時刻（09:10）與 4 座位；華航確認 CI21 選位"},
+ {id:"t19",p:"yellow",cat:"露營車",tx:"完成 CanaDream Online Check-in；確認車長"},
+ {id:"t20",p:"yellow",cat:"跨境",tx:"訂 D3（西雅圖→溫哥華）與 D16（Cascades 517）車票"},
+ {id:"t21",p:"yellow",cat:"住宿",tx:"確認西雅圖（D1-2）、溫哥華（D3, D14-15）、西雅圖機場（D16）飯店"},
+ {id:"t22",p:"yellow",cat:"行程",tx:"下載離線地圖（冰原大道全程無訊號）"},
+ {id:"t23",p:"yellow",cat:"通訊",tx:"辦理漫遊/eSIM（美加雙國方案）"},
+ {id:"t24",p:"green",cat:"金錢",tx:"備少量加幣現金＋確認信用卡開通海外交易"},
+ {id:"t25",p:"green",cat:"藥品",tx:"常備藥、暈車藥、個人處方藥（附英文處方）"},
+ {id:"t26",p:"green",cat:"打包",tx:"分層衣物（見天氣穿搭表）、防熊食物收納觀念先跟家人講"},
+ {id:"t27",p:"green",cat:"電器",tx:"北美插座轉接頭（Type A/B）、行動電源、充電線"},
+ {id:"t28",p:"white",cat:"文件",tx:"列印行程表、機票、露營車 confirmation、飯店訂單"},
+ {id:"t29",p:"white",cat:"確認",tx:"線上報到（華航起飛前 48hr / 赴美 24hr；Delta 比照）"},
+ {id:"t30",p:"white",cat:"行李",tx:"託運行李秤重（兩端均 2×23kg）、手提 7kg"},
+];
+const PRIO = {red:["🔴 立即辦","red"],orange:["🟠 高","amber"],yellow:["🟡 中","amber"],green:["🟢 1 週前","green"],white:["⚪ 出發前 1 天","mut"],done:["✅ 已完成","green"]};
+
+const TRAILS = [
+ {day:"D5 賈斯珀（抵達日）",nm:"Whistlers 湖畔散步",lv:"輕鬆",dist:"自訂 / 30-60 分",climb:"平緩",who:"全員",note:"長途開車後鬆筋骨，營地周邊即可"},
+ {day:"D5 賈斯珀（加碼）",nm:"Whistlers SkyTram 上山步道",lv:"中等",dist:"纜車+短程",climb:"纜車代步",who:"體力佳者",note:"山頂看賈斯珀全景（纜車另購票）"},
+ {day:"D6 賈斯珀（首選）",nm:"★Valley of the Five Lakes 五湖谷",lv:"輕鬆-中等",dist:"4.5km 環線 / 1.5-2h",climb:"80m",who:"全員（含小孩）",note:"2026 重開！CP 值最高；莓果季留意黑熊，備熊噴霧"},
+ {day:"D6 賈斯珀（替代）",nm:"金字塔湖環湖 Pyramid Lake",lv:"輕鬆",dist:"自訂 / 1h",climb:"平緩",who:"全員/長輩",note:"湖面倒影美、易達，適合半日"},
+ {day:"D6 賈斯珀（加碼）",nm:"瑪琳湖遊船 + Moose Lake Loop",lv:"輕鬆",dist:"2.7km / 1-2h",climb:"平緩",who:"全員",note:"精靈島遊船須預約；木棧道親子友善"},
+ {day:"D7 冰原大道（首選）",nm:"★Wilcox Pass 威爾考斯隘口",lv:"中等",dist:"至觀景點約 4km / 2-3h",climb:"登高",who:"體力佳/大孩",note:"冰原大道最佳展望，常見大角羊。RV 停車位少，早到"},
+ {day:"D7 冰原大道（全員替代）",nm:"Athabasca Glacier 冰川步道",lv:"輕鬆",dist:"4.6km / 1h",climb:"平緩",who:"全員",note:"最易近距離看冰川；此段最冷，保暖防風"},
+ {day:"D7 冰原大道（順路）",nm:"Sunwapta Falls / Athabasca Falls",lv:"輕鬆",dist:"5-15 分",climb:"平緩",who:"全員/長輩",note:"路邊瀑布幾乎免走；無護欄看好小孩"},
+ {day:"D8 冰原大道（首選）",nm:"★Peyto Lake 佩托湖觀景",lv:"輕鬆",dist:"1.3km 來回 / 15-30 分",climb:"平緩（鋪面）",who:"全員/輪椅推車",note:"狼頭形湖；停車 9-10 點前滿，早到"},
+ {day:"D8 冰原大道（加碼）",nm:"Bow Summit Lookout",lv:"中等",dist:"6.8km 來回 / 2-3h",climb:"287m",who:"體力佳者",note:"一次看 Peyto+Bow 兩湖高處視角"},
+ {day:"D8 冰原大道（全員）",nm:"Bow Lake 弓湖湖畔",lv:"輕鬆",dist:"自訂 / 30-60 分",climb:"平緩",who:"全員",note:"Num-Ti-Jah Lodge 可休息；風大帶外套"},
+ {day:"D9 夢蓮湖（首選）",nm:"★Rockpile Trail 岩堆觀景",lv:"輕鬆",dist:"0.7km 環 / 30 分",climb:"35m",who:"全員",note:"十峰谷經典明信片視角；須預約接駁，勿爬岩石"},
+ {day:"D9 夢蓮湖（全員）",nm:"Moraine Lake 湖畔步道",lv:"輕鬆",dist:"1.3km / 45 分",climb:"極少",who:"全員/長輩",note:"平走看 Mount Fay 冰川"},
+ {day:"D9 露易絲湖（首選）",nm:"★Lake Agnes 湖上茶屋",lv:"中等",dist:"3.5km 單程 / 2.5-3h",climb:"400m",who:"體力佳/大孩",note:"1901 百年茶屋，途經 Mirror Lake；持續爬升"},
+ {day:"D9 露易絲湖（全員替代）",nm:"Lake Louise 湖畔平走",lv:"輕鬆",dist:"自訂 / 1h",climb:"平緩",who:"全員/長輩",note:"看 Victoria 冰川，Fairmont 城堡下午茶"},
+ {day:"D9 露易絲湖（加碼）",nm:"Plain of Six Glaciers 六冰川",lv:"挑戰",dist:"5.5km 單程 / 半日",climb:"365m",who:"資深健行者",note:"可與 Agnes 連走環線"},
+ {day:"D10 班夫（首選）",nm:"Tunnel Mountain 隧道山",lv:"中等",dist:"2.3km 單程 / 1.5-2h",climb:"260m",who:"體力佳/大孩",note:"鎮上即登山口，看弓河谷全景"},
+ {day:"D10 班夫（全員）",nm:"Bow Falls + 硫磺山纜車",lv:"輕鬆",dist:"纜車+短走",climb:"纜車代步",who:"全員/長輩",note:"纜車上硫磺山免爬看群峰"},
+ {day:"D10 班夫（加碼）",nm:"Hoodoos 胡毒石步道",lv:"輕鬆-中等",dist:"自訂",climb:"起伏",who:"全員",note:"奇岩地貌+弓河景"},
+ {day:"D11 優鶴（首選）",nm:"★Emerald Lake Loop 翡翠湖環湖",lv:"輕鬆",dist:"5.2km 環 / 1.5h",climb:"平緩",who:"全員（含小孩）",note:"平緩環湖；可加租獨木舟（$100+/hr）"},
+ {day:"D11 優鶴（順路）",nm:"Takakkaw Falls 塔卡考瀑布",lv:"輕鬆",dist:"1.3km 來回 / 30 分",climb:"平緩",who:"全員/長輩",note:"加拿大最高瀑布之一；Yoho Valley Road 大車留意"},
+ {day:"D11 優鶴（順路）",nm:"Natural Bridge 天然橋",lv:"輕鬆",dist:"5-10 分",climb:"平緩",who:"全員",note:"Kicking Horse 河切穿岩石"},
+ {day:"D12 過渡日（首選）",nm:"Revelstoke 溫泉泡湯",lv:"輕鬆",dist:"泡湯",climb:"—",who:"全員",note:"長程開車後放鬆；備泳衣拖鞋快乾毛巾"},
+ {day:"D12 加碼",nm:"Rogers Pass 周邊短步道",lv:"輕鬆-中等",dist:"自訂",climb:"起伏",who:"體力佳者",note:"過境時短停伸展；留意路況與時間"},
+];
+
+const WEATHER = [
+ ["西雅圖（D1-D2）","約 25°C","約 14°C","低（~13%）","短袖+輕薄外套；傍晚微涼。太空針塔夜間風大加件外套"],
+ ["溫哥華（D3, D14-16）","約 22°C","約 13°C","低（~8%）","短袖為主+薄長袖；市區步行舒適"],
+ ["Kamloops（D4）","約 28°C","約 14°C","低","內陸最熱、乾燥；短袖短褲、補水、防曬"],
+ ["賈斯珀（D5-D7）","約 17°C","約 3–5°C","中（~38%）","★洋蔥式穿搭；夜間需保暖外套+毛帽。備雨具"],
+ ["冰原大道（D7-D8）","約 12–15°C","約 2–5°C","中","★全程最冷；防風防水外套、保暖中層、手套。雪車體驗更冷"],
+ ["露易絲湖/班夫（D8-D11）","約 16–17°C","約 5°C","中（~30%）","★洋蔥式；湖邊風大。D9 夜宿無電，睡袋加厚"],
+ ["優鶴/Revelstoke（D11-13）","約 18–22°C","約 5–8°C","中","薄長袖+外套；溫泉備泳衣、拖鞋、快乾毛巾"],
+];
+
+const PACKING = [
+ ["基礎層","排汗短袖/長袖 T 恤數件、透氣長褲＋短褲"],
+ ["保暖中層","刷毛外套或薄羽絨"],
+ ["防護外層","防風防水外套、輕便雨衣/折傘"],
+ ["配件","毛帽、手套、太陽眼鏡、遮陽帽"],
+ ["鞋","健行鞋、營地拖鞋、泡湯拖鞋"],
+ ["其他","泳衣、快乾毛巾、防曬乳、護唇膏"],
+ ["健行","小背包、水壺、防蚊液、熊噴霧"],
+];
+
+const RISKS = [
+ ["✅ 已完成","Whistlers D5+D6 兩晚","D5 INPC26-3596246B1、D6 INPC26-20961278B1"],
+ ["✅ 已完成","露易絲湖 D8 / Protection Mtn D9","8/8→8/9 已確認；8/9→8/10 INPC26-2262842B2"],
+ ["✅ 已完成","MLB 球票（D2）","TickPick #1072480835 已轉讓領取；仍須確認 Ballpark App 有動態條碼"],
+ ["🔴 最高","夢蓮湖接駁車（D9）","私家車全面禁入；48 小時滾動釋票 08:00 MT = 台灣時間 8/7 22:00（當晚在 Whistlers 有訊號）"],
+ ["🔴 最高","Kamloops 營地（D4）","旺季須先訂；選擇多較好訂"],
+ ["🟠 高","冰原核心區營地（D7）","首選 Wilcox Creek（距冰原中心 3km）；備案序：Silverhorn Creek → Rampart Creek → Jonas Creek → Honeymoon Lake"],
+ ["🟠 高","露營車車長 vs 營地限制","Wilcox Creek 限 8.2 公尺，須先向 CanaDream 確認 MH-B 實際車長"],
+ ["🟡 中","D9 拔營東移","露易絲湖 → Protection Mountain 約 25-30 分，接駁日傍晚需移車，且無電力"],
+ ["🟡 中","取還車地點確認","CanaDream Delta：溫哥華取＝溫哥華還，勿誤訂跨省/跨境"],
+ ["🟡 中","賈斯珀野火恢復","瑪琳峽谷、Edith Cavell 2026 仍關閉；出發前查 Parks Canada"],
+ ["🟡 中","防熊食物收納","營地食物存放規定嚴格，露營車內食物不可外露"],
+ ["🟡 中","回程紅眼待命（D16）","8/17 凌晨 01:55 起飛，8/16 白天就要過境西雅圖"],
+ ["🟢 提醒","兩張分離票","Delta 與華航無聯程，任一端延誤不自動保護另一端"],
+];
+
+const FLIGHT = [
+ ["航空公司","Delta 達美","China Airlines 華航"],
+ ["航班","Delta 68","CI21"],
+ ["訂位代號","GER5AC","EGLOQC"],
+ ["票號","0062420901008","297 2425258862"],
+ ["航段","台北 TPE → 西雅圖 SEA","西雅圖 SEA → 台北 TPE"],
+ ["日期時間","8/1（六）09:10 → 06:00 抵","8/17（日）01:55 → 8/18（一）05:00 抵"],
+ ["飛行時間","—","12:05"],
+ ["艙等","Delta Main（可退 T）","經濟艙（NLOUS）"],
+ ["座位","46A / 46B / 46C / 46D","—"],
+ ["託運行李","2 件 × 23kg","2 件 × 23kg"],
+ ["手提行李","免費","1 件 × 7kg"],
+ ["票價","NT$22,379","USD 430.50"],
+ ["注意","去程已由 09:40 提早為 09:10（抵達不變）","凌晨紅眼；D16 當晚需在機場附近待命"],
+];
+
+const RV = [
+ ["訂位代號","KXE664251-1（訂於 2026/6/6）"],
+ ["車型","MH-B Midi Motorhome ★須確認實際車長（營地限長 8.2m）"],
+ ["乘客 / 駕駛","4 人 / 1 位授權駕駛"],
+ ["取車","8/4（二）13:00–16:00 · Vancouver – 8223 92 Street, Delta, BC, V4G 0A4"],
+ ["還車","8/14（五）08:00–10:00 · 同址溫哥華 Delta"],
+ ["租期","10 晚（8/4–8/14）· Flex F5 7晚×$419 + Flex F4 3晚×$415"],
+ ["里程方案","已升級 250km/晚 ★D5(440km)、D13(560km) 單日超標，靠其他天結餘平衡"],
+ ["保險","Liability Reduction Zero（10 晚），自負額已降到最低"],
+ ["含帶配備","廚房組、寢具組、2 張草坪椅"],
+ ["國家公園通行","免費（Canada Strong 促銷）★不需另購 Parks Canada Pass"],
+ ["總金額","CAD $6,371.68 · 已全額付清（Final Balance $0）"],
+ ["租車行聯絡","1-800-347-7126 / 403-259-5447（CanaDream Inc, Calgary AB）"],
+ ["線上報到","出發前完成 Online Check-in，可加速 8/4 下午取車手續"],
+];
+
+/* ===================== 工具 ===================== */
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),1600);}
+function copyText(txt){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(()=>toast("已複製："+txt),()=>toast(txt));}
+  else{toast(txt);}
+}
+function mapUrl(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);}
+function fmt2(n){return String(n).padStart(2,"0");}
+function tzParts(tz){
+  try{
+    const p=new Intl.DateTimeFormat("zh-TW",{timeZone:tz,hour12:false,hour:"2-digit",minute:"2-digit",month:"numeric",day:"numeric",weekday:"short"}).formatToParts(new Date());
+    const g=t=>{const x=p.find(v=>v.type===t);return x?x.value:"";};
+    return {t:g("hour")+":"+g("minute"),d:g("month")+"/"+g("day")+" "+g("weekday")};
+  }catch(e){return {t:"--:--",d:""};}
+}
+function tripDayNum(){
+  const now=new Date();
+  const y=now.getFullYear(),m=now.getMonth()+1,dd=now.getDate();
+  const cur=new Date(y,m-1,dd);
+  const s=new Date(2026,7,1), e=new Date(2026,7,18);
+  if(cur<s) return {phase:"before",days:Math.round((s-cur)/86400000)};
+  if(cur>e) return {phase:"after"};
+  return {phase:"during",d:Math.round((cur-s)/86400000)+1};
+}
+
+/* ===================== 今日 ===================== */
+function renderHome(){
+  const st=tripDayNum();
+  let hero="";
+  if(st.phase==="before"){
+    hero=`<div class="hero"><div class="eyebrow">COUNTDOWN</div>
+      <div class="big num">出發倒數 ${st.days} 天</div>
+      <div class="sub">8/1（六）09:10 Delta 68 · TPE → SEA · 座位 46A-D</div></div>`;
+  }else if(st.phase==="during"){
+    const day=DAYS[st.d-1];
+    hero=`<div class="hero"><div class="eyebrow">DAY ${st.d} / 18 · ${day.date}（${day.dow}）</div>
+      <div class="big">${esc(day.title)}</div>
+      <div class="sub">今晚：${esc(day.stay)} · ${esc(day.power)}</div></div>`;
+  }else{
+    hero=`<div class="hero"><div class="eyebrow">WELCOME HOME</div>
+      <div class="big">旅程圓滿完成</div><div class="sub">18 天 · 西雅圖 → 洛磯山脈 → 溫哥華 → 台北</div></div>`;
+  }
+  const alerts=[
+    ['red',"夢蓮湖接駁票開賣","8/7（五）22:00 台灣時間 = 08:00 MT 滾動釋票。當晚在 Whistlers 營地有訊號，先設鬧鐘。"],
+    ['amber',"兩張分離票","去程 Delta、回程華航互不聯程，任一端延誤不自動保護另一端，轉乘留足緩衝。"],
+    ['amber',"冰原大道無訊號","D7-D8 全程幾乎無訊號（Rogers Pass 也無），出發前下載離線地圖；本 App 已可離線瀏覽。"],
+  ].map(a=>`<div class="alert ${a[0]==='red'?'red':''}"><div><b>${esc(a[1])}</b>${esc(a[2])}</div></div>`).join("");
+
+  let todayDetail="";
+  if(st.phase==="during"&&st.d<=18){
+    todayDetail=`<h2 class="sec">今日行程</h2>`+dayCard(DAYS[st.d-1],true,true);
+    if(st.d<18) todayDetail+=`<h2 class="sec">明日預告</h2>`+dayCard(DAYS[st.d],false,false);
+  }
+  $("#pg-home").innerHTML=hero+
+    `<div class="clockrow">
+      <div class="clock"><div class="tz">台北</div><div class="t" id="ck-tpe">--:--</div><div class="d" id="cd-tpe"></div></div>
+      <div class="clock"><div class="tz">西雅圖·溫哥華 PT</div><div class="t" id="ck-pt">--:--</div><div class="d" id="cd-pt"></div></div>
+      <div class="clock"><div class="tz">洛磯山脈 MT</div><div class="t" id="ck-mt">--:--</div><div class="d" id="cd-mt"></div></div>
+    </div>
+    <h2 class="sec">重要提醒</h2>${alerts}${todayDetail}
+    <h2 class="sec">旅程一覽</h2>
+    <div class="card tight small" style="line-height:2">
+      ✈️ 8/1 Delta 68 出發 → 🏙️ 西雅圖 2 天 → 🚌 跨境 → 🌆 溫哥華 → 🚐 露營車 10 晚（Kamloops・Jasper・冰原大道・露易絲湖・班夫・優鶴・Revelstoke）→ 🚲 溫哥華 2 天 → 🚆 Amtrak 返美 → ✈️ 8/17 CI21 紅眼返台
+    </div>`;
+  tickClocks();
+}
+function tickClocks(){
+  const set=(id,tz)=>{const v=tzParts(tz);const a=$("#ck-"+id),b=$("#cd-"+id);if(a){a.textContent=v.t;b.textContent=v.d;}};
+  set("tpe","Asia/Taipei");set("pt","America/Los_Angeles");set("mt","America/Edmonton");
+}
+setInterval(tickClocks,30000);
+
+/* ===================== 行程 ===================== */
+function dayCard(day,open,isToday){
+  const tl=TIMELINES[day.d];
+  const notes=(day.notes&&day.notes.length)?`<div class="notebox">${day.notes.map(n=>`<p>★ ${esc(n)}</p>`).join("")}</div>`:"";
+  let tlHtml="";
+  if(tl){
+    const hasGrp=tl.some(r=>r[1]!=="全");
+    tlHtml=`<div class="tl"><h4>逐時行程</h4>`+
+      (hasGrp?`<div class="grpfilter">
+        <button class="fbtn on" data-g="all">全部</button>
+        <button class="fbtn" data-g="⚾">⚾ 爸爸+哥哥</button>
+        <button class="fbtn" data-g="🌸">🌸 媽媽+妹妹</button></div>`:"")+
+      tl.map(r=>`<div class="tlrow" data-grp="${r[1]}"><span class="tm num">${esc(r[0])}</span>
+        <span class="what">${r[1]!=="全"?`<span class="grp">${r[1]}</span>`:""}<b>${esc(r[2])}</b>${r[3]?`<span class="rem">${esc(r[3])}</span>`:""}</span></div>`).join("")+`</div>`;
+  }
+  const mapA=day.map?`<div style="margin-top:10px"><a class="maplink" target="_blank" rel="noopener" href="${mapUrl(day.map)}">📍 在 Google Maps 開啟主要地點</a></div>`:"";
+  return `<div class="day ${open?"open":""} ${isToday?"today":""}" id="day${day.d}">
+    <div class="dcard">
+      <button class="dhead" data-day="${day.d}" aria-expanded="${open?"true":"false"}">
+        <span class="dnum"><span class="n">D${day.d}</span><span class="dt">${day.date} ${day.dow}</span></span>
+        <span class="dtitle"><span class="t">${esc(day.title)}</span>
+          <span class="meta"><span class="num">${esc(day.km)}</span><span>${esc(day.stay)}</span></span></span>
+        <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+      </button>
+      <div class="dbody">
+        <div class="route">${esc(day.route)}</div>
+        <dl class="kv">
+          <dt>里程</dt><dd class="num">${esc(day.km)}</dd>
+          <dt>住宿</dt><dd>${esc(day.stay)} <span class="pill ${day.power==="有電"?"acc":day.power==="—"?"mut":"amber"}">${esc(day.power)}</span></dd>
+          <dt>步道</dt><dd>${esc(day.trail)}</dd>
+        </dl>
+        ${notes}${tlHtml}${mapA}
+      </div>
+    </div></div>`;
+}
+function renderDays(){
+  const st=tripDayNum();
+  $("#pg-days").innerHTML=`<h2 class="sec">每日行程 · 18 天</h2>`+
+    DAYS.map(d=>dayCard(d,false,st.phase==="during"&&st.d===d.d)).join("");
+}
+
+/* ===================== 訂位 ===================== */
+function renderBook(){
+  const grp={};
+  BOOKINGS.forEach(b=>{(grp[b.cat]=grp[b.cat]||[]).push(b);});
+  $("#pg-book").innerHTML=
+    `<input class="search" id="bkSearch" type="search" placeholder="搜尋訂位（項目、代號、備註）" aria-label="搜尋訂位">
+     <div class="small" style="margin:2px 4px 6px">點代號即可複製 · <span class="pill green">已確認</span> <span class="pill amber">待辦</span></div>`+
+    Object.keys(grp).map(cat=>`<h2 class="sec">${esc(cat)}</h2><div class="card tight" >`+
+      grp[cat].map(b=>`<div class="bk" data-q="${esc((b.nm+b.code+b.note+b.cat).toLowerCase())}">
+        <div class="info"><div class="nm">${esc(b.nm)}</div><div class="note">${esc(b.note)}</div></div>
+        <button class="codebtn num ${b.ok?"":"pending"}" data-code="${esc(b.code)}" title="點擊複製">${esc(b.code)}</button>
+      </div>`).join("")+`</div>`).join("");
+  $("#bkSearch").addEventListener("input",e=>{
+    const q=e.target.value.trim().toLowerCase();
+    $$("#pg-book .bk").forEach(el=>{el.style.display=(!q||el.dataset.q.includes(q))?"":"none";});
+  });
+}
+
+/* ===================== 待辦 ===================== */
+const LS_KEY="sejz-todo-v1";
+function loadDone(){try{return JSON.parse(localStorage.getItem(LS_KEY)||"{}");}catch(e){return {};}}
+function saveDone(o){try{localStorage.setItem(LS_KEY,JSON.stringify(o));}catch(e){}}
+function renderTodo(){
+  const done=loadDone();
+  const order=["red","orange","yellow","green","white","done"];
+  const grp={};
+  TODOS.forEach(t=>{(grp[t.p]=grp[t.p]||[]).push(t);});
+  const activeTotal=TODOS.filter(t=>t.p!=="done").length;
+  const doneCnt=TODOS.filter(t=>t.p!=="done"&&done[t.id]).length;
+  const pct=activeTotal?Math.round(doneCnt/activeTotal*100):0;
+  $("#pg-todo").innerHTML=
+    `<div class="prog"><b>出發前進度</b> <span class="num">${doneCnt} / ${activeTotal}</span>
+      <span class="small">（勾選會存在這支手機上）</span>
+      <div class="progbar"><i style="width:${pct}%"></i></div></div>`+
+    order.filter(p=>grp[p]).map(p=>`<h2 class="sec">${PRIO[p][0]}</h2><div class="card tight">`+
+      grp[p].map(t=>{
+        const chk=t.p==="done"||!!done[t.id];
+        return `<label class="todo ${chk?"done":""}">
+          <input type="checkbox" data-id="${t.id}" ${chk?"checked":""} ${t.p==="done"?"disabled":""}>
+          <span class="tx">${esc(t.tx)}<span class="tcat"> · ${esc(t.cat)}</span></span></label>`;
+      }).join("")+`</div>`).join("");
+  $$("#pg-todo input[type=checkbox]").forEach(cb=>cb.addEventListener("change",e=>{
+    const d=loadDone();
+    if(e.target.checked)d[e.target.dataset.id]=1;else delete d[e.target.dataset.id];
+    saveDone(d);renderTodo();
+  }));
+}
+
+/* ===================== 更多 ===================== */
+const ICONS={
+ trail:'<svg viewBox="0 0 24 24"><path d="m3 18 5.5-9 3.5 5.5L15 9l6 9z"/><circle cx="17.5" cy="5" r="1.6"/></svg>',
+ weather:'<svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.4"/><path d="M9 2.5v1.6M9 13.9v1.6M2.5 9h1.6M13.9 9h1.6M4.4 4.4l1.1 1.1M12.5 12.5l1.1 1.1M13.6 4.4l-1.1 1.1"/><path d="M13 20h6.2a2.8 2.8 0 0 0 .3-5.6A4.2 4.2 0 0 0 12 13.5"/></svg>',
+ flight:'<svg viewBox="0 0 24 24"><path d="M10.5 13.5 3 11l1.5-1.7 5.5 1 5-5.6a1.6 1.6 0 0 1 2.4 2.2l-5.2 5.3 1.3 5.5L11.7 21l-2.6-7z"/></svg>',
+ rv:'<svg viewBox="0 0 24 24"><path d="M3 16V8.5A2.5 2.5 0 0 1 5.5 6H15l4.5 4H21v6h-2"/><circle cx="7.5" cy="17" r="1.8"/><circle cx="15.5" cy="17" r="1.8"/><path d="M9.3 17h4.4M3 16h2M6 9.5h4v3H6z"/></svg>',
+ risk:'<svg viewBox="0 0 24 24"><path d="M12 3.5 21 19H3z"/><path d="M12 10v4M12 16.8v.4"/></svg>',
+ pack:'<svg viewBox="0 0 24 24"><rect x="4.5" y="8" width="15" height="12" rx="2"/><path d="M9 8V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V8M9 12h6"/></svg>',
+ sos:'<svg viewBox="0 0 24 24"><path d="M12 4.5a7.5 7.5 0 0 1 7.5 7.5c0 4.5-7.5 7.5-7.5 7.5S4.5 16.5 4.5 12A7.5 7.5 0 0 1 12 4.5z"/><path d="M12 9v3.5M12 15.4v.2"/></svg>',
+};
+function accItem(id,icon,title,sub,body){
+  return `<div class="acc-item" id="acc-${id}">
+    <button class="acc-head" data-acc="${id}" aria-expanded="false">
+      <span class="ic">${icon}</span>
+      <span style="flex:1">${esc(title)}<span class="sub">${esc(sub)}</span></span>
+      <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .18s;color:var(--mut)"><path d="m9 5 7 7-7 7"/></svg>
+    </button><div class="acc-body">${body}</div></div>`;
+}
+function renderMore(){
+  const trailBody=
+    `<div class="filterrow" id="trailFilter">
+       <button class="fbtn on" data-lv="all">全部</button>
+       <button class="fbtn" data-lv="輕鬆">輕鬆</button>
+       <button class="fbtn" data-lv="中等">中等</button>
+       <button class="fbtn" data-lv="挑戰">挑戰</button></div>
+     <div class="small" style="margin-bottom:6px">★2026 野火關閉：瑪琳峽谷、Edith Cavell。全域備熊噴霧；熱門步道停車 9-10 點前滿；冰原大道幾乎無訊號。</div>`+
+    TRAILS.map(t=>`<div class="trailcard" data-lv="${esc(t.lv)}">
+       <div class="tt">${esc(t.nm)} <span class="pill ${t.lv.includes("挑戰")?"red":t.lv.includes("中等")?"amber":"acc"}">${esc(t.lv)}</span></div>
+       <div class="tm2">${esc(t.day)} · ${esc(t.dist)} · 爬升 ${esc(t.climb)} · 適合：${esc(t.who)}</div>
+       <div style="font-size:12.5px;margin-top:2px">${esc(t.note)}</div></div>`).join("");
+  const weatherBody=`<div class="tscroll"><table class="tb"><tr><th>地區 / 天數</th><th>日高</th><th>夜低</th><th>降雨</th><th>穿搭重點</th></tr>`+
+    WEATHER.map(w=>`<tr><td><b>${esc(w[0])}</b></td><td class="num">${esc(w[1])}</td><td class="num">${esc(w[2])}</td><td>${esc(w[3])}</td><td>${esc(w[4])}</td></tr>`).join("")+
+    `</table></div><div class="small" style="margin-top:8px">以上為 8 月歷史均值；出發前 3-5 天請再查即時預報。山區日夜溫差大。</div>`;
+  const flightBody=`<div class="tscroll"><table class="tb"><tr><th></th><th>去程</th><th>回程</th></tr>`+
+    FLIGHT.map(f=>`<tr><td style="color:var(--mut);white-space:nowrap">${esc(f[0])}</td><td>${esc(f[1])}</td><td>${esc(f[2])}</td></tr>`).join("")+`</table></div>`;
+  const rvBody=`<table class="tb">`+RV.map(r=>`<tr><td style="color:var(--mut);white-space:nowrap">${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")+`</table>`;
+  const riskBody=RISKS.map(r=>`<div class="trailcard"><div class="tt">${esc(r[0])} ${esc(r[1])}</div><div style="font-size:12.5px;margin-top:2px">${esc(r[2])}</div></div>`).join("");
+  const packBody=`<table class="tb">`+PACKING.map(p=>`<tr><td style="color:var(--mut);white-space:nowrap">${esc(p[0])}</td><td>${esc(p[1])}</td></tr>`).join("")+`</table>`;
+  const sosBody=
+    `<div class="trailcard"><div class="tt">緊急求救（美國・加拿大）</div><div>撥打 <a class="tel" href="tel:911">911</a>（警察／消防／救護通用）</div></div>
+     <div class="trailcard"><div class="tt">CanaDream 露營車 24 小時道路救援</div><div><a class="tel" href="tel:18003477126">1-800-347-7126</a> ／ <a class="tel" href="tel:14032595447">403-259-5447</a>（合約 KXE664251-1）</div></div>
+     <div class="trailcard"><div class="tt">外交部旅外國人急難救助（台灣）</div><div>海外免付費 <a class="tel" href="tel:8008850885">800-0885-0885</a>（美加地區先撥 011 再撥）</div></div>
+     <div class="trailcard"><div class="tt">駐外館處</div><div>駐西雅圖辦事處、駐溫哥華辦事處聯絡方式請於出發前至 <a href="https://www.boca.gov.tw" target="_blank" rel="noopener">boca.gov.tw</a> 確認並抄錄。</div></div>
+     <div class="trailcard"><div class="tt">遇到熊</div><div style="font-size:12.5px">保持冷靜勿奔跑、緩慢後退、讓熊有退路；結伴健行、發出聲音；熊噴霧掛腰間隨手可取。營地食物一律收進車內，不可外露。</div></div>`;
+  $("#pg-more").innerHTML=`<h2 class="sec">參考資訊</h2>`+
+    accItem("trail",ICONS.trail,"洛磯山脈步道指南","24 條步道 · 依難度篩選",trailBody)+
+    accItem("weather",ICONS.weather,"天氣與穿搭","8 月各地區均溫與打包重點",weatherBody)+
+    accItem("flight",ICONS.flight,"機票資訊","Delta 68 去 · CI21 回（分離票）",flightBody)+
+    accItem("rv",ICONS.rv,"露營車資訊","CanaDream MH-B · 10 晚已付清",rvBody)+
+    accItem("risk",ICONS.risk,"訂位風險清單","旺季風險與備案總覽",riskBody)+
+    accItem("pack",ICONS.pack,"打包清單","洋蔥式分層建議",packBody)+
+    accItem("sos",ICONS.sos,"緊急聯絡","911 · 道路救援 · 急難救助",sosBody);
+}
+
+/* ===================== 導覽與事件 ===================== */
+function showPage(pg){
+  $$(".page").forEach(p=>p.classList.toggle("on",p.id==="pg-"+pg));
+  $$(".tabbtn").forEach(b=>b.classList.toggle("on",b.dataset.pg===pg));
+  try{history.replaceState(null,"","#"+pg);}catch(e){}
+  window.scrollTo(0,0);
+}
+document.addEventListener("click",e=>{
+  const tab=e.target.closest(".tabbtn");
+  if(tab){showPage(tab.dataset.pg);return;}
+  const dh=e.target.closest(".dhead");
+  if(dh){const el=dh.closest(".day");el.classList.toggle("open");dh.setAttribute("aria-expanded",el.classList.contains("open"));return;}
+  const ah=e.target.closest(".acc-head");
+  if(ah){const el=ah.closest(".acc-item");el.classList.toggle("open");ah.setAttribute("aria-expanded",el.classList.contains("open"));return;}
+  const cb=e.target.closest(".codebtn");
+  if(cb){copyText(cb.dataset.code);return;}
+  const gf=e.target.closest(".grpfilter .fbtn");
+  if(gf){
+    const wrap=gf.closest(".tl");
+    wrap.querySelectorAll(".grpfilter .fbtn").forEach(b=>b.classList.toggle("on",b===gf));
+    const g=gf.dataset.g;
+    wrap.querySelectorAll(".tlrow").forEach(r=>{r.style.display=(g==="all"||r.dataset.grp==="全"||r.dataset.grp===g)?"":"none";});
+    return;
+  }
+  const tf=e.target.closest("#trailFilter .fbtn");
+  if(tf){
+    const wrap=$("#acc-trail");
+    wrap.querySelectorAll("#trailFilter .fbtn").forEach(b=>b.classList.toggle("on",b===tf));
+    const lv=tf.dataset.lv;
+    wrap.querySelectorAll(".trailcard[data-lv]").forEach(c=>{c.style.display=(lv==="all"||c.dataset.lv.includes(lv))?"":"none";});
+    return;
+  }
+});
+$("#themeBtn").addEventListener("click",()=>{
+  const r=document.documentElement;
+  const cur=r.getAttribute("data-theme");
+  const sysDark=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const next=(cur?cur==="dark":sysDark)?"light":"dark";
+  r.setAttribute("data-theme",next);
+  try{localStorage.setItem("sejz-theme",next);}catch(e){}
+});
+try{const t=localStorage.getItem("sejz-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}
+
+renderHome();renderDays();renderBook();renderTodo();renderMore();
+const initPg=(location.hash||"#home").slice(1);
+showPage(["home","days","book","todo","more"].includes(initPg)?initPg:"home");
+</script>
+<script>
+if ("serviceWorker" in navigator && location.protocol === "https:") {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
