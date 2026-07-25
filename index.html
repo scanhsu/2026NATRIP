@@ -215,6 +215,58 @@ table.tb tr:last-child td{border-bottom:none}
 .tel{font-weight:700;font-variant-numeric:tabular-nums}
 .footer{margin:26px 4px 8px;text-align:center;font-size:11.5px;color:var(--mut);letter-spacing:.06em}
 
+/* ── 天氣 ── */
+.wxhead{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.wxhead select{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:6px 10px;font:inherit;color:var(--ink)}
+.wxrow{display:flex;gap:8px}
+.wxday{flex:1;background:var(--card2);border:1px solid var(--line);border-radius:10px;text-align:center;padding:8px 2px}
+.wxday .wd{font-size:11px;color:var(--mut)}
+.wxday .wi{font-size:22px;line-height:1.4}
+.wxday .wt{font-size:12.5px;font-weight:700}
+.wxday .wp{font-size:11px;color:var(--mut)}
+
+/* ── 工具 ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--acc);color:#fff;font-weight:700;font-size:13.5px;border-radius:10px;padding:9px 14px;border:1px solid transparent}
+.btn.ghost{background:var(--card);color:var(--acc-ink);border-color:var(--line)}
+.btn.warn{background:var(--red)}
+.btn.sm{font-size:12px;padding:6px 10px}
+.exp-form{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.exp-form input,.exp-form select,textarea.ta{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 10px;font:inherit;color:var(--ink);width:100%}
+.exp-form .full{grid-column:1/-1}
+textarea.ta{min-height:64px}
+.exprow{display:flex;gap:8px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.exprow:last-child{border-bottom:none}
+.exprow .amt{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.exprow .del{color:var(--red);font-size:12px;flex-shrink:0}
+.sumgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;font-size:12.5px}
+.sumgrid .cell{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:6px 10px}
+.ratebox{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--mut);margin-top:8px;flex-wrap:wrap}
+.ratebox input{width:64px;background:var(--card);border:1px solid var(--line);border-radius:7px;padding:4px 6px;font:inherit;color:var(--ink);font-variant-numeric:tabular-nums}
+.gauge{margin:12px 0}
+.gauge .glabel{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:2px}
+.gauge .gval{font-weight:800;font-variant-numeric:tabular-nums}
+.gauge input[type=range]{width:100%;accent-color:var(--acc);margin:0}
+.gauge.hot input[type=range]{accent-color:var(--red)}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pcell{position:relative;aspect-ratio:1;background:var(--card2);border:1px dashed var(--line);border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:11.5px;padding:0}
+.pcell.filled{border-style:solid}
+.pcell img{width:100%;height:100%;object-fit:cover}
+.pcell .pd{position:absolute;top:4px;left:7px;font-size:10.5px;font-weight:800;color:var(--mut)}
+.pcell.filled .pd{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.65)}
+.overlay{position:fixed;inset:0;background:rgba(8,17,14,.9);z-index:60;display:flex;align-items:center;justify-content:center;padding:16px}
+.ov-card{background:var(--card);border-radius:16px;padding:16px;width:100%;max-width:480px;max-height:88vh;overflow:auto}
+.ov-card h3{margin:0 0 10px;font-size:15px}
+.ov-card img.big{max-width:100%;max-height:48vh;border-radius:10px;display:block;margin:0 auto 10px}
+.ovbar{display:flex;gap:8px;margin-top:12px;justify-content:flex-end;flex-wrap:wrap}
+.calrow{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.calrow:last-child{border-bottom:none}
+.calrow .when{min-width:92px;font-variant-numeric:tabular-nums;color:var(--acc-ink);font-weight:700;font-size:12px;flex-shrink:0}
+.calrow .gc{flex-shrink:0;font-size:12px;font-weight:700}
+.mrow{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.mrow:last-child{border-bottom:none}
+.mrow .sp{flex:1}
+.navbtn{display:inline-flex;align-items:center;gap:6px;background:var(--acc);color:#fff;font-weight:700;font-size:13px;border-radius:10px;padding:8px 14px;margin-top:10px;margin-right:8px}
+
 #toast{
   position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(8px);
   background:var(--ink);color:var(--bg);font-size:13px;font-weight:600;border-radius:99px;padding:8px 18px;
@@ -238,6 +290,7 @@ table.tb tr:last-child td{border-bottom:none}
   <section class="page" id="pg-days"></section>
   <section class="page" id="pg-book"></section>
   <section class="page" id="pg-todo"></section>
+  <section class="page" id="pg-tools"></section>
   <section class="page" id="pg-more"></section>
 </main>
 
@@ -249,6 +302,7 @@ table.tb tr:last-child td{border-bottom:none}
   <button class="tabbtn" data-pg="days"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 2.8v4M16 2.8v4"/></svg>行程</button>
   <button class="tabbtn" data-pg="book"><svg viewBox="0 0 24 24"><path d="M20 7.5 12 3 4 7.5v9L12 21l8-4.5z"/><path d="M9.5 11.5 11.5 13.5 15 9.5"/></svg>訂位</button>
   <button class="tabbtn" data-pg="todo"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.5 11 15l4.5-5"/></svg>待辦</button>
+  <button class="tabbtn" data-pg="tools"><svg viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 1 5-5l-2.6 2.6 1 3 3 1L23.5 5.5a4 4 0 0 1-5 5L8 21a2.1 2.1 0 0 1-3-3z" transform="scale(0.9) translate(1.2 1.2)"/></svg>工具</button>
   <button class="tabbtn" data-pg="more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="18.5" r="1.6"/></svg>更多</button>
 </div></nav>
 <div id="toast" role="status"></div>
@@ -515,6 +569,34 @@ const RV = [
  ["線上報到","出發前完成 Online Check-in，可加速 8/4 下午取車手續"],
 ];
 
+/* 天氣觀測點（Open-Meteo，免金鑰） */
+const GEO = {
+ "西雅圖":[47.61,-122.33], "溫哥華":[49.28,-123.12], "Kamloops":[50.68,-120.34],
+ "賈斯珀":[52.87,-118.08], "哥倫比亞冰原":[52.22,-117.22], "露易絲湖":[51.43,-116.18],
+ "班夫":[51.18,-115.57], "優鶴 Field":[51.40,-116.49], "Revelstoke":[51.00,-118.20],
+};
+const DAYLOC = {1:"西雅圖",2:"西雅圖",3:"溫哥華",4:"Kamloops",5:"賈斯珀",6:"賈斯珀",7:"哥倫比亞冰原",8:"露易絲湖",9:"露易絲湖",10:"班夫",11:"優鶴 Field",12:"Revelstoke",13:"溫哥華",14:"溫哥華",15:"溫哥華",16:"西雅圖",17:"西雅圖",18:"西雅圖"};
+
+/* 今晚住宿導航目的地（住宿未定日期為 null） */
+const STAYNAV = {
+ 4:"Kamloops, BC", 5:"Whistlers Campground, Jasper", 6:"Whistlers Campground, Jasper",
+ 7:"Wilcox Creek Campground, Alberta", 8:"Lake Louise Campground, Alberta",
+ 9:"Protection Mountain Campground, Alberta", 10:"Tunnel Mountain Village 1 Campground, Banff",
+ 11:"Monarch Campground, Yoho National Park", 12:"Revelstoke, BC", 13:"Vancouver, BC",
+ 16:"Seattle-Tacoma International Airport",
+};
+
+/* 行事曆提醒（UTC 時間；alarm = 提前分鐘數） */
+const CALEV = [
+ {t:"🔴 夢蓮湖接駁票開賣（台灣 8/7 22:00）",s:"20260807T140000Z",e:"20260807T143000Z",alarm:15,d:"08:00 MT 滾動釋票。當晚在 Whistlers 營地有訊號，準時搶票！"},
+ {t:"✈️ Delta 68 出發 TPE→SEA（09:10）",s:"20260801T011000Z",e:"20260801T130000Z",alarm:180,d:"訂位 GER5AC · 座 46A-D · 託運 2×23kg"},
+ {t:"🎬 FlyOver Canada 4D（8/3 18:30）",s:"20260804T013000Z",e:"20260804T023000Z",alarm:60,d:"加拿大廣場內；先線上訂場次"},
+ {t:"🚐 露營車取車 CanaDream（8/4 13:00-16:00）",s:"20260804T200000Z",e:"20260804T230000Z",alarm:90,d:"合約 KXE664251-1 · 8223 92 St, Delta BC · 先完成 Online Check-in"},
+ {t:"🚐 露營車還車（8/14 08:00-10:00）",s:"20260814T150000Z",e:"20260814T170000Z",alarm:60,d:"還車前排灰/黑水箱、清潔內裝"},
+ {t:"🚕 叫 UberXL 去車站（8/16 05:45）",s:"20260816T124500Z",e:"20260816T130000Z",alarm:30,d:"06:00 抵 Pacific Central Station 辦美國入境預檢；07:25 Cascades 517"},
+ {t:"🛫 CI21 機場報到（8/16 22:30）",s:"20260817T053000Z",e:"20260817T063000Z",alarm:60,d:"訂位 EGLOQC · 8/17 01:55 起飛 · 託運 2×23kg"},
+];
+
 /* ===================== 工具 ===================== */
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -524,6 +606,7 @@ function copyText(txt){
   else{toast(txt);}
 }
 function mapUrl(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);}
+function dirUrl(q){return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(q)+"&travelmode=driving";}
 function fmt2(n){return String(n).padStart(2,"0");}
 function tzParts(tz){
   try{
@@ -570,18 +653,61 @@ function renderHome(){
     todayDetail=`<h2 class="sec">今日行程</h2>`+dayCard(DAYS[st.d-1],true,true);
     if(st.d<18) todayDetail+=`<h2 class="sec">明日預告</h2>`+dayCard(DAYS[st.d],false,false);
   }
+  const wxLoc=(st.phase==="during"&&DAYLOC[st.d])?DAYLOC[st.d]:"西雅圖";
+  const wxCard=`<h2 class="sec">天氣預報</h2>
+    <div class="card tight">
+      <div class="wxhead">
+        <select id="wxSel" aria-label="選擇地點">${Object.keys(GEO).map(k=>`<option ${k===wxLoc?"selected":""}>${k}</option>`).join("")}</select>
+        <span class="small" id="wxTs"></span>
+      </div>
+      <div id="wxBody" class="small">載入中…</div>
+    </div>`;
   $("#pg-home").innerHTML=hero+
     `<div class="clockrow">
       <div class="clock"><div class="tz">台北</div><div class="t" id="ck-tpe">--:--</div><div class="d" id="cd-tpe"></div></div>
       <div class="clock"><div class="tz">西雅圖·溫哥華 PT</div><div class="t" id="ck-pt">--:--</div><div class="d" id="cd-pt"></div></div>
       <div class="clock"><div class="tz">洛磯山脈 MT</div><div class="t" id="ck-mt">--:--</div><div class="d" id="cd-mt"></div></div>
     </div>
+    ${wxCard}
     <h2 class="sec">重要提醒</h2>${alerts}${todayDetail}
     <h2 class="sec">旅程一覽</h2>
     <div class="card tight small" style="line-height:2">
       ✈️ 8/1 Delta 68 出發 → 🏙️ 西雅圖 2 天 → 🚌 跨境 → 🌆 溫哥華 → 🚐 露營車 10 晚（Kamloops・Jasper・冰原大道・露易絲湖・班夫・優鶴・Revelstoke）→ 🚲 溫哥華 2 天 → 🚆 Amtrak 返美 → ✈️ 8/17 CI21 紅眼返台
     </div>`;
   tickClocks();
+  $("#wxSel").addEventListener("change",e=>loadWeather(e.target.value));
+  loadWeather(wxLoc);
+}
+function wmo(c){
+  if(c===0)return["☀️","晴"]; if(c<=2)return["🌤️","多雲時晴"]; if(c===3)return["☁️","陰"];
+  if(c<=48)return["🌫️","霧"]; if(c<=57)return["🌦️","毛毛雨"]; if(c<=67)return["🌧️","雨"];
+  if(c<=77)return["🌨️","雪"]; if(c<=82)return["🌦️","陣雨"]; if(c<=86)return["🌨️","陣雪"];
+  return["⛈️","雷雨"];
+}
+function paintWx(loc,data,stale){
+  const d=data.daily;
+  $("#wxBody").innerHTML=`<div class="wxrow">`+d.time.map((t,i)=>{
+    const w=wmo(d.weather_code[i]);
+    const dt=new Date(t+"T12:00:00");
+    return `<div class="wxday"><div class="wd num">${dt.getMonth()+1}/${dt.getDate()}</div>
+      <div class="wi">${w[0]}</div><div class="wt num">${Math.round(d.temperature_2m_max[i])}° / ${Math.round(d.temperature_2m_min[i])}°</div>
+      <div class="wp">${w[1]} · ${d.precipitation_probability_max[i]==null?"–":d.precipitation_probability_max[i]+"%"}</div></div>`;
+  }).join("")+`</div>`;
+  $("#wxTs").textContent=stale?"（離線快取）":"";
+}
+function loadWeather(loc){
+  const g=GEO[loc]; if(!g)return;
+  const key="sejz-wx-"+loc;
+  const url="https://api.open-meteo.com/v1/forecast?latitude="+g[0]+"&longitude="+g[1]+
+    "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=3&timezone=auto";
+  fetch(url).then(r=>{if(!r.ok)throw 0;return r.json();}).then(j=>{
+    paintWx(loc,j,false);
+    try{localStorage.setItem(key,JSON.stringify({ts:Date.now(),j}));}catch(e){}
+  }).catch(()=>{
+    let c=null; try{c=JSON.parse(localStorage.getItem(key));}catch(e){}
+    if(c){paintWx(loc,c.j,true);}
+    else{$("#wxBody").innerHTML=`<span class="small">目前離線或無法取得即時天氣，請參考「更多 → 天氣與穿搭」的月均值。</span>`;$("#wxTs").textContent="";}
+  });
 }
 function tickClocks(){
   const set=(id,tz)=>{const v=tzParts(tz);const a=$("#ck-"+id),b=$("#cd-"+id);if(a){a.textContent=v.t;b.textContent=v.d;}};
@@ -604,7 +730,11 @@ function dayCard(day,open,isToday){
       tl.map(r=>`<div class="tlrow" data-grp="${r[1]}"><span class="tm num">${esc(r[0])}</span>
         <span class="what">${r[1]!=="全"?`<span class="grp">${r[1]}</span>`:""}<b>${esc(r[2])}</b>${r[3]?`<span class="rem">${esc(r[3])}</span>`:""}</span></div>`).join("")+`</div>`;
   }
-  const mapA=day.map?`<div style="margin-top:10px"><a class="maplink" target="_blank" rel="noopener" href="${mapUrl(day.map)}">📍 在 Google Maps 開啟主要地點</a></div>`:"";
+  const navD=STAYNAV[day.d];
+  const mapA=(day.map||navD)?`<div style="margin-top:4px">`+
+    (navD?`<a class="navbtn" target="_blank" rel="noopener" href="${dirUrl(navD)}">🧭 導航到今晚住宿</a>`:"")+
+    (day.map?`<a class="navbtn" style="background:var(--card);color:var(--acc-ink);border:1px solid var(--line)" target="_blank" rel="noopener" href="${mapUrl(day.map)}">📍 主要地點</a>`:"")+
+    `</div>`:"";
   return `<div class="day ${open?"open":""} ${isToday?"today":""}" id="day${day.d}">
     <div class="dcard">
       <button class="dhead" data-day="${day.d}" aria-expanded="${open?"true":"false"}">
@@ -732,6 +862,333 @@ function renderMore(){
     accItem("sos",ICONS.sos,"緊急聯絡","911 · 道路救援 · 急難救助",sosBody);
 }
 
+/* ===================== 工具分頁 ===================== */
+/* IndexedDB（照片日記、證件保險箱） */
+let _db=null;
+function idb(){
+  if(_db)return Promise.resolve(_db);
+  return new Promise((res,rej)=>{
+    const r=indexedDB.open("sejz-app",1);
+    r.onupgradeneeded=()=>{const d=r.result;
+      if(!d.objectStoreNames.contains("vault"))d.createObjectStore("vault",{keyPath:"id"});
+      if(!d.objectStoreNames.contains("diary"))d.createObjectStore("diary",{keyPath:"day"});};
+    r.onsuccess=()=>{_db=r.result;res(_db);};
+    r.onerror=()=>rej(r.error);
+  });
+}
+function idbPut(st,val){return idb().then(d=>new Promise((res,rej)=>{const t=d.transaction(st,"readwrite");t.objectStore(st).put(val);t.oncomplete=res;t.onerror=()=>rej(t.error);}));}
+function idbDel(st,key){return idb().then(d=>new Promise((res,rej)=>{const t=d.transaction(st,"readwrite");t.objectStore(st).delete(key);t.oncomplete=res;t.onerror=()=>rej(t.error);}));}
+function idbAll(st){return idb().then(d=>new Promise((res,rej)=>{const r=d.transaction(st).objectStore(st).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error);})).catch(()=>[]);}
+function idbGet(st,key){return idb().then(d=>new Promise((res,rej)=>{const r=d.transaction(st).objectStore(st).get(key);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);})).catch(()=>null);}
+function resizeImg(file,max){
+  return new Promise((res,rej)=>{
+    const img=new Image();
+    img.onload=()=>{
+      let w=img.naturalWidth,h=img.naturalHeight;
+      const k=Math.min(1,max/Math.max(w,h)); w=Math.round(w*k); h=Math.round(h*k);
+      const c=document.createElement("canvas"); c.width=w; c.height=h;
+      c.getContext("2d").drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(img.src);
+      c.toBlob(b=>b?res(b):rej(new Error("encode")),"image/jpeg",0.82);
+    };
+    img.onerror=()=>rej(new Error("load"));
+    img.src=URL.createObjectURL(file);
+  });
+}
+
+/* 記帳 */
+const EXP_KEY="sejz-exp-v1", RATE_KEY="sejz-rate-v1";
+const EXP_CATS=["餐飲","交通","住宿","門票","購物","加油","其他"];
+const EXP_WHO=["共同","爸爸","媽媽"];
+function loadExp(){try{return JSON.parse(localStorage.getItem(EXP_KEY)||"[]");}catch(e){return [];}}
+function saveExp(a){try{localStorage.setItem(EXP_KEY,JSON.stringify(a));}catch(e){}}
+function loadRates(){try{return Object.assign({USD:32,CAD:23},JSON.parse(localStorage.getItem(RATE_KEY)||"{}"));}catch(e){return {USD:32,CAD:23};}}
+function saveRates(r){try{localStorage.setItem(RATE_KEY,JSON.stringify(r));}catch(e){}}
+function toTWD(amt,cur,rates){return cur==="TWD"?amt:amt*(rates[cur]||0);}
+function renderExp(){
+  const box=$("#expBox"); if(!box)return;
+  const list=loadExp(), rates=loadRates();
+  const total=list.reduce((s,e)=>s+toTWD(e.amt,e.cur,rates),0);
+  const byCat={},byWho={};
+  list.forEach(e=>{const v=toTWD(e.amt,e.cur,rates);byCat[e.cat]=(byCat[e.cat]||0)+v;byWho[e.who]=(byWho[e.who]||0)+v;});
+  const fmtN=n=>"NT$ "+Math.round(n).toLocaleString("zh-TW");
+  box.innerHTML=
+    `<div class="cell" style="background:var(--acc-soft);border:none;border-radius:9px;padding:8px 12px">
+       <b>總支出</b> <span class="num" style="font-size:17px;font-weight:800">${fmtN(total)}</span>
+       <span class="small">（${list.length} 筆）</span></div>
+     <div class="sumgrid">`+
+     EXP_CATS.filter(c=>byCat[c]).map(c=>`<div class="cell">${c} <b class="num">${fmtN(byCat[c])}</b></div>`).join("")+
+     EXP_WHO.filter(w=>byWho[w]).map(w=>`<div class="cell">${w}付 <b class="num">${fmtN(byWho[w])}</b></div>`).join("")+
+    `</div>
+     <div class="ratebox">匯率（可修改）
+       USD <input id="rUSD" type="number" step="0.1" inputmode="decimal" value="${rates.USD}">
+       CAD <input id="rCAD" type="number" step="0.1" inputmode="decimal" value="${rates.CAD}"> → TWD
+     </div>
+     <div class="exp-form">
+       <input id="expAmt" type="number" step="0.01" inputmode="decimal" placeholder="金額">
+       <select id="expCur"><option>USD</option><option>CAD</option><option>TWD</option></select>
+       <select id="expCat">${EXP_CATS.map(c=>`<option>${c}</option>`).join("")}</select>
+       <select id="expWho">${EXP_WHO.map(w=>`<option>${w}</option>`).join("")}</select>
+       <input id="expDesc" class="full" type="text" placeholder="說明（如：The Crab Pot 晚餐）">
+       <button class="btn full" id="expAdd">＋ 記一筆</button>
+     </div>
+     <div id="expList">`+
+     list.slice().reverse().map(e=>`<div class="exprow">
+        <span class="small num" style="min-width:34px">${esc(e.date)}</span>
+        <span style="flex:1">${esc(e.desc||e.cat)}<span class="small"> · ${e.cat} · ${e.who}付</span></span>
+        <span class="amt num">${e.cur} ${e.amt.toLocaleString("zh-TW")}</span>
+        <button class="del" data-expdel="${e.id}">刪除</button></div>`).join("")+
+    `</div>
+     <div class="small" style="margin-top:8px">資料只存在這支手機。匯率為手動設定，僅供旅途概算。</div>`;
+  $("#expAdd").addEventListener("click",()=>{
+    const amt=parseFloat($("#expAmt").value);
+    if(!(amt>0))return toast("請輸入金額");
+    const now=new Date();
+    const arr=loadExp();
+    arr.push({id:Date.now().toString(36),amt,cur:$("#expCur").value,cat:$("#expCat").value,who:$("#expWho").value,
+      desc:$("#expDesc").value.trim(),date:(now.getMonth()+1)+"/"+now.getDate()});
+    saveExp(arr); renderExp(); toast("已記帳");
+  });
+  const rateH=id=>e=>{const r=loadRates();r[id]=parseFloat(e.target.value)||r[id];saveRates(r);renderExp();};
+  $("#rUSD").addEventListener("change",rateH("USD"));
+  $("#rCAD").addEventListener("change",rateH("CAD"));
+  box.querySelectorAll("[data-expdel]").forEach(b=>b.addEventListener("click",()=>{
+    saveExp(loadExp().filter(e=>e.id!==b.dataset.expdel)); renderExp(); toast("已刪除");
+  }));
+}
+
+/* 露營車儀表 */
+const RV_KEY="sejz-rv-v1";
+function loadRv(){try{return Object.assign({fresh:100,grey:0,black:0,fuel:100,ts:0},JSON.parse(localStorage.getItem(RV_KEY)||"{}"));}catch(e){return {fresh:100,grey:0,black:0,fuel:100,ts:0};}}
+function renderRv(){
+  const box=$("#rvBox"); if(!box)return;
+  const v=loadRv();
+  const G=[["fresh","清水箱","剩餘",false],["fuel","油量","剩餘",false],["grey","灰水箱","已滿",true],["black","黑水箱","已滿",true]];
+  box.innerHTML=G.map(g=>{
+    const hot=g[3]&&v[g[0]]>=75;
+    return `<div class="gauge ${hot?"hot":""}">
+      <div class="glabel"><span>${g[1]}<span class="small">（${g[2]}）</span>${hot?' <span class="pill red">建議處理</span>':""}</span>
+        <span class="gval">${v[g[0]]}%</span></div>
+      <input type="range" min="0" max="100" step="5" value="${v[g[0]]}" data-rv="${g[0]}"></div>`;
+  }).join("")+
+  `<div class="small">${v.ts?"上次更新："+new Date(v.ts).toLocaleString("zh-TW",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"}):"尚未記錄"} · D13（8/13）回程日記得找 sani-dump 排灰/黑水箱，還車前需排空。</div>`;
+  box.querySelectorAll("[data-rv]").forEach(r=>r.addEventListener("change",()=>{
+    const nv=loadRv(); nv[r.dataset.rv]=parseInt(r.value,10); nv.ts=Date.now();
+    try{localStorage.setItem(RV_KEY,JSON.stringify(nv));}catch(e){}
+    renderRv();
+  }));
+}
+
+/* 照片日記 */
+let diaryUrls=[];
+function renderDiary(){
+  const box=$("#diaryBox"); if(!box)return;
+  diaryUrls.forEach(u=>URL.revokeObjectURL(u)); diaryUrls=[];
+  idbAll("diary").then(rows=>{
+    const map={}; rows.forEach(r=>map[r.day]=r);
+    box.innerHTML=`<div class="pgrid">`+DAYS.map(d=>{
+      const r=map[d.d];
+      let img="";
+      if(r&&r.blob){const u=URL.createObjectURL(r.blob);diaryUrls.push(u);img=`<img src="${u}" alt="D${d.d} 照片">`;}
+      return `<button class="pcell ${r?"filled":""}" data-diary="${d.d}">${img||"D"+d.d+" "+d.date}<span class="pd">D${d.d}</span></button>`;
+    }).join("")+`</div>
+    <div class="small" style="margin-top:8px">每天挑一張照片＋一句話，回國就是 18 天回憶牆。照片會縮圖後存在這支手機（不上傳）。</div>`;
+    box.querySelectorAll("[data-diary]").forEach(b=>b.addEventListener("click",()=>openDiary(parseInt(b.dataset.diary,10))));
+  });
+}
+function openDiary(dnum){
+  const day=DAYS[dnum-1];
+  idbGet("diary",dnum).then(rec=>{
+    let imgUrl=rec&&rec.blob?URL.createObjectURL(rec.blob):null;
+    let newBlob=null;
+    const ov=document.createElement("div");
+    ov.className="overlay";
+    ov.innerHTML=`<div class="ov-card">
+      <h3>D${dnum} · ${day.date}（${day.dow}）${esc(day.title)}</h3>
+      ${imgUrl?`<img class="big" id="dvImg" src="${imgUrl}" alt="日記照片">`:`<div id="dvImgPh" class="small" style="text-align:center;padding:24px 0">尚無照片</div>`}
+      <div style="margin:8px 0"><label class="btn ghost sm" style="cursor:pointer">選擇照片<input id="dvFile" type="file" accept="image/*" style="display:none"></label></div>
+      <textarea class="ta" id="dvNote" placeholder="今天一句話…">${rec?esc(rec.note||""):""}</textarea>
+      <div class="ovbar">
+        ${rec?`<button class="btn warn sm" id="dvDel">刪除這天</button>`:""}
+        <button class="btn ghost sm" id="dvClose">關閉</button>
+        <button class="btn sm" id="dvSave">儲存</button>
+      </div></div>`;
+    document.body.appendChild(ov);
+    const close=()=>{if(imgUrl)URL.revokeObjectURL(imgUrl);ov.remove();};
+    ov.addEventListener("click",e=>{if(e.target===ov)close();});
+    ov.querySelector("#dvClose").addEventListener("click",close);
+    ov.querySelector("#dvFile").addEventListener("change",e=>{
+      const f=e.target.files[0]; if(!f)return;
+      resizeImg(f,1280).then(b=>{
+        newBlob=b;
+        if(imgUrl)URL.revokeObjectURL(imgUrl);
+        imgUrl=URL.createObjectURL(b);
+        const ph=ov.querySelector("#dvImgPh");
+        if(ph){ph.outerHTML=`<img class="big" id="dvImg" src="${imgUrl}" alt="日記照片">`;}
+        else ov.querySelector("#dvImg").src=imgUrl;
+      }).catch(()=>toast("照片讀取失敗"));
+    });
+    ov.querySelector("#dvSave").addEventListener("click",()=>{
+      const rec2={day:dnum,note:ov.querySelector("#dvNote").value.trim(),blob:newBlob||(rec?rec.blob:null),ts:Date.now()};
+      idbPut("diary",rec2).then(()=>{toast("已儲存 D"+dnum);close();renderDiary();}).catch(()=>toast("儲存失敗（空間不足？）"));
+    });
+    const del=ov.querySelector("#dvDel");
+    if(del)del.addEventListener("click",()=>{idbDel("diary",dnum).then(()=>{toast("已刪除");close();renderDiary();});});
+  });
+}
+
+/* 證件保險箱 */
+let vaultUrls=[];
+function renderVault(){
+  const box=$("#vaultBox"); if(!box)return;
+  vaultUrls.forEach(u=>URL.revokeObjectURL(u)); vaultUrls=[];
+  idbAll("vault").then(rows=>{
+    box.innerHTML=
+     `<div style="margin-bottom:10px"><label class="btn sm" style="cursor:pointer">＋ 新增證件照片<input id="vlFile" type="file" accept="image/*" style="display:none"></label></div>
+      <div class="pgrid">`+
+      rows.map(r=>{const u=URL.createObjectURL(r.blob);vaultUrls.push(u);
+        return `<button class="pcell filled" data-vault="${r.id}"><img src="${u}" alt="${esc(r.name)}"><span class="pd">${esc(r.name)}</span></button>`;}).join("")+
+     `</div>
+      <div class="small" style="margin-top:8px">建議存：護照照片頁、ESTA 核准頁、國際駕照、保險單、露營車合約。只存在這支手機、不上傳；過海關或櫃檯快速調出。</div>`;
+    box.querySelector("#vlFile").addEventListener("change",e=>{
+      const f=e.target.files[0]; if(!f)return;
+      const name=(prompt("這張是什麼證件？（如：爸爸護照）")||"證件").slice(0,20);
+      resizeImg(f,1600).then(b=>idbPut("vault",{id:Date.now().toString(36),name,blob:b,ts:Date.now()}))
+        .then(()=>{toast("已存入保險箱");renderVault();})
+        .catch(()=>toast("存入失敗"));
+    });
+    box.querySelectorAll("[data-vault]").forEach(b=>b.addEventListener("click",()=>{
+      const r=rows.find(x=>x.id===b.dataset.vault); if(!r)return;
+      const u=URL.createObjectURL(r.blob);
+      const ov=document.createElement("div");
+      ov.className="overlay";
+      ov.innerHTML=`<div class="ov-card"><h3>${esc(r.name)}</h3><img class="big" src="${u}" alt="${esc(r.name)}">
+        <div class="ovbar"><button class="btn warn sm" id="vvDel">刪除</button><button class="btn ghost sm" id="vvClose">關閉</button></div></div>`;
+      document.body.appendChild(ov);
+      const close=()=>{URL.revokeObjectURL(u);ov.remove();};
+      ov.addEventListener("click",e=>{if(e.target===ov)close();});
+      ov.querySelector("#vvClose").addEventListener("click",close);
+      ov.querySelector("#vvDel").addEventListener("click",()=>{
+        if(confirm("確定刪除「"+r.name+"」？"))idbDel("vault",r.id).then(()=>{close();renderVault();toast("已刪除");});
+      });
+    }));
+  });
+}
+
+/* 行事曆提醒 */
+function icsText(){
+  let s="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//SEJZ//NATRIP2026//ZH\r\nCALSCALE:GREGORIAN\r\n";
+  CALEV.forEach((ev,i)=>{
+    s+="BEGIN:VEVENT\r\nUID:sejz-natrip-"+i+"@sejz\r\nDTSTAMP:20260725T000000Z\r\nDTSTART:"+ev.s+"\r\nDTEND:"+ev.e+
+      "\r\nSUMMARY:"+ev.t+"\r\n"+(ev.d?"DESCRIPTION:"+ev.d+"\r\n":"")+
+      "BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:"+ev.t+"\r\nTRIGGER:-PT"+(ev.alarm||60)+"M\r\nEND:VALARM\r\nEND:VEVENT\r\n";
+  });
+  return s+"END:VCALENDAR\r\n";
+}
+function gcalUrl(ev){
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(ev.t)+
+    "&dates="+ev.s+"/"+ev.e+"&details="+encodeURIComponent(ev.d||"");
+}
+function calWhen(ev){
+  const d=new Date(ev.s.replace(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/,"$1-$2-$3T$4:$5:$6Z"));
+  return new Intl.DateTimeFormat("zh-TW",{timeZone:"Asia/Taipei",month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false}).format(d)+" 台灣";
+}
+function renderCal(){
+  const box=$("#calBox"); if(!box)return;
+  box.innerHTML=
+    `<div class="small" style="margin-bottom:6px">關鍵時刻先進手機行事曆，時間到自動提醒（顯示為台灣時間，加入後會自動換算當地時區）。</div>`+
+    CALEV.map(ev=>`<div class="calrow"><span class="when num">${calWhen(ev)}</span>
+      <span style="flex:1">${esc(ev.t)}${ev.d?`<span class="small" style="display:block">${esc(ev.d)}</span>`:""}</span>
+      <a class="gc" target="_blank" rel="noopener" href="${gcalUrl(ev)}">＋Google</a></div>`).join("")+
+    `<div class="ovbar" style="justify-content:flex-start"><button class="btn ghost sm" id="icsDl">⬇ 下載 .ics（Apple / Outlook 日曆）</button></div>`;
+  $("#icsDl").addEventListener("click",()=>{
+    try{
+      const b=new Blob([icsText()],{type:"text/calendar;charset=utf-8"});
+      const u=URL.createObjectURL(b);
+      const a=document.createElement("a"); a.href=u; a.download="SEJZ-2026-北美壯遊提醒.ics";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(u),5000);
+      toast("已產生 .ics 檔");
+    }catch(e){toast("此環境不支援下載，請用 Google 日曆連結");}
+  });
+}
+
+/* 位置分享 */
+const MEETS=[["The Crab Pot（D2 會合晚餐）","The Crab Pot Seattle"],["T-Mobile Park 球場","T-Mobile Park Seattle"],
+ ["派克市場","Pike Place Market Seattle"],["加拿大廣場","Canada Place Vancouver"],["固蘭湖島市集","Granville Island Public Market"]];
+function renderLoc(){
+  const box=$("#locBox"); if(!box)return;
+  box.innerHTML=
+   `<button class="btn" id="shareLoc" style="width:100%">📍 取得我的位置並分享給家人</button>
+    <div class="small" style="margin:8px 0 4px">會產生 Google Maps 座標連結，用 LINE 傳給家人即可。長時間即時追蹤請改用 Google Maps 的「位置資訊分享」。</div>
+    <h2 class="sec" style="margin-top:14px">常用會合點</h2>`+
+    MEETS.map(m=>`<div class="mrow">${esc(m[0])}<span class="sp"></span>
+      <a class="btn ghost sm" target="_blank" rel="noopener" href="${mapUrl(m[1])}">地圖</a>
+      <button class="btn ghost sm" data-meetshare="${esc(m[1])}" data-meetname="${esc(m[0])}">分享</button></div>`).join("");
+  $("#shareLoc").addEventListener("click",()=>{
+    if(!navigator.geolocation)return toast("此裝置不支援定位");
+    toast("定位中…");
+    navigator.geolocation.getCurrentPosition(p=>{
+      const u="https://maps.google.com/?q="+p.coords.latitude.toFixed(5)+","+p.coords.longitude.toFixed(5);
+      if(navigator.share){navigator.share({title:"我的位置（SEJZ）",url:u}).catch(()=>copyText(u));}
+      else copyText(u);
+    },()=>toast("無法取得定位（請允許定位權限）"),{enableHighAccuracy:true,timeout:12000});
+  });
+  box.querySelectorAll("[data-meetshare]").forEach(b=>b.addEventListener("click",()=>{
+    const u=mapUrl(b.dataset.meetshare);
+    if(navigator.share){navigator.share({title:b.dataset.meetname,url:u}).catch(()=>copyText(u));}
+    else copyText(u);
+  }));
+}
+
+/* 待辦進度同步 */
+function renderSync(){
+  const box=$("#syncBox"); if(!box)return;
+  box.innerHTML=
+   `<div class="small" style="margin-bottom:8px">待辦勾選存在各自手機。要同步時：一人「複製同步碼」傳到家庭群組，其他人貼上「匯入」，已勾項目會合併（不會清掉你自己勾的）。</div>
+    <div class="ovbar" style="justify-content:flex-start">
+      <button class="btn sm" id="syncExp">📤 複製我的同步碼</button>
+    </div>
+    <textarea class="ta" id="syncIn" placeholder="貼上家人傳來的同步碼…"></textarea>
+    <div class="ovbar" style="justify-content:flex-start"><button class="btn ghost sm" id="syncImp">📥 匯入</button></div>`;
+  $("#syncExp").addEventListener("click",()=>{
+    const ids=Object.keys(loadDone());
+    copyText("SEJZ1."+btoa(ids.join(",")));
+  });
+  $("#syncImp").addEventListener("click",()=>{
+    const v=$("#syncIn").value.trim();
+    if(!v.startsWith("SEJZ1."))return toast("同步碼格式不正確");
+    try{
+      const ids=atob(v.slice(6)).split(",").filter(x=>/^t\d+$/.test(x));
+      const d=loadDone(); let n=0;
+      ids.forEach(i=>{if(!d[i]){d[i]=1;n++;}});
+      saveDone(d); renderTodo(); $("#syncIn").value="";
+      toast(n?("已合併 "+n+" 項新進度"):"沒有新的進度可合併");
+    }catch(e){toast("同步碼無法解析");}
+  });
+}
+
+const TICONS={
+ exp:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h4"/></svg>',
+ cal:'<svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 2.8v4M16 2.8v4"/><path d="M12 12.5v4M10 14.5h4" transform="translate(0 -0.5)"/></svg>',
+ rvg:'<svg viewBox="0 0 24 24"><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14 15.5 9.5"/><path d="M3 18h18"/></svg>',
+ diary:'<svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="m4 17 4.5-4 3.5 3 4-4.5 4 4.5"/></svg>',
+ vault:'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="12" cy="12" r="3.6"/><path d="M12 8.4V6M12 18v-2.4M8.4 12H6M18 12h-2.4"/></svg>',
+ loc:'<svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.2-6.5-10a6.5 6.5 0 0 1 13 0c0 4.8-6.5 10-6.5 10z"/><circle cx="12" cy="11" r="2.3"/></svg>',
+ sync:'<svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.9-3M4 13a8 8 0 0 0 14.9 3"/><path d="M4.5 4.5V8H8M19.5 19.5V16H16"/></svg>',
+};
+function renderTools(){
+  $("#pg-tools").innerHTML=`<h2 class="sec">旅程工具</h2>`+
+    accItem("exp",TICONS.exp,"記帳","美加雙幣別 · 自動折台幣統計",`<div id="expBox"></div>`)+
+    accItem("cal",TICONS.cal,"行事曆提醒","釋票/取還車/趕車 7 個關鍵時刻",`<div id="calBox"></div>`)+
+    accItem("rvg",TICONS.rvg,"露營車儀表","清水/灰水/黑水/油量記錄",`<div id="rvBox"></div>`)+
+    accItem("diary",TICONS.diary,"照片日記","每天一張照片一句話 · 18 天回憶牆",`<div id="diaryBox"></div>`)+
+    accItem("vault",TICONS.vault,"證件保險箱","護照/ESTA/駕照/保單 離線快取",`<div id="vaultBox"></div>`)+
+    accItem("loc",TICONS.loc,"位置分享","分流時互報位置 · 會合點快速分享",`<div id="locBox"></div>`)+
+    accItem("sync",TICONS.sync,"待辦同步","匯出/匯入同步碼，全家合併進度",`<div id="syncBox"></div>`);
+  renderExp();renderCal();renderRv();renderDiary();renderVault();renderLoc();renderSync();
+}
+
 /* ===================== 導覽與事件 ===================== */
 function showPage(pg){
   $$(".page").forEach(p=>p.classList.toggle("on",p.id==="pg-"+pg));
@@ -775,9 +1232,9 @@ $("#themeBtn").addEventListener("click",()=>{
 });
 try{const t=localStorage.getItem("sejz-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}
 
-renderHome();renderDays();renderBook();renderTodo();renderMore();
+renderHome();renderDays();renderBook();renderTodo();renderTools();renderMore();
 const initPg=(location.hash||"#home").slice(1);
-showPage(["home","days","book","todo","more"].includes(initPg)?initPg:"home");
+showPage(["home","days","book","todo","tools","more"].includes(initPg)?initPg:"home");
 </script>
 <script>
 if ("serviceWorker" in navigator && location.protocol === "https:") {
