@@ -6,7 +6,7 @@ SEJZ 家族美加露營車畢業旅行（2026/08/01–08/18）的手機行程 Ap
 ## 功能
 
 - **今日**：出發倒數／旅程中自動顯示當天行程與明日預告、台北/太平洋/山區三地時鐘、重要提醒（夢蓮湖接駁釋票、分離票、冰原大道無訊號）
-- **行程**：頂部有 **RV 路線總覽圖**（10 站示意圖、點各站看細節，並可在 Google Maps 開啟去程/回程完整導航路線）；D1–D18 每日卡片（路線、里程、住宿、電力、步道、備註），每天附整排「📍 地點」Google Maps 連結與「導航到今晚住宿」，D1/D3/D14/D15/D16 含逐時行程
+- **行程**：頂部有 **RV 路線地圖**：內嵌 Leaflet + OpenStreetMap/CARTO 圖磚（免金鑰、跟隨深淺色主題），10 個過夜點可點選看細節與導航；可「預載地圖」把沿線圖磚存進手機離線使用；載不到圖磚時自動改用內建 SVG 示意圖；D1–D18 每日卡片（路線、里程、住宿、電力、步道、備註），每天附整排「📍 地點」Google Maps 連結與「導航到今晚住宿」，D1/D3/D14/D15/D16 含逐時行程
 - **訂位**：所有訂位代號總表，可搜尋、點一下即複製，已確認／待辦狀態一目了然
 - **待辦**：出發前待辦清單依優先級分組，勾選進度存在手機本機（localStorage）
 - **工具**：
@@ -34,9 +34,9 @@ SEJZ 家族美加露營車畢業旅行（2026/08/01–08/18）的手機行程 Ap
 
 | 檔案 | 說明 |
 |---|---|
-| `index.html` | 整個 App（HTML/CSS/JS 與行程資料皆內嵌） |
+| `index.html` | 整個 App（HTML/CSS/JS、Leaflet 1.9.4 與行程資料皆內嵌，無外部 CDN） |
 | `manifest.webmanifest` | PWA 資訊（名稱、icon、主題色） |
-| `sw.js` | Service Worker（離線快取） |
+| `sw.js` | Service Worker（離線快取；`sejz-tiles-v1` 存放預載地圖圖磚，換版不清除） |
 | `icon-192.png` / `icon-512.png` | App icon |
 
 ## 更新行程資料
@@ -50,3 +50,7 @@ SEJZ 家族美加露營車畢業旅行（2026/08/01–08/18）的手機行程 Ap
 D3、D14、D15 依使用者指示**維持原版行程**：D3 早班巴士 13:00 出發 + FlyOver Canada + 煤氣鎮蒸氣鐘、D14 史丹利公園海堤單車 + Yaletown 晚餐、D15 固蘭湖島 + 本拿比朋友聚會。
 
 第 8 版新增：EVEN Hotels（D1-2）、Hotel Belmont（D3）、民宿 Mount Pleasant（D14-15）皆已確認；D4 Kamloops 改 Costco/Silver Sage 二選一；D7 營地改 Waterfowl/Icefields Ctr 彈性；D12 改 Golden Skybridge 09:00 早鳥（07:00 拔營）；D16 不住宿；D15 本拿比 Wong 家聯絡資料。
+
+## 地圖
+
+地圖用 [Leaflet](https://leafletjs.com/)（BSD-2-Clause，已內嵌）搭配 [CARTO](https://carto.com/attributions) 的 OpenStreetMap 圖磚，兩者皆免費且不需 API 金鑰。圖磚在執行時載入，因此需網路；按「預載地圖」可把路線範圍 zoom 5–9 的圖磚（約 190 塊）存進 Cache Storage，冰原大道無訊號時仍可瀏覽。圖磚載入失敗時會自動改用內建的 SVG 路線示意圖，離線也不會空白。
