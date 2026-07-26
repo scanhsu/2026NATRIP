@@ -939,6 +939,9 @@ textarea.ta{min-height:64px}
   border:2px solid var(--card);box-shadow:0 1px 4px rgba(0,0,0,.35);font-variant-numeric:tabular-nums;
 }
 .rvmk.ends span{background:var(--amber)}
+.thmk{background:none;border:none}
+.thmk span{display:flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--green);color:#fff;font-size:10px;border:2px solid var(--card);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+#rvTrails.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .leaflet-popup-content{margin:10px 12px;font-size:13px;line-height:1.5}
 .leaflet-popup-content b{display:block;font-size:13.5px;margin-bottom:2px}
 .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--card);color:var(--ink);box-shadow:var(--shadow)}
@@ -1316,6 +1319,68 @@ const RVPTS = [
  {d:"D12 宿",name:"Revelstoke RV 營地（Canyon 溫泉）",q:"Revelstoke, BC",lat:50.9981,lon:-118.1957,px:236,py:228,lx:0,ly:22},
 ];
 
+/* 步道登山口（座標為約略位置，導航一律用文字搜尋較準） */
+const TRAILHEADS=[
+ ["D6","五湖谷 Valley of the Five Lakes",52.797,-117.965,"Valley of the Five Lakes Trailhead"],
+ ["D6","金字塔湖 Pyramid Lake",52.916,-118.094,"Pyramid Lake Jasper"],
+ ["D6","瑪琳湖遊船碼頭",52.727,-117.646,"Maligne Lake Boat Tour Jasper"],
+ ["D7","Wilcox Pass 登山口",52.220,-117.178,"Wilcox Pass Trailhead"],
+ ["D7","Athabasca 冰川步道",52.213,-117.235,"Toe of the Athabasca Glacier Trailhead"],
+ ["D7","Athabasca Falls",52.664,-117.884,"Athabasca Falls Jasper"],
+ ["D7","Sunwapta Falls",52.532,-117.644,"Sunwapta Falls Jasper"],
+ ["D8","佩托湖觀景台（Bow Summit）",51.715,-116.531,"Peyto Lake Upper Viewpoint"],
+ ["D8","弓湖・Bow Glacier Falls 登山口",51.671,-116.475,"Bow Glacier Falls Trailhead"],
+ ["D9","夢蓮湖 Rockpile",51.322,-116.186,"Moraine Lake Rockpile Trail"],
+ ["D9","露易絲湖・Lake Agnes 登山口",51.417,-116.216,"Lake Agnes Trailhead Lake Louise"],
+ ["D10","Tunnel Mountain 登山口",51.178,-115.562,"Tunnel Mountain Trailhead Banff"],
+ ["D10","硫磺山纜車站",51.148,-115.574,"Banff Gondola"],
+ ["D10","弓瀑 Bow Falls",51.168,-115.563,"Bow Falls Viewpoint Banff"],
+ ["D11","翡翠湖環湖",51.443,-116.529,"Emerald Lake Yoho"],
+ ["D11","塔卡考瀑布",51.496,-116.474,"Takakkaw Falls Yoho"],
+ ["D11","天然橋",51.385,-116.535,"Natural Bridge Yoho"],
+ ["D12","Golden Skybridge",51.312,-116.989,"Golden Skybridge"],
+];
+/* 旅程中「離今晚營地多遠」：天數 → RVPTS 索引 */
+const DAY2RV={4:1,5:2,6:2,7:3,8:4,9:5,10:6,11:7,12:9,13:0,14:0};
+
+/* 食物採買（D4 溫哥華 Walmart/Costco 首採買；D10 班夫二輪補給） */
+const FOOD_BUY=[
+ ["主食",["白米（小包）","義大利麵","吐司／麵包","麥片","泡麵（台味救援）"]],
+ ["蛋白質",["雞蛋","雞腿肉","牛排／燒肉片","香腸／培根","鮪魚・玉米罐頭"]],
+ ["蔬果",["生菜／小黃瓜","番茄","洋蔥／馬鈴薯","蘋果／香蕉","BC 櫻桃・藍莓（8 月正產季）"]],
+ ["乳品",["牛奶","起司片","優格","奶油"]],
+ ["調味",["鹽・黑胡椒","食用油","醬油","烤肉醬","糖／蜂蜜"]],
+ ["飲料零食",["瓶裝水（大桶）","果汁","咖啡・茶包","餅乾・堅果","棉花糖（營火用）"]],
+ ["廚房用品",["鋁箔紙","夾鏈保鮮袋","廚房紙巾","洗碗精＋菜瓜布","垃圾袋","濕紙巾"]],
+];
+const FOOD_MEALS=[
+ ["早餐","吐司＋煎蛋＋培根，或麥片＋牛奶；移動日簡單吃、停留日豐盛煮","營地早晨冷，先煮熱咖啡／熱茶"],
+ ["午餐","三明治／捲餅野餐為主（前一晚先做好），配水果","D7-D9 步道日帶行動糧：堅果、餅乾、蘋果"],
+ ["晚餐","營地開火輪替：烤肉、義大利麵、咖哩飯、湯麵","油炸與重油少做（灰水箱負擔大）；有電營地才用電器"],
+ ["補給節奏","D4 溫哥華 Walmart/Costco 首採買 → D10 班夫鎮上第二輪","冰箱小、分兩輪買；易腐食材先吃"],
+];
+const FOOD_RULES=[
+ "跨境注意：D3 入加、D16 返美均不可攜帶新鮮水果、蔬菜、肉、蛋——生鮮一律到加拿大（D4）才買，並在 D13-14 前吃完",
+ "防熊鐵則：食物、垃圾、有氣味用品（牙膏、防曬乳）一律收進車內或營地食物櫃，絕不留在車外／桌上",
+ "垃圾集中丟營地防熊垃圾桶（bear-proof bin）",
+ "行駛間冰箱靠瓦斯／電池運作：少開門、生肉放最下層",
+];
+
+/* 加拿大洛磯山脈官方與實用網站 */
+const PARK_SITES=[
+ ["Parks Canada – Banff","https://parks.canada.ca/pn-np/ab/banff","門票、營地、公告、步道狀況"],
+ ["Parks Canada – Jasper","https://parks.canada.ca/pn-np/ab/jasper","野火後開放狀況以這裡為準"],
+ ["Parks Canada – Yoho","https://parks.canada.ca/pn-np/bc/yoho","翡翠湖、塔卡考瀑布"],
+ ["Parks Canada 預約系統","https://reservation.pc.gc.ca","營地訂位＋夢蓮湖接駁同一系統（8/7 22:00 搶票入口）"],
+ ["Pursuit 官網","https://www.banffjaspercollection.com","雪車／天空步道／瑪琳湖遊船（訂單 28880033）"],
+ ["Banff & Lake Louise 旅遊局","https://www.banfflakelouise.com","活動、餐廳、行程靈感"],
+ ["Tourism Jasper","https://www.jasper.travel","賈斯珀在地資訊"],
+ ["Alberta 511 路況","https://511.alberta.ca","冰原大道（93 號公路）即時路況"],
+ ["DriveBC 路況","https://www.drivebc.ca","BC 段：Rogers Pass、Hwy 1／Hwy 5"],
+ ["加拿大氣象局","https://weather.gc.ca","官方天氣預報"],
+ ["AllTrails","https://www.alltrails.com","步道地圖與評論，可下載離線地圖"],
+];
+
 /* 行事曆提醒（UTC 時間；alarm = 提前分鐘數） */
 const CALEV = [
  {t:"🔴 夢蓮湖 D9 接駁票開賣",s:"20260807T140000Z",e:"20260807T143000Z",alarm:15,tz:"America/Edmonton",tzl:"MT",d:"台灣時間 8/7(五) 22:00 = 08:00 MT 滾動釋票。當晚人在冰原營地，訊號差先想備案，準時搶 9-10am 場！"},
@@ -1337,6 +1402,13 @@ function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show"
 function copyText(txt){
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(()=>toast("已複製："+txt),()=>toast(txt));}
   else{toast(txt);}
+}
+function loadLS(k){try{return JSON.parse(localStorage.getItem(k)||"{}");}catch(e){return {};}}
+function saveLS(k,o){try{localStorage.setItem(k,JSON.stringify(o));}catch(e){}}
+function havKm(a,b,c,d){
+  const r=x=>x*Math.PI/180, R=6371;
+  const h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;
+  return 2*R*Math.asin(Math.sqrt(h));
 }
 function mapUrl(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);}
 function dirUrl(q){return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(q)+"&travelmode=driving";}
@@ -1513,16 +1585,22 @@ function rvMapCard(){
     <div id="rvFallback" style="display:none">${rvSchematic()}</div>
     <div id="rvInfo" class="small">🚐 D4 溫哥華取車 → 洛磯山脈大環線 → D14 還車，全程約 2,055 km</div>
     <div class="ovbar" style="justify-content:flex-start;margin-top:8px">
+      <button class="btn ghost sm" id="rvLoc">📍 我在哪</button>
+      <button class="btn ghost sm" id="rvTrails">▲ 步道</button>
+      <button class="btn ghost sm" id="rvTopo">⛰ 地形圖</button>
       <a class="btn ghost sm" target="_blank" rel="noopener" href="${rvDir(0,5)}">🧭 去程 D4–D9</a>
       <a class="btn ghost sm" target="_blank" rel="noopener" href="${rvDir(5,10)}">🧭 回程 D10–D14</a>
-      <button class="btn ghost sm" id="rvCache">⬇ 預載地圖（離線用）</button>
+      <button class="btn ghost sm" id="rvCache">⬇ 預載地圖</button>
     </div></div>`;
 }
 
 /* Leaflet 地圖：載不到圖磚（離線或平台限制）時自動改用示意圖 */
-let rvMap=null, rvTiles=null;
-const TILE_LIGHT="https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
-const TILE_DARK="https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
+let rvMap=null, rvTiles=null, rvTrailLayer=null, rvMe=null;
+const TILE_LIGHT="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
+const TILE_DARK="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
+const TILE_TOPO="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
+function isTopo(){try{return localStorage.getItem("sejz-mapstyle")==="topo";}catch(e){return false;}}
+function tileTpl(){return isTopo()?TILE_TOPO:(isDark()?TILE_DARK:TILE_LIGHT);}
 function isDark(){
   const t=document.documentElement.getAttribute("data-theme");
   if(t) return t==="dark";
@@ -1534,7 +1612,7 @@ function rvUseFallback(){
   if(rvMap){try{rvMap.remove();}catch(e){}rvMap=null;}
   el.style.display="none";
   if(fb)fb.style.display="";
-  const c=$("#rvCache"); if(c)c.style.display="none";
+  ["rvCache","rvLoc","rvTrails","rvTopo"].forEach(id=>{const b=document.getElementById(id);if(b)b.style.display="none";});
 }
 function initRvMap(){
   const el=$("#rvLeaflet");
@@ -1542,10 +1620,18 @@ function initRvMap(){
   if(typeof L==="undefined")return rvUseFallback();
   try{
     rvMap=L.map(el,{scrollWheelZoom:false,attributionControl:true});
-    rvTiles=L.tileLayer(isDark()?TILE_DARK:TILE_LIGHT,{
+    rvTiles=L.tileLayer(tileTpl(),{
       maxZoom:14,minZoom:4,
-      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a> · <a href="https://opentopomap.org" target="_blank" rel="noopener">OpenTopoMap</a>'
     }).addTo(rvMap);
+
+    /* 步道登山口圖層（預設隱藏，按「步道」開關） */
+    rvTrailLayer=L.layerGroup(TRAILHEADS.map(t=>
+      L.marker([t[2],t[3]],{icon:L.divIcon({className:"thmk",html:"<span>▲</span>",iconSize:[20,20],iconAnchor:[10,10]})})
+       .bindPopup("<b>"+t[0]+" "+esc(t[1])+"</b>"+
+         '<a target="_blank" rel="noopener" href="'+dirUrl(t[4])+'">導航到登山口</a> · '+
+         '<a target="_blank" rel="noopener" href="'+mapUrl(t[4])+'">看地圖</a>')
+    ));
 
     const latlngs=RVPTS.map(p=>[p.lat,p.lon]);
     L.polyline(latlngs.concat([latlngs[0]]),{color:"#177E74",weight:3,opacity:.85,dashArray:"7 6"}).addTo(rvMap);
@@ -1566,7 +1652,42 @@ function initRvMap(){
   }catch(e){rvUseFallback();}
 }
 function rvSwapTheme(){
-  if(rvMap&&rvTiles){try{rvTiles.setUrl(isDark()?TILE_DARK:TILE_LIGHT);}catch(e){}}
+  if(rvMap&&rvTiles&&!isTopo()){try{rvTiles.setUrl(tileTpl());}catch(e){}}
+}
+function rvToggleTopo(){
+  const nv=isTopo()?"base":"topo";
+  try{localStorage.setItem("sejz-mapstyle",nv);}catch(e){}
+  if(rvMap&&rvTiles){try{rvTiles.setUrl(tileTpl());}catch(e){}}
+  const b=$("#rvTopo"); if(b)b.textContent=isTopo()?"🗺 一般圖":"⛰ 地形圖";
+  toast(isTopo()?"已切換地形圖（等高線）":"已切換一般地圖");
+}
+function rvToggleTrails(){
+  if(!rvMap||!rvTrailLayer)return;
+  const on=rvMap.hasLayer(rvTrailLayer);
+  if(on)rvMap.removeLayer(rvTrailLayer); else rvMap.addLayer(rvTrailLayer);
+  const b=$("#rvTrails"); if(b)b.classList.toggle("on",!on);
+  toast(on?"已隱藏步道登山口":"已顯示 "+TRAILHEADS.length+" 個步道登山口 ▲");
+}
+function rvLocate(){
+  if(!navigator.geolocation)return toast("此裝置不支援定位");
+  if(!rvMap)return toast("地圖尚未載入");
+  toast("定位中…");
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const la=pos.coords.latitude, lo=pos.coords.longitude;
+    if(rvMe){try{rvMap.removeLayer(rvMe);}catch(e){}}
+    rvMe=L.layerGroup([
+      L.circle([la,lo],{radius:Math.min(pos.coords.accuracy||50,800),color:"#2A7FFF",weight:1,opacity:.3,fillColor:"#2A7FFF",fillOpacity:.12}),
+      L.circleMarker([la,lo],{radius:7,color:"#fff",weight:2.5,fillColor:"#2A7FFF",fillOpacity:1}),
+    ]).addTo(rvMap);
+    rvMap.setView([la,lo],Math.max(rvMap.getZoom(),8));
+    const st=tripDayNum();
+    let msg="📍 已標出你的位置";
+    if(st.phase==="during"&&DAY2RV[st.d]!=null){
+      const t=RVPTS[DAY2RV[st.d]];
+      msg+="——距今晚（"+t.d+"）"+t.name.split("（")[0]+" 直線約 "+Math.round(havKm(la,lo,t.lat,t.lon))+" km";
+    }
+    $("#rvInfo").textContent=msg;
+  },()=>toast("無法取得定位（請允許定位權限）"),{enableHighAccuracy:true,timeout:12000});
 }
 /* 預載路線沿線圖磚，冰原大道無訊號也看得到 */
 function rvPrefetch(){
@@ -1575,7 +1696,7 @@ function rvPrefetch(){
   const n=Math.max.apply(null,lats)+0.6,so=Math.min.apply(null,lats)-0.6;
   const w=Math.min.apply(null,lons)-0.6,e2=Math.max.apply(null,lons)+0.6;
   const urls=[];
-  const tpl=isDark()?TILE_DARK:TILE_LIGHT;
+  const tpl=tileTpl().replace("{s}","a");
   for(let z=5;z<=9;z++){
     const k=Math.pow(2,z);
     const x1=Math.floor((w+180)/360*k), x2=Math.floor((e2+180)/360*k);
@@ -1607,6 +1728,9 @@ function renderDays(){
     DAYS.map(d=>dayCard(d,false,st.phase==="during"&&st.d===d.d)).join("");
   initRvMap();
   const cb=$("#rvCache"); if(cb)cb.addEventListener("click",rvPrefetch);
+  const lb=$("#rvLoc"); if(lb)lb.addEventListener("click",rvLocate);
+  const tb=$("#rvTrails"); if(tb)tb.addEventListener("click",rvToggleTrails);
+  const pb=$("#rvTopo"); if(pb){pb.textContent=isTopo()?"🗺 一般圖":"⛰ 地形圖";pb.addEventListener("click",rvToggleTopo);}
 }
 
 /* ===================== 訂位 ===================== */
@@ -1658,6 +1782,29 @@ function renderTodo(){
 }
 
 /* ===================== 更多 ===================== */
+function renderCheckGroups(boxId,storeKey,groups){
+  const box=document.getElementById(boxId); if(!box)return;
+  const done=loadLS(storeKey);
+  let total=0,ok=0;
+  groups.forEach((g,ci)=>g[1].forEach((_,ii)=>{total++;if(done[ci+"-"+ii])ok++;}));
+  box.innerHTML=
+    `<div style="margin-bottom:8px"><b class="num">${ok} / ${total}</b> <span class="small">已備妥（存在這支手機）</span>
+      <div class="progbar"><i style="width:${total?Math.round(ok/total*100):0}%"></i></div></div>`+
+    groups.map((g,ci)=>`<div style="margin-bottom:6px"><div class="small" style="font-weight:700;letter-spacing:.08em;margin:8px 0 2px">${esc(g[0])}</div>`+
+      g[1].map((it,ii)=>{
+        const id=ci+"-"+ii, chk=!!done[id];
+        return `<label class="todo ${chk?"done":""}" style="padding:6px 2px">
+          <input type="checkbox" data-ck="${id}" ${chk?"checked":""}>
+          <span class="tx">${esc(it)}</span></label>`;
+      }).join("")+`</div>`).join("");
+  box.querySelectorAll("[data-ck]").forEach(cb=>cb.addEventListener("change",e=>{
+    const d=loadLS(storeKey);
+    if(e.target.checked)d[e.target.dataset.ck]=1; else delete d[e.target.dataset.ck];
+    saveLS(storeKey,d);
+    renderCheckGroups(boxId,storeKey,groups);
+  }));
+}
+
 const ICONS={
  trail:'<svg viewBox="0 0 24 24"><path d="m3 18 5.5-9 3.5 5.5L15 9l6 9z"/><circle cx="17.5" cy="5" r="1.6"/></svg>',
  weather:'<svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.4"/><path d="M9 2.5v1.6M9 13.9v1.6M2.5 9h1.6M13.9 9h1.6M4.4 4.4l1.1 1.1M12.5 12.5l1.1 1.1M13.6 4.4l-1.1 1.1"/><path d="M13 20h6.2a2.8 2.8 0 0 0 .3-5.6A4.2 4.2 0 0 0 12 13.5"/></svg>',
@@ -1665,6 +1812,8 @@ const ICONS={
  rv:'<svg viewBox="0 0 24 24"><path d="M3 16V8.5A2.5 2.5 0 0 1 5.5 6H15l4.5 4H21v6h-2"/><circle cx="7.5" cy="17" r="1.8"/><circle cx="15.5" cy="17" r="1.8"/><path d="M9.3 17h4.4M3 16h2M6 9.5h4v3H6z"/></svg>',
  risk:'<svg viewBox="0 0 24 24"><path d="M12 3.5 21 19H3z"/><path d="M12 10v4M12 16.8v.4"/></svg>',
  pack:'<svg viewBox="0 0 24 24"><rect x="4.5" y="8" width="15" height="12" rx="2"/><path d="M9 8V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V8M9 12h6"/></svg>',
+ food:'<svg viewBox="0 0 24 24"><path d="M4 10h16v3a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/><path d="M20 11h1.5a1.5 1.5 0 0 1 0 3H20M8 7c0-1.2 1-1.3 1-2.5M12 7c0-1.2 1-1.3 1-2.5M16 7c0-1.2 1-1.3 1-2.5"/></svg>',
+ web:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.3 3.9 5.2 3.9 8.5s-1.3 6.2-3.9 8.5c-2.6-2.3-3.9-5.2-3.9-8.5S9.4 5.8 12 3.5z"/></svg>',
  sos:'<svg viewBox="0 0 24 24"><path d="M12 4.5a7.5 7.5 0 0 1 7.5 7.5c0 4.5-7.5 7.5-7.5 7.5S4.5 16.5 4.5 12A7.5 7.5 0 0 1 12 4.5z"/><path d="M12 9v3.5M12 15.4v.2"/></svg>',
 };
 function accItem(id,icon,title,sub,body){
@@ -1695,7 +1844,19 @@ function renderMore(){
     FLIGHT.map(f=>`<tr><td style="color:var(--mut);white-space:nowrap">${esc(f[0])}</td><td>${esc(f[1])}</td><td>${esc(f[2])}</td></tr>`).join("")+`</table></div>`;
   const rvBody=`<table class="tb">`+RV.map(r=>`<tr><td style="color:var(--mut);white-space:nowrap">${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")+`</table>`;
   const riskBody=RISKS.map(r=>`<div class="trailcard"><div class="tt">${esc(r[0])} ${esc(r[1])}</div><div style="font-size:12.5px;margin-top:2px">${esc(r[2])}</div></div>`).join("");
-  const packBody=`<table class="tb">`+PACKING.map(p=>`<tr><td style="color:var(--mut);white-space:nowrap">${esc(p[0])}</td><td>${esc(p[1])}</td></tr>`).join("")+`</table>`;
+  const packBody=`<div id="packBox"></div>
+    <div class="small" style="margin-top:8px">依洛磯山脈日夜溫差設計（洋蔥式分層）；勾選追蹤打包進度。</div>`;
+  const foodBody=`<div class="small" style="margin-bottom:8px">D4 溫哥華 Walmart/Costco 首採買 → D10 班夫二輪補給。清單可勾選。</div>
+    <div id="foodBox"></div>
+    <h2 class="sec" style="margin-top:14px">備餐建議</h2>
+    <div class="tscroll"><table class="tb"><tr><th>餐別</th><th>建議</th><th>備註</th></tr>`+
+    FOOD_MEALS.map(m=>`<tr><td style="white-space:nowrap"><b>${esc(m[0])}</b></td><td>${esc(m[1])}</td><td class="small">${esc(m[2])}</td></tr>`).join("")+
+    `</table></div>
+    <div class="notebox" style="margin-top:10px">`+FOOD_RULES.map(r=>`<p>★ ${esc(r)}</p>`).join("")+`</div>`;
+  const sitesBody=`<div class="small" style="margin-bottom:6px">出發前與旅途中查詢的官方入口，全部免費。</div>`+
+    PARK_SITES.map(w=>`<div class="trailcard"><div class="tt"><a target="_blank" rel="noopener" href="${w[1]}">${esc(w[0])} ↗</a></div>
+      <div style="font-size:12.5px;margin-top:2px">${esc(w[2])}</div>
+      <div class="small num">${esc(w[1].replace("https://",""))}</div></div>`).join("");
   const sosBody=
     `<div class="trailcard"><div class="tt">緊急求救（美國・加拿大）</div><div>撥打 <a class="tel" href="tel:911">911</a>（警察／消防／救護通用）</div></div>
      <div class="trailcard"><div class="tt">CanaDream 露營車 24 小時道路救援</div><div><a class="tel" href="tel:18003477126">1-800-347-7126</a> ／ <a class="tel" href="tel:14032595447">403-259-5447</a>（合約 KXE664251-1）</div></div>
@@ -1708,8 +1869,12 @@ function renderMore(){
     accItem("flight",ICONS.flight,"機票資訊","Delta 68 去 · CI21 回（分離票）",flightBody)+
     accItem("rv",ICONS.rv,"露營車資訊","CanaDream MH-B · 10 晚已付清",rvBody)+
     accItem("risk",ICONS.risk,"訂位風險清單","旺季風險與備案總覽",riskBody)+
-    accItem("pack",ICONS.pack,"打包清單","洋蔥式分層建議",packBody)+
+    accItem("pack",ICONS.pack,"打包清單","可勾選 · 洋蔥式分層",packBody)+
+    accItem("food",ICONS.food,"食物與備餐","採買清單可勾選 · 備餐與防熊規則",foodBody)+
+    accItem("sites",ICONS.web,"官方資訊網站","Parks Canada · 路況 · 天氣 · 步道",sitesBody)+
     accItem("sos",ICONS.sos,"緊急聯絡","911 · 道路救援 · 急難救助",sosBody);
+  renderCheckGroups("packBox","sejz-pack-v1",PACKING.map(g=>[g[0],String(g[1]).split("、")]));
+  renderCheckGroups("foodBox","sejz-food-v1",FOOD_BUY);
 }
 
 /* ===================== 工具分頁 ===================== */
