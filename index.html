@@ -267,6 +267,23 @@ textarea.ta{min-height:64px}
 .mrow .sp{flex:1}
 .navbtn{display:inline-flex;align-items:center;gap:6px;background:var(--acc);color:#fff;font-weight:700;font-size:13px;border-radius:10px;padding:8px 14px;margin-top:10px;margin-right:8px}
 
+/* ── 地點連結 ── */
+.placerow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.placechip{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--acc-ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+.placechip:active{background:var(--acc-soft)}
+
+/* ── RV 路線圖 ── */
+.rvmap{width:100%;height:auto;display:block;margin:10px 0 8px;background:var(--card2);border:1px solid var(--line);border-radius:10px}
+.rvmap .rt{fill:none;stroke:var(--acc);stroke-width:2;stroke-dasharray:5 4;stroke-linejoin:round;stroke-linecap:round;opacity:.8}
+.rvpt{cursor:pointer}
+.rvpt circle{fill:var(--acc);stroke:var(--card);stroke-width:2}
+.rvpt circle.hit{fill:transparent;stroke:none}
+.rvpt.on circle{fill:var(--amber)}
+.rvpt.on circle.hit{fill:transparent}
+.rvpt text{fill:#fff;font-size:9.5px;font-weight:700;text-anchor:middle;pointer-events:none}
+.rvpt text.lb{fill:var(--mut);font-size:9px;font-weight:600}
+#rvInfo a{font-weight:700}
+
 #toast{
   position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(8px);
   background:var(--ink);color:var(--bg);font-size:13px;font-weight:600;border-radius:99px;padding:8px 18px;
@@ -313,27 +330,27 @@ textarea.ta{min-height:64px}
 const TRIP_START = "2026-08-01", TRIP_END = "2026-08-18";
 
 const DAYS = [
-{d:1,date:"8/1",dow:"六",title:"西雅圖：派克市場・星巴克旗艦店",km:"大眾運輸",stay:"西雅圖市中心飯店",power:"有電",trail:"Elliott Bay Trail",map:"Pike Place Market Seattle",
+{d:1,date:"8/1",dow:"六",title:"西雅圖：派克市場・星巴克旗艦店",km:"大眾運輸",stay:"EVEN Hotels Seattle – South Lake Union（已確認）",power:"有電",trail:"Elliott Bay Trail",map:"Pike Place Market Seattle",
  route:"搭 Delta 68（09:10 TPE 出發 → 06:00 抵 SEA）；全家同遊派克市場（Pike Place Market）、星巴克旗艦店（Starbucks Reserve Roastery）；太空針塔、Chihuly 玻璃花園、Kerry Park；海鮮晚餐",
- notes:["寬鬆版時間軸見下方逐時行程；重點：派克市場輕鬆開場、太空針塔/Chihuly 放最後當彈性加分題","太空針塔 + Chihuly 訂 17:00 後時段票——白天累到不想去時，放棄或改期的損失最小","時差是最大變數：熬夜飛整晚清晨到，下午 2-4 點最想睡；小睡 <1hr 能救傍晚，睡太久反而隔天更慘","太空針塔/Chihuly 當『加分題』非『必做題』：當天砍掉可補到 D2 下午（女生在市區）或其他彈性時段"]},
-{d:2,date:"8/2",dow:"日",title:"西雅圖：水族館・水手主場日（分流）",km:"大眾運輸",stay:"西雅圖市中心飯店",power:"有電",trail:"Seattle Aquarium 水族館 / Westlake 購物區",map:"Seattle Aquarium",
+ notes:["飯店 EVEN Hotels Seattle–South Lake Union 已確認：8/1 15:00 入住 → 8/3 11:00 退房","寬鬆版時間軸見下方逐時行程；重點：派克市場輕鬆開場、太空針塔/Chihuly 放最後當彈性加分題","太空針塔 + Chihuly 訂 17:00 後時段票——白天累到不想去時，放棄或改期的損失最小","時差是最大變數：熬夜飛整晚清晨到，下午 2-4 點最想睡；小睡 <1hr 能救傍晚，睡太久反而隔天更慘","太空針塔/Chihuly 當『加分題』非『必做題』：當天砍掉可補到 D2 下午（女生在市區）或其他彈性時段"]},
+{d:2,date:"8/2",dow:"日",title:"西雅圖：水族館・水手主場日（分流）",km:"大眾運輸",stay:"EVEN Hotels Seattle – South Lake Union（已確認）",power:"有電",trail:"Seattle Aquarium 水族館 / Westlake 購物區",map:"Seattle Aquarium",
  route:"上午全家同遊西雅圖水族館（濱海碼頭）→ 中午分頭：⚾ 男生 T-Mobile Park 看球（水手 vs 雙城，13:10 開賽）；🌸 女生逛街（Westlake Center、Pacific Place 五層購物中心、Nordstrom 旗艦店、Zara/UNIQLO）→ 晚上 The Crab Pot 晚餐會合",
  notes:["妹妹愛逛街：Westlake 一帶室內購物中心集中（Pacific Place 含 AMC 影城與 Trophy 杯子蛋糕、Nordstrom 旗艦、Macy's）","從水族館搭單軌或步行可達","水族館 9:30 入場","看球者 12:00 前到球場領 J-Rod 公仔","球票 TickPick #1072480835（Sec 137, Row 14, Seats 5-6）"]},
-{d:3,date:"8/3",dow:"一",title:"西雅圖 → 溫哥華（跨境巴士）",km:"跨境巴士",stay:"溫哥華市中心住宿",power:"有電",trail:"Canada Place 五帆木棧道",map:"Canada Place Vancouver",
+{d:3,date:"8/3",dow:"一",title:"西雅圖 → 溫哥華（跨境巴士）",km:"跨境巴士",stay:"Hotel Belmont Vancouver（訂單 1746134684）",power:"有電",trail:"Canada Place 五帆木棧道",map:"Canada Place Vancouver",
  route:"上午：華盛頓大學（Suzzallo 圖書館）、Gas Works Park（半天壓縮版）→ 約 13:00 跨境巴士西雅圖 → 溫哥華（17:30-18:00 抵）→ 18:30 FlyOver Canada 4D → 19:45 煤氣鎮晚餐+蒸氣鐘 → 20:50 加拿大廣場看夕陽",
- notes:["巴士已改早班（原 17:00 出發），須確認新班次時刻與旺季海關緩衝","上午行程務必中午前結束","FlyOver 需先線上訂場次","溫哥華 8/3 日落約 20:50","D3 住宿仍待確認"]},
-{d:4,date:"8/4",dow:"二",title:"溫哥華取露營車 → Kamloops",km:"約 355 km",stay:"Kamloops 營地",power:"有電",trail:"Kenna Cartwright Park",map:"CanaDream Vancouver 8223 92 Street Delta BC",
+ notes:["巴士已改早班（原 17:00 出發），須確認新班次時刻與旺季海關緩衝","上午行程務必中午前結束","FlyOver 需先線上訂場次","溫哥華 8/3 日落約 20:50","飯店 Hotel Belmont Vancouver 已確認（訂單 1746134684）：Classic 2 Doubles（2大2小），8/3 15:00 入住 / 8/4 11:00 退房"]},
+{d:4,date:"8/4",dow:"二",title:"溫哥華取露營車 → Kamloops",km:"約 355 km",stay:"Kamloops：Costco 停車場 或 Silver Sage Trailer Park",power:"有電",trail:"Kenna Cartwright Park",map:"CanaDream Vancouver 8223 92 Street Delta BC",
  route:"溫哥華取露營車（CanaDream，取車 13:00–16:00）；Walmart/Costco 大採買 → 開往 Kamloops 過夜",
- notes:["合約 KXE664251-1；取車下午時段","國家公園通行證由 CanaDream 提供（Canada Strong 促銷已含，不需另購）——取車時記得跟櫃檯領實體 Discovery Pass 並放車上","抵 Kamloops 恐入夜"]},
+ notes:["Kamloops 過夜二選一：Costco 停車場（順便補給、省錢）或 Silver Sage Trailer Park（有水電較舒適）","Costco 過夜須先電話確認該分店是否允許 RV 過夜（加拿大分店規定較嚴）","合約 KXE664251-1；取車下午時段","國家公園通行證由 CanaDream 提供（Canada Strong 促銷已含，不需另購）——取車時記得跟櫃檯領實體 Discovery Pass 並放車上","抵 Kamloops 恐入夜"]},
 {d:5,date:"8/5",dow:"三",title:"Kamloops → Jasper（Yellowhead Hwy）",km:"約 440 km",stay:"Jasper – Whistlers 營地",power:"有電",trail:"Whistlers 抵達後輕鬆散步",map:"Whistlers Campground Jasper",
  route:"Kamloops → Jasper（經 Hwy 5 Yellowhead）；Check-in Whistlers；沿途風景攝影",
  notes:["訂位 INPC26-3596246B1","D5 拆天版第 2 段；原 650km 已拆兩天（未採 Hope→Jasper 650km 方案）"]},
 {d:6,date:"8/6",dow:"四",title:"賈斯珀深度遊：瑪琳湖遊船",km:"約 80 km",stay:"Jasper – Whistlers 營地",power:"有電",trail:"Valley of the Five Lakes（2026 重開）",map:"Maligne Lake Jasper",
  route:"賈斯珀深度遊：瑪琳湖遊船（精靈島）、金字塔湖、野生動物（★瑪琳峽谷 2026 野火仍關閉）",
  notes:["訂位 INPC26-20961278B1（8/6 這晚已另訂）","瑪琳湖遊船 Pursuit 4060105","峽谷關閉改走五湖谷"]},
-{d:7,date:"8/7",dow:"五",title:"冰原大道：雪車＋天空步道",km:"約 110 km",stay:"冰原核心區營地（Wilcox Creek 等）",power:"部分/無電",trail:"Wilcox Pass",map:"Columbia Icefield Discovery Centre",
+{d:7,date:"8/7",dow:"五",title:"冰原大道：雪車＋天空步道",km:"約 110 km",stay:"冰原核心區（彈性）：Waterfowl Lakes 或 Icefields Centre RV",power:"部分/無電",trail:"Wilcox Pass",map:"Columbia Icefield Discovery Centre",
  route:"11:00 Jasper 退房；Wilcox Pass 步道；12:15 哥倫比亞冰原雪車 + 天空步道；佩托湖",
- notes:["冰原 Pursuit 4060105","今晚 22:00（台灣時間）夢蓮湖 D9 接駁開放預約，需有網路搶票！","營地訊號差，先想好備案"]},
+ notes:["冰原 Ice Explorer 雪車 + Skywalk 天空步道：4 人（2大2小），tour 12:15，提前 10 分排隊（Skywalk 跟隨雪車時段）","訂單 28880033 / Res 4060105","今晚 22:00（台灣時間）夢蓮湖 D9 接駁開放預約，需有網路搶票！營地訊號差，先想好備案","此段全程最冷，注意保暖"]},
 {d:8,date:"8/8",dow:"六",title:"弓湖・Bow Glacier Falls → 露易絲湖",km:"約 140 km",stay:"Lake Louise – Soft/Hard-Sided（已訂 8/8→8/9）",power:"有電",trail:"Bow Glacier Falls（2.5-3h）",map:"Bow Lake Alberta",
  route:"弓湖（Bow Lake）、Bow Glacier Falls 步道；前往露易絲湖營地（14:00 後 check-in）",
  notes:["訂位已確認；check-in 14:00 / check-out 11:00","Bow Glacier Falls 需備熊噴霧"]},
@@ -347,20 +364,20 @@ const DAYS = [
  route:"優鶴國家公園：翡翠湖獨木舟 + 環湖、塔卡考瀑布、天然橋",
  notes:["8:30 前到搶 RV 車位","獨木舟現場 walk-in","環湖平緩"]},
 {d:12,date:"8/12",dow:"三",title:"Golden Skybridge → Revelstoke 溫泉",km:"約 220 km",stay:"Revelstoke RV 營地",power:"有電",trail:"Golden Skybridge 園區",map:"Golden Skybridge",
- route:"Golden Skybridge（探險通行證）、Rogers Pass、Canyon 溫泉泡湯",
- notes:["Pursuit 4060105，優惠碼 CANADREAM10","Rogers Pass 無訊號"]},
+ route:"★07:00 前拔營早發 → Golden Skybridge（Early Riser 09:00 入場，08:45 前到售票亭安檢）→ Rogers Pass → Canyon 溫泉泡湯",
+ notes:["Golden Skybridge 是早鳥票 09:00 入場！優鶴到 Golden 約 1hr 車程，加拔營早餐 → 需 07:00 前發車、08:45 前到售票亭","4 人（2大2小）Early Riser；訂單 28880033 / Res 4060105；優惠碼 CANADREAM10","Rogers Pass 無訊號","續往 Revelstoke 溫泉"]},
 {d:13,date:"8/13",dow:"四",title:"長征日：返回溫哥華近郊",km:"約 560 km",stay:"溫哥華近郊營地",power:"有電",trail:"Grey Canal Trail",map:"Revelstoke to Vancouver",
  route:"橫越卑詩省內陸返回溫哥華郊區；露營車清潔、排灰/黑水箱",
  notes:["當天約 560km 建議早出發","還車前清理內裝、排水箱"]},
-{d:14,date:"8/14",dow:"五",title:"還車・史丹利公園海堤單車",km:"大眾運輸 + Uber",stay:"溫哥華民宿",power:"有電",trail:"Stanley Park Seawall（單車環線約 9km）",map:"Stanley Park Vancouver",
- route:"08:00-10:00 溫哥華還車（CanaDream Delta）→ 進市區民宿 Check-in（約 11:00）→ 午餐 → 13:00-16:30 史丹利公園海堤單車遊 → 17:00-19:30 Yaletown 水岸晚餐 → Uber 回民宿",
- notes:["合約 KXE664251-1；還車在 Delta（8223 92 St），距市中心 35-40 分","海堤單車道為逆時針單行，自 Denman 街口往 English Bay 方向","園內遊樂場/沙灘可讓小孩放電","Yaletown 露天餐廳建議訂位"]},
-{d:15,date:"8/15",dow:"六",title:"固蘭湖島・本拿比朋友聚會",km:"Aquabus + Uber",stay:"溫哥華民宿",power:"有電",trail:"False Creek 水岸步道",map:"Granville Island Public Market",
- route:"09:00-11:30 固蘭湖島（公眾市集買漿果/烘焙當早午餐、Kids Market、Aquabus 彩虹渡船）→ 11:30 Uber 前往本拿比朋友家聚會 → 傍晚回民宿早休息",
- notes:["公眾市集 09:00 開門、18:00 關門，安排在上午最熱鬧","Aquabus 建議島上→Yaletown 來回都搭","8/15 需早休息，隔天清晨趕火車"]},
-{d:16,date:"8/16",dow:"日",title:"Amtrak 返美・飛行博物館",km:"跨境列車+輕軌",stay:"西雅圖機場飯店",power:"有電",trail:"Museum of Flight（波音 787、協和號、空軍一號、太空梭訓練機）",map:"Museum of Flight Seattle",
- route:"05:45 叫 UberXL → 06:00 抵 Pacific Central Station 辦美國入境預檢 → 07:25 Amtrak Cascades 517 → 抵西雅圖 King St 11:40；午餐後直奔飛行博物館（Museum of Flight，17:00 閉館）；傍晚輕軌回機場區晚餐；深夜辦 CI21 登機",
- notes:["Amtrak 8977A3","原訂 06:05 叫車只剩 77 分預檢緩衝，已提前為 05:45","博物館 17:00 閉館：抵達後先寄放行李、午餐從簡，儘早入館（約 1-2hr）","10 人可洽團體票","Metro 124 公車或輕軌 + 接駁可達","CI21 報到 22:30，當晚紅眼待命"]},
+{d:14,date:"8/14",dow:"五",title:"還車・史丹利公園海堤單車",km:"大眾運輸 + Uber",stay:"溫哥華民宿 Mount Pleasant（訂單 1753196855）",power:"有電",trail:"Stanley Park Seawall（單車環線約 9km）",map:"Stanley Park Vancouver",
+ route:"08:00-10:00 溫哥華還車（CanaDream Delta）→ 進市區民宿（約 11:00）→ 午餐 → 13:00-16:30 史丹利公園海堤單車遊 → 17:00-19:30 Yaletown 水岸晚餐 → Uber 回民宿",
+ notes:["民宿：Central Vancouver – Mount Pleasant，180 E 2nd Ave, V5T 0K4（訂單 1753196855）；8/14 16:00 入住（免費取消至 7/30）——11:00 先到可洽寄放行李","合約 KXE664251-1；還車在 Delta（8223 92 St），距市中心 35-40 分","海堤單車道為逆時針單行，自 Denman 街口往 English Bay 方向","園內遊樂場/沙灘可讓小孩放電","Yaletown 露天餐廳建議訂位"]},
+{d:15,date:"8/15",dow:"六",title:"固蘭湖島・本拿比朋友聚會",km:"Aquabus + Uber",stay:"溫哥華民宿 Mount Pleasant（訂單 1753196855）",power:"有電",trail:"False Creek 水岸步道",map:"Granville Island Public Market",
+ route:"09:00-11:30 固蘭湖島（公眾市集買漿果/烘焙當早午餐、Kids Market、Aquabus 彩虹渡船）→ 11:30 Uber 前往本拿比 Wong 家聚會 → 傍晚回民宿早休息",
+ notes:["本拿比 Wong 家聚會（Jeannie & Neil Wong）：新家 公寓302, 3960 Hastings St, Burnaby；舊家 5637 E Georgia St, Burnaby V5B 1V7——建議先確認去新家或舊家","電話 604-291-7954／手機 1-604-704-7868／Email neilnlw@gmail.com","公眾市集 09:00 開門、18:00 關門，安排在上午最熱鬧","Aquabus 建議島上→Yaletown 來回都搭","8/15 需早休息，隔天清晨趕火車"]},
+{d:16,date:"8/16",dow:"日",title:"Amtrak 返美・飛行博物館",km:"跨境列車+輕軌",stay:"無住宿（當晚 CI21 紅眼班機）",power:"—",trail:"Museum of Flight（波音 787、協和號、空軍一號、太空梭訓練機）",map:"Museum of Flight Seattle",
+ route:"05:45 叫 UberXL → 06:00 抵 Pacific Central Station 辦美國入境預檢 → 07:25 Amtrak Cascades 517 → 抵西雅圖 King St 11:40；市區寄放行李 → 飛行博物館（Museum of Flight，17:00 閉館）→ 晚間市區漫遊 → 晚餐 → 前往 SEA 機場辦 CI21 登機",
+ notes:["Amtrak 8977A3","原訂 06:05 叫車只剩 77 分預檢緩衝，已提前為 05:45","D16 不住宿：行李寄 King St 站或市區寄物櫃","博物館 17:00 閉館：先寄行李、午餐從簡，儘早入館（約 1-2hr）","晚餐建議：博物館附近 Georgetown 區（Fonda La Catrina 墨西哥菜）或往機場途中 Tukwila 的 Duke's Seafood（海鮮、適合團體）","CI21 報到 22:30，紅眼待命"]},
 {d:17,date:"8/17",dow:"日",title:"CI21 紅眼返台",km:"—",stay:"飛機上",power:"—",trail:"—",map:null,
  route:"搭 China Airlines CI21（01:55 SEA 出發 → 05:00 抵 TPE，飛行 12:05）；跨越換日線",
  notes:["票號 EGLOQC","與去程 Delta 為分離票，兩端延誤不互相保護"]},
@@ -393,10 +410,11 @@ const TIMELINES = {
 16:[["05:45","全","★叫 UberXL 前往 Pacific Central Station","原訂 06:05 只剩 77 分預檢緩衝，已提前為 05:45"],
    ["06:00-07:25","全","辦美國入境預檢、候車","旺季預檢排隊長，務必提早到"],
    ["07:25-11:40","全","Amtrak Cascades 517 → 西雅圖 King St","訂位 8977A3"],
-   ["11:40-13:00","全","寄放行李、午餐從簡","博物館 17:00 閉館，午餐別拖"],
-   ["13:00-16:30","全","★飛行博物館（Museum of Flight）","波音 787、協和號、空軍一號、太空梭訓練機；約 1-2hr；10 人可洽團體票"],
-   ["17:00-19:30","全","輕軌回機場區、晚餐","Metro 124 公車或輕軌 + 接駁可達"],
-   ["22:30","全","★CI21 機場報到","當晚紅眼待命；8/17 01:55 起飛"]],
+   ["11:40-13:00","全","King St 站或市區寄放行李、午餐從簡","博物館 17:00 閉館，午餐別拖"],
+   ["13:00-17:00","全","★飛行博物館（Museum of Flight）","波音 787、協和號、空軍一號、太空梭訓練機；約 1-2hr"],
+   ["17:00-20:30","全","晚間市區漫遊、晚餐","Georgetown 區 Fonda La Catrina（墨西哥菜）或 Tukwila 的 Duke's Seafood（海鮮、適合團體）"],
+   ["21:00","全","前往 SEA 機場","取回行李、輕軌或接駁"],
+   ["22:30","全","★CI21 機場報到","紅眼待命；8/17 01:55 起飛"]],
 15:[["09:00-10:30","全","★固蘭湖島公眾市集（09:00 開門）","買櫻桃/藍莓、手作烘焙、濃湯當早午餐"],
    ["10:30-11:00","全","★Aquabus 彩虹小渡船（福溪）","建議島上→Yaletown 來回都搭"],
    ["11:00-11:30","全","Kids Market 兒童市場","玩具店與手作小店"],
@@ -413,11 +431,15 @@ const BOOKINGS = [
  {cat:"營地",nm:"Whistlers Campground D6",code:"INPC26-20961278B1",ok:1,note:"8/6→8/7（已補訂）"},
  {cat:"營地",nm:"Lake Louise Soft/Hard-Sided D8",code:"已確認 Confirmed",ok:1,note:"8/8→8/9；check-in 14:00 / out 11:00"},
  {cat:"營地",nm:"Lake Louise Protection Mountain D9",code:"INPC26-2262842B2",ok:1,note:"8/9→8/10；★與 D8 不同營地，需移營；無電"},
- {cat:"營地",nm:"Kamloops 營地 D4",code:"待確認",ok:0,note:"拆天版新增，需自訂"},
- {cat:"營地",nm:"冰原核心區營地 D7",code:"待確認/先到先停",ok:0,note:"Wilcox Creek 等"},
+ {cat:"營地",nm:"Kamloops 過夜 D4",code:"Costco / Silver Sage",ok:0,note:"二選一；Costco 過夜須先電話確認分店是否允許 RV"},
+ {cat:"營地",nm:"冰原核心區營地 D7",code:"Waterfowl / Icefields Ctr",ok:0,note:"彈性；先到先停，中午前就滿"},
+ {cat:"飯店",nm:"EVEN Hotels Seattle–South Lake Union D1-D2",code:"已確認",ok:1,note:"8/1 15:00 入住 → 8/3 11:00 退房"},
+ {cat:"飯店",nm:"Hotel Belmont Vancouver D3",code:"1746134684",ok:1,note:"8/3 15:00 → 8/4 11:00；Classic 2 Doubles（2大2小）"},
+ {cat:"民宿",nm:"溫哥華 Mount Pleasant D14-D15",code:"1753196855",ok:1,note:"180 E 2nd Ave V5T 0K4；8/14 16:00 入住；免費取消至 7/30"},
+ {cat:"聯絡人",nm:"本拿比 Wong 家（D15 聚會）",code:"604-291-7954",ok:1,note:"Jeannie & Neil Wong；手機 1-604-704-7868；新家 公寓302, 3960 Hastings St／舊家 5637 E Georgia St；neilnlw@gmail.com"},
  {cat:"活動",nm:"瑪琳湖遊船（精靈島）D6",code:"Pursuit 4060105",ok:1,note:"Pursuit 集團統一代號"},
- {cat:"活動",nm:"哥倫比亞冰原雪車 + 天空步道 D7",code:"Pursuit 4060105",ok:1,note:"12:15 梯次，提前 10 分排隊"},
- {cat:"活動",nm:"Golden Skybridge D12",code:"Pursuit 4060105",ok:1,note:"優惠碼 CANADREAM10"},
+ {cat:"活動",nm:"哥倫比亞冰原雪車 + 天空步道 D7",code:"Pursuit 4060105",ok:1,note:"12:15 tour，4 人（2大2小）；提前 10 分排隊；訂單 28880033"},
+ {cat:"活動",nm:"Golden Skybridge D12",code:"Pursuit 4060105",ok:1,note:"09:00 Early Riser 入場，4 人（2大2小）；優惠碼 CANADREAM10；訂單 28880033"},
  {cat:"球票",nm:"大聯盟 水手 vs 雙城 D2",code:"TickPick #1072480835",ok:1,note:"Sec 137 Row 14 Seat 5,6；$82×2=$164；8/1 前電子交付"},
  {cat:"接駁",nm:"Moraine Lake / Lake Louise 接駁 D9",code:"8/7 22:00 搶",ok:0,note:"9-10am Last Minute 場；台灣時間 8/7（五）22:00 開放，需即刻搶"},
  {cat:"巴士",nm:"西雅圖 → 溫哥華跨境巴士 D3",code:"已改早班，待確認",ok:0,note:"需約 13:00 出發、17:30 前抵達"},
@@ -453,7 +475,7 @@ const TODOS = [
  {id:"n14",p:"yellow",cat:"球票",tx:"確認 TickPick 電子票已透過 MLB Ballpark App 轉入手機（8/1 前交付）"},
  {id:"n15",p:"yellow",cat:"露營車",tx:"完成 CanaDream Online Check-in"},
  {id:"n16",p:"yellow",cat:"跨境",tx:"訂 D3（西雅圖→溫哥華）與 D16（溫哥華→西雅圖）跨境巴士/列車"},
- {id:"n17",p:"yellow",cat:"住宿",tx:"確認西雅圖（D1-2）、溫哥華（D3, D14-15）、西雅圖機場（D16）飯店"},
+ {id:"n17",p:"done",cat:"住宿",tx:"住宿全確認：西雅圖 EVEN Hotels（D1-2）、Hotel Belmont（D3）、民宿 Mount Pleasant（D14-15）；D16 不住宿（紅眼）"},
  {id:"n18",p:"yellow",cat:"行程",tx:"下載離線地圖（Google Maps / Maps.me）洛磯山脈無訊號區"},
  {id:"n19",p:"yellow",cat:"通訊",tx:"辦理漫遊/eSIM（加拿大+美國）；★確認 8/7 晚冰原營地有無訊號，備搶票方案"},
  {id:"n20",p:"green",cat:"金錢",tx:"備少量加幣現金＋確認信用卡開通海外交易"},
@@ -577,12 +599,48 @@ const DAYLOC = {1:"西雅圖",2:"西雅圖",3:"溫哥華",4:"Kamloops",5:"賈斯
 
 /* 今晚住宿導航目的地（住宿未定日期為 null） */
 const STAYNAV = {
- 4:"Kamloops, BC", 5:"Whistlers Campground, Jasper", 6:"Whistlers Campground, Jasper",
- 7:"Wilcox Creek Campground, Alberta", 8:"Lake Louise Campground, Alberta",
+ 1:"EVEN Hotels Seattle - South Lake Union", 2:"EVEN Hotels Seattle - South Lake Union",
+ 3:"Hotel Belmont Vancouver", 4:"Costco Kamloops", 5:"Whistlers Campground, Jasper", 6:"Whistlers Campground, Jasper",
+ 7:"Waterfowl Lakes Campground, Alberta", 8:"Lake Louise Campground, Alberta",
  9:"Protection Mountain Campground, Alberta", 10:"Tunnel Mountain Village 1 Campground, Banff",
  11:"Monarch Campground, Yoho National Park", 12:"Revelstoke, BC", 13:"Vancouver, BC",
+ 14:"180 E 2nd Ave, Vancouver, BC V5T 0K4", 15:"180 E 2nd Ave, Vancouver, BC V5T 0K4",
  16:"Seattle-Tacoma International Airport",
 };
+
+/* 每日地點（名稱 + Google Maps 搜尋字串） */
+const PLACES = {
+ 1:[["派克市場","Pike Place Market Seattle"],["星巴克旗艦店 Roastery","Starbucks Reserve Roastery Seattle"],["太空針塔","Space Needle"],["Chihuly 玻璃花園","Chihuly Garden and Glass"],["Kerry Park","Kerry Park Seattle"],["EVEN Hotels（住宿）","EVEN Hotels Seattle - South Lake Union"]],
+ 2:[["西雅圖水族館","Seattle Aquarium"],["T-Mobile Park","T-Mobile Park"],["Westlake Center","Westlake Center Seattle"],["Pacific Place","Pacific Place Seattle"],["Nordstrom 旗艦店","Nordstrom Downtown Seattle"],["The Crab Pot","The Crab Pot Seattle"]],
+ 3:[["Suzzallo 圖書館","Suzzallo Library Seattle"],["Gas Works Park","Gas Works Park Seattle"],["FlyOver Canada","FlyOver Canada Vancouver"],["煤氣鎮蒸氣鐘","Gastown Steam Clock Vancouver"],["加拿大廣場","Canada Place Vancouver"],["Hotel Belmont（住宿）","Hotel Belmont Vancouver"]],
+ 4:[["CanaDream 取車","CanaDream Vancouver 8223 92 Street Delta BC"],["Costco Kamloops","Costco Kamloops"],["Silver Sage Trailer Park","Silver Sage Trailer Park Kamloops"],["Kenna Cartwright Park","Kenna Cartwright Park Kamloops"]],
+ 5:[["Whistlers 營地","Whistlers Campground Jasper"],["Jasper 小鎮","Jasper, Alberta"]],
+ 6:[["瑪琳湖遊船","Maligne Lake Jasper"],["金字塔湖","Pyramid Lake Jasper"],["五湖谷步道口","Valley of the Five Lakes Trailhead"]],
+ 7:[["Wilcox Pass 步道口","Wilcox Pass Trailhead"],["冰原探索中心","Columbia Icefield Discovery Centre"],["佩托湖","Peyto Lake"],["Waterfowl Lakes 營地","Waterfowl Lakes Campground"]],
+ 8:[["弓湖","Bow Lake Alberta"],["Bow Glacier Falls","Bow Glacier Falls"],["露易絲湖營地","Lake Louise Campground"]],
+ 9:[["夢蓮湖","Moraine Lake"],["露易絲湖","Lake Louise"],["Lake Agnes 茶屋","Lake Agnes Tea House"],["Protection Mtn 營地","Protection Mountain Campground"]],
+ 10:[["班夫纜車","Banff Gondola"],["班夫大道","Banff Avenue"],["弓瀑","Bow Falls Banff"],["Tunnel Mtn 營地","Tunnel Mountain Village 1 Campground"]],
+ 11:[["翡翠湖","Emerald Lake Yoho"],["塔卡考瀑布","Takakkaw Falls"],["天然橋","Natural Bridge Yoho"],["Monarch 營地","Monarch Campground Yoho"]],
+ 12:[["Golden Skybridge","Golden Skybridge"],["Rogers Pass","Rogers Pass Discovery Centre"],["Canyon 溫泉","Canyon Hot Springs"],["Revelstoke","Revelstoke, BC"]],
+ 13:[["Grey Canal Trail","Grey Canal Trail Vernon"],["溫哥華近郊","Vancouver, BC"]],
+ 14:[["CanaDream 還車","CanaDream Vancouver 8223 92 Street Delta BC"],["民宿 Mount Pleasant","180 E 2nd Ave Vancouver BC V5T 0K4"],["史丹利公園","Stanley Park Vancouver"],["Denman 街租車","Denman Street Vancouver"],["Yaletown","Yaletown Vancouver"]],
+ 15:[["固蘭湖島市集","Granville Island Public Market"],["Kids Market","Kids Market Granville Island"],["Wong 家（新家）","3960 Hastings Street Burnaby"],["Wong 家（舊家）","5637 E Georgia St Burnaby"]],
+ 16:[["Pacific Central 車站","Pacific Central Station Vancouver"],["King St 車站","King Street Station Seattle"],["飛行博物館","Museum of Flight Seattle"],["Fonda La Catrina","Fonda La Catrina Seattle"],["Duke's Seafood Tukwila","Duke's Seafood Tukwila"],["SEA 機場","Seattle-Tacoma International Airport"]],
+};
+
+/* RV 路線示意圖節點（px,py 為 460×300 畫布上的手排位置；lx,ly 為標籤偏移） */
+const RVPTS = [
+ {d:"D4取車・D14還車",name:"CanaDream Delta（溫哥華取／還車）",q:"CanaDream Vancouver 8223 92 Street Delta BC",px:52,py:256,lx:36,ly:22},
+ {d:"D4",name:"Kamloops 過夜（Costco / Silver Sage）",q:"Costco Kamloops",px:140,py:192,lx:0,ly:-14},
+ {d:"D5-6",name:"Jasper・Whistlers 營地（兩晚）",q:"Whistlers Campground Jasper",px:258,py:50,lx:0,ly:-13},
+ {d:"D7",name:"哥倫比亞冰原（雪車＋天空步道）",q:"Columbia Icefield Discovery Centre",px:314,py:96,lx:30,ly:-10},
+ {d:"D8",name:"露易絲湖營地",q:"Lake Louise Campground",px:358,py:134,lx:32,ly:-8},
+ {d:"D9",name:"Protection Mountain 營地（無電）",q:"Protection Mountain Campground",px:392,py:158,lx:34,ly:-6},
+ {d:"D10",name:"班夫・Tunnel Mountain 營地",q:"Tunnel Mountain Village 1 Campground",px:424,py:186,lx:0,ly:20},
+ {d:"D11",name:"優鶴・Monarch 營地",q:"Monarch Campground Yoho",px:340,py:182,lx:-6,ly:22},
+ {d:"D12",name:"Golden Skybridge（09:00 早鳥）",q:"Golden Skybridge",px:300,py:212,lx:16,ly:22},
+ {d:"D12宿",name:"Revelstoke RV 營地（Canyon 溫泉）",q:"Revelstoke, BC",px:236,py:228,lx:0,ly:22},
+];
 
 /* 行事曆提醒（UTC 時間；alarm = 提前分鐘數） */
 const CALEV = [
@@ -591,6 +649,7 @@ const CALEV = [
  {t:"🎬 FlyOver Canada 4D",s:"20260804T013000Z",e:"20260804T023000Z",alarm:60,tz:"America/Vancouver",tzl:"溫哥華",d:"加拿大廣場內；須先線上訂場次。之後步行 8 分到煤氣鎮晚餐 + 蒸氣鐘"},
  {t:"⚾ 水手 vs 雙城 開賽",s:"20260802T190000Z",e:"20260802T231000Z",alarm:60,tz:"America/Los_Angeles",tzl:"西雅圖",d:"12:00 前到 T-Mobile Park 領 J-Rod 公仔；TickPick #1072480835 · Sec 137 Row 14 Seat 5-6"},
  {t:"🚐 露營車取車 CanaDream",s:"20260804T200000Z",e:"20260804T230000Z",alarm:90,tz:"America/Vancouver",tzl:"溫哥華",d:"取車窗口 13:00-16:00 · 合約 KXE664251-1 · 8223 92 St, Delta BC · 先完成 Online Check-in"},
+ {t:"⛰️ Golden Skybridge Early Riser",s:"20260812T144500Z",e:"20260812T160000Z",alarm:105,tz:"America/Edmonton",tzl:"MT",d:"07:00 前拔營發車（優鶴→Golden 約 1hr），08:45 前到售票亭安檢、09:00 入場 · 訂單 28880033 · 優惠碼 CANADREAM10"},
  {t:"🚐 露營車還車",s:"20260814T150000Z",e:"20260814T170000Z",alarm:60,tz:"America/Vancouver",tzl:"溫哥華",d:"還車窗口 08:00-10:00 · 還車前排灰/黑水箱、清潔內裝"},
  {t:"🚕 叫 UberXL 去 Pacific Central Station",s:"20260816T124500Z",e:"20260816T130000Z",alarm:30,tz:"America/Vancouver",tzl:"溫哥華",d:"05:45 叫車、06:00 抵站辦美國入境預檢。原訂 06:05 只剩 77 分緩衝，已提前"},
  {t:"🚆 Amtrak Cascades 517 出發",s:"20260816T142500Z",e:"20260816T184000Z",alarm:60,tz:"America/Vancouver",tzl:"溫哥華",d:"訂位 8977A3；11:40 抵 King St，午餐後直奔飛行博物館（17:00 閉館）"},
@@ -731,10 +790,9 @@ function dayCard(day,open,isToday){
         <span class="what">${r[1]!=="全"?`<span class="grp">${r[1]}</span>`:""}<b>${esc(r[2])}</b>${r[3]?`<span class="rem">${esc(r[3])}</span>`:""}</span></div>`).join("")+`</div>`;
   }
   const navD=STAYNAV[day.d];
-  const mapA=(day.map||navD)?`<div style="margin-top:4px">`+
-    (navD?`<a class="navbtn" target="_blank" rel="noopener" href="${dirUrl(navD)}">🧭 導航到今晚住宿</a>`:"")+
-    (day.map?`<a class="navbtn" style="background:var(--card);color:var(--acc-ink);border:1px solid var(--line)" target="_blank" rel="noopener" href="${mapUrl(day.map)}">📍 主要地點</a>`:"")+
-    `</div>`:"";
+  const pl=PLACES[day.d];
+  const placeHtml=pl?`<div class="placerow">`+pl.map(x=>`<a class="placechip" target="_blank" rel="noopener" href="${mapUrl(x[1])}">📍 ${esc(x[0])}</a>`).join("")+`</div>`:"";
+  const mapA=(navD?`<div style="margin-top:4px"><a class="navbtn" target="_blank" rel="noopener" href="${dirUrl(navD)}">🧭 導航到今晚住宿</a></div>`:"");
   return `<div class="day ${open?"open":""} ${isToday?"today":""}" id="day${day.d}">
     <div class="dcard">
       <button class="dhead" data-day="${day.d}" aria-expanded="${open?"true":"false"}">
@@ -745,6 +803,7 @@ function dayCard(day,open,isToday){
       </button>
       <div class="dbody">
         <div class="route">${esc(day.route)}</div>
+        ${placeHtml}
         <dl class="kv">
           <dt>里程</dt><dd class="num">${esc(day.km)}</dd>
           <dt>住宿</dt><dd>${esc(day.stay)} <span class="pill ${day.power==="有電"?"acc":day.power==="—"?"mut":"amber"}">${esc(day.power)}</span></dd>
@@ -754,9 +813,37 @@ function dayCard(day,open,isToday){
       </div>
     </div></div>`;
 }
+function rvDir(a,b){
+  const seg=RVPTS.slice(a,b+1);
+  const dest=(b>=RVPTS.length)?RVPTS[0]:seg.pop();
+  const origin=seg.shift();
+  return "https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent(origin.q)+
+    "&destination="+encodeURIComponent(dest.q)+
+    "&waypoints="+encodeURIComponent(seg.map(p=>p.q).join("|"))+"&travelmode=driving";
+}
+function rvMapCard(){
+  const pts=RVPTS;
+  const path=pts.map((p,i)=>(i?"L":"M")+p.px+" "+p.py).join(" ")+" L"+pts[0].px+" "+pts[0].py;
+  const markers=pts.map((p,i)=>
+    `<g class="rvpt" data-rv="${i}" transform="translate(${p.px} ${p.py})">
+      <circle class="hit" r="17" fill="transparent" stroke="none"/>
+      <circle r="10"/><text y="3.5">${i+1}</text>
+      <text class="lb" x="${p.lx}" y="${p.ly}">${p.d}</text></g>`).join("");
+  return `<div class="card tight">
+    <b>RV 路線總覽</b> <span class="small">示意圖（非實際道路）· 點數字看各站</span>
+    <svg class="rvmap" viewBox="0 0 460 300" role="img" aria-label="露營車路線示意圖">
+      <path class="rt" d="${path}"/>${markers}
+    </svg>
+    <div id="rvInfo" class="small">🚐 D4 溫哥華取車 → 洛磯山脈大環線 → D14 還車，全程約 2,055 km</div>
+    <div class="ovbar" style="justify-content:flex-start;margin-top:8px">
+      <a class="btn ghost sm" target="_blank" rel="noopener" href="${rvDir(0,5)}">🧭 去程 D4–D9 完整路線</a>
+      <a class="btn ghost sm" target="_blank" rel="noopener" href="${rvDir(5,10)}">🧭 回程 D10–D14 完整路線</a>
+    </div></div>`;
+}
 function renderDays(){
   const st=tripDayNum();
-  $("#pg-days").innerHTML=`<h2 class="sec">每日行程 · 18 天</h2>`+
+  $("#pg-days").innerHTML=`<h2 class="sec">RV 路線</h2>`+rvMapCard()+
+    `<h2 class="sec">每日行程 · 18 天</h2>`+
     DAYS.map(d=>dayCard(d,false,st.phase==="during"&&st.d===d.d)).join("");
 }
 
@@ -1117,7 +1204,7 @@ function renderCal(){
 /* 位置分享 */
 const MEETS=[["The Crab Pot（D2 會合晚餐）","The Crab Pot Seattle"],["T-Mobile Park 球場（D2 男生組）","T-Mobile Park Seattle"],
  ["Westlake Center（D2 女生組）","Westlake Center Seattle"],["派克市場（D1）","Pike Place Market Seattle"],
- ["加拿大廣場（D3）","Canada Place Vancouver"],["史丹利公園 Denman 街口（D14）","Denman Street Vancouver"],["固蘭湖島市集（D15）","Granville Island Public Market"],
+ ["加拿大廣場（D3）","Canada Place Vancouver"],["史丹利公園 Denman 街口（D14）","Denman Street Vancouver"],["固蘭湖島市集（D15）","Granville Island Public Market"],["Wong 家聚會（D15 本拿比・新家）","3960 Hastings Street Burnaby"],
  ["飛行博物館（D16）","Museum of Flight Seattle"]];
 function renderLoc(){
   const box=$("#locBox"); if(!box)return;
@@ -1202,6 +1289,13 @@ function showPage(pg){
 document.addEventListener("click",e=>{
   const tab=e.target.closest(".tabbtn");
   if(tab){showPage(tab.dataset.pg);return;}
+  const rv=e.target.closest(".rvpt");
+  if(rv){
+    const p=RVPTS[parseInt(rv.dataset.rv,10)];
+    $$(".rvpt").forEach(x=>x.classList.toggle("on",x===rv));
+    $("#rvInfo").innerHTML=`<b>${p.d}</b> ${esc(p.name)} · <a target="_blank" rel="noopener" href="${mapUrl(p.q)}">在 Google Maps 開啟</a>`;
+    return;
+  }
   const dh=e.target.closest(".dhead");
   if(dh){const el=dh.closest(".day");el.classList.toggle("open");dh.setAttribute("aria-expanded",el.classList.contains("open"));return;}
   const ah=e.target.closest(".acc-head");
