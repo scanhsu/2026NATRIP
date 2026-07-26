@@ -313,107 +313,70 @@ textarea.ta{min-height:64px}
 const TRIP_START = "2026-08-01", TRIP_END = "2026-08-18";
 
 const DAYS = [
-{d:1,date:"8/1",dow:"六",title:"西雅圖：派克市場・太空針塔",km:"大眾運輸",stay:"西雅圖市中心飯店",power:"有電",trail:"Elliott Bay Trail（早到市區可先散步）",map:"Pike Place Market Seattle",
- route:"搭 Delta 68（09:10 TPE → 06:00 抵 SEA）→ 08:15 進市區寄行李、早餐 → 09:30-12:00 派克市場（飛魚秀、一號店星巴克）→ 市場內午餐 → 13:30-16:30 回飯店補眠 → 17:15 奇胡利玻璃藝術館 → 19:00 晚餐 → 20:30 太空針塔（日落 20:45）",
- notes:["票號 GER5AC／座 46A-D","派克市場已改上午（人少、飛魚秀熱鬧、星巴克排隊短）；下午務必補眠再撐晚間行程","太空針塔+Chihuly 買聯票並先預約時段","Kerry Park 改為晚餐後彈性選項"]},
-{d:2,date:"8/2",dow:"日",title:"西雅圖：飛行博物館・水手主場日（分流）",km:"大眾運輸 + Uber",stay:"西雅圖市中心飯店",power:"有電",trail:"海濱新公園步道（母女組順遊）",map:"T-Mobile Park Seattle",
- route:"10:00 飛行博物館（全家）→ 11:00 ⚾爸爸+哥哥先撤往 T-Mobile Park（領 J-Rod 公仔、球場內午餐、13:10 開賽）→ 12:30 🌸媽媽+妹妹往海濱（水族館、摩天輪、Nordstrom 逛街）→ 18:30 市區會合晚餐 The Crab Pot",
- notes:["8/2 為 Super Mario Day，前 20,000 名送 Power-Up Julio Rodríguez 公仔（Nintendo 贊助）；贈品日常提前 2 小時開門（11:10），故爸爸+哥哥博物館只逛 1 小時","若放棄公仔，可逛到 12:00 再走","賽後有 Kids Run the Bases（14 歲以下）","球場走回市區約 20 分或 Link 一站"]},
-{d:3,date:"8/3",dow:"一",title:"西雅圖 → 溫哥華（跨境巴士）",km:"跨境巴士",stay:"溫哥華市中心住宿",power:"有電",trail:"Canada Place 五帆木棧道",map:"Canada Place Vancouver",
- route:"上午：華盛頓大學（Suzzallo 圖書館）、Gas Works Park（半天壓縮版）→ 約 13:00 跨境巴士西雅圖 → 溫哥華（17:30-18:00 抵）→ 18:30 FlyOver Canada 4D → 19:45 煤氣鎮晚餐+蒸氣鐘 → 20:50 加拿大廣場看夕陽",
- notes:["巴士已改早班（原 17:00 出發），須確認新班次時刻與旺季海關緩衝","上午行程務必中午前結束","FlyOver 需先線上訂場次","溫哥華 8/3 日落約 20:50","D3 住宿仍待確認"]},
+{d:1,date:"8/1",dow:"六",title:"西雅圖：派克市場・星巴克旗艦店",km:"大眾運輸",stay:"西雅圖市中心飯店",power:"有電",trail:"Elliott Bay Trail",map:"Pike Place Market Seattle",
+ route:"搭 Delta 68（09:10 TPE 出發 → 06:00 抵 SEA）；全家同遊派克市場（Pike Place Market）、星巴克旗艦店（Starbucks Reserve Roastery）；太空針塔、Chihuly 玻璃花園、Kerry Park；海鮮晚餐",
+ notes:["寬鬆版時間軸見下方逐時行程；重點：派克市場輕鬆開場、太空針塔/Chihuly 放最後當彈性加分題","太空針塔 + Chihuly 訂 17:00 後時段票——白天累到不想去時，放棄或改期的損失最小","時差是最大變數：熬夜飛整晚清晨到，下午 2-4 點最想睡；小睡 <1hr 能救傍晚，睡太久反而隔天更慘","太空針塔/Chihuly 當『加分題』非『必做題』：當天砍掉可補到 D2 下午（女生在市區）或其他彈性時段"]},
+{d:2,date:"8/2",dow:"日",title:"西雅圖：水族館・水手主場日（分流）",km:"大眾運輸",stay:"西雅圖市中心飯店",power:"有電",trail:"Seattle Aquarium 水族館 / Westlake 購物區",map:"Seattle Aquarium",
+ route:"上午全家同遊西雅圖水族館（濱海碼頭）→ 中午分頭：⚾ 男生 T-Mobile Park 看球（水手 vs 雙城，13:10 開賽）；🌸 女生逛街（Westlake Center、Pacific Place 五層購物中心、Nordstrom 旗艦店、Zara/UNIQLO）→ 晚上 The Crab Pot 晚餐會合",
+ notes:["妹妹愛逛街：Westlake 一帶室內購物中心集中（Pacific Place 含 AMC 影城與 Trophy 杯子蛋糕、Nordstrom 旗艦、Macy's）","從水族館搭單軌或步行可達","水族館 9:30 入場","看球者 12:00 前到球場領 J-Rod 公仔","球票 TickPick #1072480835（Sec 137, Row 14, Seats 5-6）"]},
+{d:3,date:"8/3",dow:"一",title:"西雅圖 → 溫哥華（17:00 跨境接駁）",km:"跨境接駁",stay:"溫哥華市中心飯店",power:"有電",trail:"Stanley Park Seawall",map:"Suzzallo Library University of Washington",
+ route:"華盛頓大學（Suzzallo 圖書館）、Gas Works Park → 17:00 跨境列車/巴士 西雅圖 → 溫哥華",
+ notes:["Amtrak 訂位 8977A3","17:00 出發，旺季 + 10 人海關耗時，留足緩衝"]},
 {d:4,date:"8/4",dow:"二",title:"溫哥華取露營車 → Kamloops",km:"約 355 km",stay:"Kamloops 營地",power:"有電",trail:"Kenna Cartwright Park",map:"CanaDream Vancouver 8223 92 Street Delta BC",
- route:"溫哥華取露營車（CanaDream，取車 13:00–16:00）→ Walmart/Costco 大採買 → 開往 Kamloops 過夜",
- notes:["合約 KXE664251-1；取車為下午時段；抵 Kamloops 恐入夜"]},
+ route:"溫哥華取露營車（CanaDream，取車 13:00–16:00）；Walmart/Costco 大採買 → 開往 Kamloops 過夜",
+ notes:["合約 KXE664251-1；取車下午時段","務必攜實體 Discovery Pass（★注意：露營車分頁記載 Canada Strong 促銷已含國家公園通行、不需另購，出發前請向 CanaDream 確認何者為準）","抵 Kamloops 恐入夜"]},
 {d:5,date:"8/5",dow:"三",title:"Kamloops → Jasper（Yellowhead Hwy）",km:"約 440 km",stay:"Jasper – Whistlers 營地",power:"有電",trail:"Whistlers 抵達後輕鬆散步",map:"Whistlers Campground Jasper",
  route:"Kamloops → Jasper（經 Hwy 5 Yellowhead）；Check-in Whistlers；沿途風景攝影",
- notes:["訂位 INPC26-3596246B1","D5 拆天版第 2 段；原 650km 已拆兩天"]},
+ notes:["訂位 INPC26-3596246B1","D5 拆天版第 2 段；原 650km 已拆兩天（未採 Hope→Jasper 650km 方案）"]},
 {d:6,date:"8/6",dow:"四",title:"賈斯珀深度遊：瑪琳湖遊船",km:"約 80 km",stay:"Jasper – Whistlers 營地",power:"有電",trail:"Valley of the Five Lakes（2026 重開）",map:"Maligne Lake Jasper",
- route:"瑪琳湖遊船（精靈島）、金字塔湖、野生動物觀察（★瑪琳峽谷 2026 野火仍關閉）",
- notes:["訂位 INPC26-20961278B1","瑪琳湖遊船 Pursuit 4060105","峽谷關閉改走五湖谷"]},
+ route:"賈斯珀深度遊：瑪琳湖遊船（精靈島）、金字塔湖、野生動物（★瑪琳峽谷 2026 野火仍關閉）",
+ notes:["訂位 INPC26-20961278B1（8/6 這晚已另訂）","瑪琳湖遊船 Pursuit 4060105","峽谷關閉改走五湖谷"]},
 {d:7,date:"8/7",dow:"五",title:"冰原大道：雪車＋天空步道",km:"約 110 km",stay:"冰原核心區營地（Wilcox Creek 等）",power:"部分/無電",trail:"Wilcox Pass",map:"Columbia Icefield Discovery Centre",
- route:"11:00 Jasper 退房 → Wilcox Pass 步道 → 12:15 哥倫比亞冰原雪車+天空步道 → 佩托湖",
- notes:["冰原 Pursuit 4060105，提前 10 分排隊","營地先到先停須早卡位","22:00（台灣時間）= 08:00 MT 開放夢蓮湖接駁票"]},
-{d:8,date:"8/8",dow:"六",title:"弓湖・Bow Glacier Falls → 露易絲湖",km:"約 140 km",stay:"露易絲湖營地（已訂）",power:"有電",trail:"Bow Glacier Falls（2.5-3h）",map:"Bow Lake Alberta",
- route:"弓湖（Bow Lake）、Bow Glacier Falls 步道 → 前往露易絲湖",
- notes:["Bow Glacier Falls 步道需備熊噴霧"]},
-{d:9,date:"8/9",dow:"日",title:"雙湖日：夢蓮湖・露易絲湖（接駁）",km:"接駁車 + 約 30 km",stay:"Protection Mountain 營地",power:"無電（原始營地）",trail:"Lake Agnes Teahouse（2.5-3.5h）",map:"Moraine Lake",
- route:"雙湖日（大車不動+接駁車）：夢蓮湖 Rockpile、露易絲湖 Lake Agnes 茶屋 → 傍晚移車至 Protection Mountain",
- notes:["訂位 INPC26-2262842B2","私家車禁入須用 Parks Canada 接駁預約","當晚需拔營東移約 25-30 分，勿排太滿"]},
+ route:"11:00 Jasper 退房；Wilcox Pass 步道；12:15 哥倫比亞冰原雪車 + 天空步道；佩托湖",
+ notes:["冰原 Pursuit 4060105","今晚 22:00（台灣時間）夢蓮湖 D9 接駁開放預約，需有網路搶票！","營地訊號差，先想好備案"]},
+{d:8,date:"8/8",dow:"六",title:"弓湖・Bow Glacier Falls → 露易絲湖",km:"約 140 km",stay:"Lake Louise – Soft/Hard-Sided（已訂 8/8→8/9）",power:"有電",trail:"Bow Glacier Falls（2.5-3h）",map:"Bow Lake Alberta",
+ route:"弓湖（Bow Lake）、Bow Glacier Falls 步道；前往露易絲湖營地（14:00 後 check-in）",
+ notes:["訂位已確認；check-in 14:00 / check-out 11:00","Bow Glacier Falls 需備熊噴霧"]},
+{d:9,date:"8/9",dow:"日",title:"雙湖日：夢蓮湖・露易絲湖（接駁）",km:"接駁車＋約 30 km",stay:"Lake Louise – Protection Mountain（已訂 8/9→8/10）",power:"無電（rustic）",trail:"Lake Agnes Teahouse（2.5-3.5h）",map:"Moraine Lake",
+ route:"雙湖日（接駁車）：夢蓮湖 Rockpile、露易絲湖 Lake Agnes 茶屋；★傍晚移營至 Protection Mountain",
+ notes:["兩晚不同營地！11:00 前退房、行李帶著","傍晚開 25-30 分往東移營","接駁 9-10am 場 8/7 22:00 開搶","訂位 INPC26-2262842B2"]},
 {d:10,date:"8/10",dow:"一",title:"班夫小鎮・硫磺山纜車",km:"約 60 km",stay:"Tunnel Mountain Village I 營地",power:"有電",trail:"Sanson's Peak 木棧道（30-40 分）",map:"Banff Gondola",
  route:"班夫纜車（硫磺山）、班夫大道購物、弓瀑（Bow Falls）",
- notes:["鎮上補給採買好時機"]},
+ notes:["纜車 360 度視野","鎮上補給採買好時機"]},
 {d:11,date:"8/11",dow:"二",title:"優鶴國家公園：翡翠湖獨木舟",km:"約 90 km",stay:"Yoho / Monarch 營地",power:"有電",trail:"Emerald Lake Loop（約 1.5h）",map:"Emerald Lake Yoho",
- route:"優鶴國家公園：翡翠湖獨木舟+環湖、塔卡考瀑布、天然橋",
- notes:["8:30 前到搶 RV 車位","獨木舟現場 walk-in"]},
+ route:"優鶴國家公園：翡翠湖獨木舟 + 環湖、塔卡考瀑布、天然橋",
+ notes:["8:30 前到搶 RV 車位","獨木舟現場 walk-in","環湖平緩"]},
 {d:12,date:"8/12",dow:"三",title:"Golden Skybridge → Revelstoke 溫泉",km:"約 220 km",stay:"Revelstoke RV 營地",power:"有電",trail:"Golden Skybridge 園區",map:"Golden Skybridge",
  route:"Golden Skybridge（探險通行證）、Rogers Pass、Canyon 溫泉泡湯",
  notes:["Pursuit 4060105，優惠碼 CANADREAM10","Rogers Pass 無訊號"]},
 {d:13,date:"8/13",dow:"四",title:"長征日：返回溫哥華近郊",km:"約 560 km",stay:"溫哥華近郊營地",power:"有電",trail:"Grey Canal Trail",map:"Revelstoke to Vancouver",
  route:"橫越卑詩省內陸返回溫哥華郊區；露營車清潔、排灰/黑水箱",
  notes:["當天約 560km 建議早出發","還車前清理內裝、排水箱"]},
-{d:14,date:"8/14",dow:"五",title:"還車・史丹利公園海堤單車",km:"大眾運輸 + Uber",stay:"溫哥華民宿",power:"有電",trail:"Stanley Park Seawall（單車環線約 9km）",map:"Stanley Park Vancouver",
- route:"08:00-10:00 溫哥華還車（CanaDream Delta）→ 進市區民宿 Check-in（約 11:00）→ 午餐 → 13:00-16:30 史丹利公園海堤單車遊 → 17:00-19:30 Yaletown 水岸晚餐 → Uber 回民宿",
- notes:["合約 KXE664251-1；還車在 Delta（8223 92 St），距市中心 35-40 分","海堤單車道為逆時針單行，自 Denman 街口往 English Bay 方向","園內遊樂場/沙灘可讓小孩放電","Yaletown 露天餐廳建議訂位"]},
-{d:15,date:"8/15",dow:"六",title:"固蘭湖島・本拿比朋友聚會",km:"Aquabus + Uber",stay:"溫哥華民宿",power:"有電",trail:"False Creek 水岸步道",map:"Granville Island Public Market",
- route:"09:00-11:30 固蘭湖島（公眾市集買漿果/烘焙當早午餐、Kids Market、Aquabus 彩虹渡船）→ 11:30 Uber 前往本拿比朋友家聚會 → 傍晚回民宿早休息",
- notes:["公眾市集 09:00 開門、18:00 關門，安排在上午最熱鬧","Aquabus 建議島上→Yaletown 來回都搭","8/15 需早休息，隔天清晨趕火車"]},
-{d:16,date:"8/16",dow:"日",title:"Amtrak 返美 → 機場飯店待命",km:"跨境列車+輕軌",stay:"西雅圖機場飯店",power:"有電",trail:"—",map:"Pacific Central Station Vancouver",
- route:"05:45 叫 UberXL → 06:00 抵 Pacific Central Station 辦美國入境預檢 → 07:25 Amtrak Cascades 517 → King St Station（11:40）→ 輕軌轉 Sea-Tac 機場飯店",
- notes:["Amtrak 8977A3","原訂 06:05 叫車只剩 77 分預檢緩衝，已提前為 05:45","CI21 報到 22:30，當晚紅眼待命"]},
+{d:14,date:"8/14",dow:"五",title:"還車・蓋士鎮蒸汽鐘＋下午茶",km:"大眾運輸",stay:"溫哥華市中心飯店",power:"有電",trail:"Gastown 徒步",map:"Gastown Steam Clock Vancouver",
+ route:"溫哥華還車（08:00–10:00，CanaDream Delta）；SkyTrain 進市區；蓋士鎮蒸汽鐘 + 下午茶",
+ notes:["合約 KXE664251-1；還車時段為上午","確認溫哥華取＝溫哥華還","蒸氣鐘每 15 分鐘噴氣一次"]},
+{d:15,date:"8/15",dow:"六",title:"溫哥華探索：史丹利公園・Lynn Canyon",km:"大眾運輸",stay:"溫哥華市中心飯店",power:"有電",trail:"Lynn Canyon Park（吊橋 + 雨林，約 1.5h）",map:"Lynn Canyon Suspension Bridge",
+ route:"溫哥華探索：史丹利公園騎車、格蘭佛島市場、Lynn Canyon 吊橋",
+ notes:[]},
+{d:16,date:"8/16",dow:"日",title:"Amtrak 返美・飛行博物館",km:"跨境列車+輕軌",stay:"西雅圖機場飯店",power:"有電",trail:"Museum of Flight（波音 787、協和號、空軍一號、太空梭訓練機）",map:"Museum of Flight Seattle",
+ route:"07:25 Amtrak Cascades 517 → 抵西雅圖 King St 11:40；午餐後直奔飛行博物館（Museum of Flight，17:00 閉館）；傍晚輕軌回機場區晚餐；深夜辦 CI21 登機",
+ notes:["美國入境預檢需在 Pacific Central Station 提早報到，請預留至少 60-90 分鐘、當天清晨先叫好車","博物館 17:00 閉館：抵達後先寄放行李、午餐從簡，儘早入館（約 1-2hr）","10 人可洽團體票","Metro 124 公車或輕軌 + 接駁可達","CI21 報到 22:30"]},
 {d:17,date:"8/17",dow:"日",title:"CI21 紅眼返台",km:"—",stay:"飛機上",power:"—",trail:"—",map:null,
- route:"搭 China Airlines CI21（01:55 SEA → 05:00 抵 TPE，飛行 12:05）；跨越換日線",
+ route:"搭 China Airlines CI21（01:55 SEA 出發 → 05:00 抵 TPE，飛行 12:05）；跨越換日線",
  notes:["票號 EGLOQC","與去程 Delta 為分離票，兩端延誤不互相保護"]},
 {d:18,date:"8/18",dow:"一",title:"抵達桃園・返家",km:"—",stay:"溫暖的家",power:"—",trail:"—",map:null,
  route:"抵達台北桃園（TPE 05:00）；返家休息",notes:[]},
 ];
 
-/* 逐時細部（D1、D2 西雅圖；D3/D14/D15 溫哥華分段） */
+/* 逐時行程（D1 寬鬆版：由輕到重、越晚越彈性） */
 const TIMELINES = {
-1:[["06:00","全","Delta 68 落地 SEA","航班 GER5AC，座 46A-D"],
-   ["06:00-07:30","全","入境查驗、提領行李","旺季清關約 1-1.5 小時"],
-   ["07:30-08:15","全","Link 1 線 SeaTac → Westlake","約 40 分；週六首班約 05:00"],
-   ["08:15-08:30","全","飯店寄放行李","先確認可否 early check-in"],
-   ["08:30-09:30","全","早餐","市區或市場周邊"],
-   ["09:30-12:00","全","★派克市場：飛魚秀、一號店星巴克、Rachel 銅豬、花攤","上午人潮最少、飛魚秀最熱鬧"],
-   ["12:00-13:00","全","市場內午餐","Pike Place Chowder / Beecher's"],
-   ["13:30-16:30","全","★回飯店補眠（時差關鍵）","不可省，晚間行程才撐得住"],
-   ["17:00-17:15","全","單軌電車 Westlake Center → Seattle Center","約 2 分鐘，每 10 分一班"],
-   ["17:15-18:45","全","奇胡利玻璃藝術館","需先預約時段票"],
-   ["19:00-20:15","全","晚餐","Seattle Center / Queen Anne 一帶"],
-   ["20:30-21:45","全","★太空針塔（日落約 20:45）","夏季開放至深夜；聯票較划算"],
-   ["22:00","全","回飯店休息","彈性選項：Kerry Park 看夜景"]],
-2:[["08:00-09:15","全","飯店早餐、從容整裝",""],
-   ["09:30-09:55","全","Uber → 飛行博物館（Boeing Field）","約 20 分"],
-   ["10:00-11:00","全","飛行博物館（開門即入）","重點：太空梭訓練艙、協和號、空軍一號"],
-   ["11:00-11:20","⚾","★先撤，Uber → T-Mobile Park","球賽日網約車停 Occidental/Royal Brougham 一帶"],
-   ["11:20-11:45","⚾","★排隊入場領 Power-Up J-Rod 公仔（前 20,000 名）","贈品日開門常提前至開賽前 2 小時（11:10）"],
-   ["11:45-13:10","⚾","球場內午餐、逛球場、看賽前練習","T-Mobile Park 餐飲評價全聯盟前段"],
-   ["13:10-16:10","⚾","水手 vs 雙城（Sec 137, Row 14, Seats 5-6）","TickPick #1072480835"],
-   ["11:00-12:30","🌸","續逛飛行博物館（多 1.5 小時）",""],
-   ["12:30-13:00","🌸","Uber → 海濱，午餐","約 20 分"],
-   ["13:30-15:00","🌸","西雅圖水族館（Ocean Pavilion 新館）",""],
-   ["15:00-15:45","🌸","摩天輪 + 新海濱公園散步",""],
-   ["16:00-18:00","🌸","Nordstrom 旗艦店 / Westlake / Pacific Place 逛街",""],
-   ["18:30","全","市區會合晚餐 The Crab Pot","球場步行回市區約 20 分或 Link 一站"]],
-3:[["上午-12:00","全","華盛頓大學 Suzzallo 圖書館、Gas Works Park","★壓縮成半天，中午前必須結束"],
-   ["約 13:00","全","跨境巴士 西雅圖 → 溫哥華","★已改早班，須確認新班次時刻"],
-   ["17:30-18:00","全","抵達溫哥華、放行李","旺季陸路海關可能延誤，留緩衝"],
-   ["18:30-19:30","全","★FlyOver Canada 4D（加拿大廣場內）","懸空飛越冰川與極光；須先線上訂場次"],
-   ["19:40-20:45","全","煤氣鎮晚餐 + 百年蒸氣鐘","步行約 8 分；蒸氣鐘每 15 分噴氣一次"],
-   ["20:50-21:20","全","★加拿大廣場五帆木棧道看夕陽","8/3 溫哥華日落約 20:50，最佳光線"]],
-14:[["08:00-10:00","全","★露營車還車（CanaDream，Delta 8223 92 St）","還車窗口為上午；距市中心 35-40 分"],
-   ["10:00-11:00","全","交通進市區、民宿 Check-in","比原估的 12:00 早約 1 小時"],
-   ["11:30-12:30","全","午餐",""],
-   ["13:00-16:30","全","★史丹利公園海堤單車遊（家庭雙人車/拖車）","海堤逆時針單行；自 Denman 街口出發"],
-   ["（途中）","全","原住民圖騰柱、Brockton Point 燈塔、遊樂場/沙灘","讓兩個小孩下車放電"],
-   ["17:00-19:30","全","Yaletown 水岸晚餐（如 The Flying Pig）","舊倉庫改建美食區；露天座建議訂位"],
-   ["19:30-20:00","全","水岸步道散步 → Uber 回民宿","車程僅約 5 分"]],
-15:[["09:00-10:30","全","★固蘭湖島公眾市集（09:00 開門）","買櫻桃/藍莓、手作烘焙、濃湯當早午餐"],
-   ["10:30-11:00","全","★Aquabus 彩虹小渡船（福溪）","建議島上→Yaletown 來回都搭"],
-   ["11:00-11:30","全","Kids Market 兒童市場","玩具店與手作小店"],
-   ["11:30-12:00","全","Uber → 本拿比朋友家聚會","無縫接軌"],
-   ["傍晚","全","聚會結束回民宿，早休息","★隔日 05:45 就要叫車趕火車"]],
+1:[["06:00-09:00","全","抵達 SEA：入境、提行李、Link 輕軌進市區（約 40 分）、飯店寄放行李","🟢 過渡 · 市中心飯店多半下午才能 check-in，先寄行李即可"],
+   ["09:30-12:00","全","派克市場（Pike Place Market）：拋魚秀、初代星巴克門市、市場內早午餐","🟢 輕鬆 · 剛下機最適合的行程，邊逛邊吃不趕不爬"],
+   ["12:00-13:30","全","Starbucks Reserve Roastery 旗艦店：咖啡 + 輕食 + 歇腿","🟢 輕鬆 · 距派克市場幾個街區，長輩小孩休息"],
+   ["13:30-15:30","全","回飯店 check-in、卸行李、小睡（power nap <1hr）","🟢 休息 · ★下午 2-4 點是時差低潮，補眠救傍晚行程；別睡超過 1 小時"],
+   ["16:00-17:00","全","Kerry Park：拍太空針塔 + 市景天際線","🟢 輕鬆 · 免票不用爬，傍晚光線最美的經典拍照點"],
+   ["17:00-19:00","全","【彈性加分】太空針塔 + Chihuly 玻璃花園","🟠 較耗力 · ★相鄰、需時段預約票；累了可跳過改別天，訂 17:00 後時段損失最小"],
+   ["19:00-20:30","全","濱海海鮮晚餐","🟢 輕鬆 · 全家收尾"]],
 };
 
 const BOOKINGS = [
@@ -421,120 +384,119 @@ const BOOKINGS = [
  {cat:"機票",nm:"回程 China Airlines CI21（SEA→TPE）",code:"EGLOQC",ok:1,note:"票號 297 2425258862；8/17 01:55；報到 22:30"},
  {cat:"列車",nm:"Amtrak Cascades（D3 去 / D16 回）",code:"8977A3",ok:1,note:"D16 為 Cascades 517，07:25→11:40"},
  {cat:"露營車",nm:"CanaDream MH-B Midi（D4 取 / D14 還）",code:"KXE664251-1",ok:1,note:"溫哥華 Delta 取還；13:00 取 / 10:00 前還"},
- {cat:"球票",nm:"MLB 水手 vs 雙城（D2 8/2 13:10）",code:"TickPick #1072480835",ok:1,note:"Sec 137, Row 14, Seats 5-6；已轉讓領取"},
  {cat:"營地",nm:"Whistlers Campground D5",code:"INPC26-3596246B1",ok:1,note:"8/5→8/6"},
- {cat:"營地",nm:"Whistlers Campground D6",code:"INPC26-20961278B1",ok:1,note:"8/6→8/7"},
- {cat:"營地",nm:"露易絲湖營地 D8",code:"已確認",ok:1,note:"8/8→8/9；check-in 14:00 / out 11:00"},
- {cat:"營地",nm:"Protection Mountain 營地 D9",code:"INPC26-2262842B2",ok:1,note:"8/9→8/10；★無電力，需傍晚移車"},
- {cat:"活動",nm:"瑪琳湖遊船（精靈島）D6",code:"Pursuit 4060105",ok:1,note:"Pursuit 集團統一代號"},
- {cat:"活動",nm:"哥倫比亞冰原雪車+天空步道 D7",code:"Pursuit 4060105",ok:1,note:"12:15 梯次，提前 10 分排隊"},
- {cat:"活動",nm:"Golden Skybridge D12",code:"Pursuit 4060105",ok:1,note:"優惠碼 CANADREAM10"},
- {cat:"接駁",nm:"夢蓮湖 / 露易絲湖接駁 D9",code:"需線上預約",ok:0,note:"8/7 22:00 台灣時間開賣（08:00 MT 滾動釋票）"},
- {cat:"巴士",nm:"西雅圖 → 溫哥華跨境巴士 D3",code:"已改早班，待確認",ok:0,note:"需約 13:00 出發、17:30 前抵達"},
- {cat:"門票",nm:"FlyOver Canada D3",code:"待預約",ok:0,note:"8/3 約 18:30 場次"},
- {cat:"租借",nm:"史丹利公園家庭單車 D14",code:"待預約/現場",ok:0,note:"8/14 13:00；Denman 街口租車店"},
- {cat:"餐廳",nm:"Yaletown 晚餐 D14",code:"待訂位",ok:0,note:"露天座（如 The Flying Pig）"},
- {cat:"門票",nm:"太空針塔 + Chihuly 聯票 D1",code:"待預約",ok:0,note:"建議傍晚時段，先線上訂"},
- {cat:"門票",nm:"飛行博物館 D2",code:"待預約",ok:0,note:"10:00 開門，線上先買省排隊"},
+ {cat:"營地",nm:"Whistlers Campground D6",code:"INPC26-20961278B1",ok:1,note:"8/6→8/7（已補訂）"},
+ {cat:"營地",nm:"Lake Louise Soft/Hard-Sided D8",code:"已確認 Confirmed",ok:1,note:"8/8→8/9；check-in 14:00 / out 11:00"},
+ {cat:"營地",nm:"Lake Louise Protection Mountain D9",code:"INPC26-2262842B2",ok:1,note:"8/9→8/10；★與 D8 不同營地，需移營；無電"},
  {cat:"營地",nm:"Kamloops 營地 D4",code:"待確認",ok:0,note:"拆天版新增，需自訂"},
- {cat:"營地",nm:"冰原核心區營地 D7",code:"先到先停",ok:0,note:"首選 Wilcox Creek（限長 8.2m）"},
+ {cat:"營地",nm:"冰原核心區營地 D7",code:"待確認/先到先停",ok:0,note:"Wilcox Creek 等"},
+ {cat:"活動",nm:"瑪琳湖遊船（精靈島）D6",code:"Pursuit 4060105",ok:1,note:"Pursuit 集團統一代號"},
+ {cat:"活動",nm:"哥倫比亞冰原雪車 + 天空步道 D7",code:"Pursuit 4060105",ok:1,note:"12:15 梯次，提前 10 分排隊"},
+ {cat:"活動",nm:"Golden Skybridge D12",code:"Pursuit 4060105",ok:1,note:"優惠碼 CANADREAM10"},
+ {cat:"球票",nm:"大聯盟 水手 vs 雙城 D2",code:"TickPick #1072480835",ok:1,note:"Sec 137 Row 14 Seat 5,6；$82×2=$164；8/1 前電子交付"},
+ {cat:"接駁",nm:"Moraine Lake / Lake Louise 接駁 D9",code:"8/7 22:00 搶",ok:0,note:"9-10am Last Minute 場；台灣時間 8/7（五）22:00 開放，需即刻搶"},
+ {cat:"門票",nm:"太空針塔 + Chihuly 時段票 D1",code:"待預約",ok:0,note:"D1 行程指定訂 17:00 後時段，損失最小"},
+ {cat:"門票",nm:"飛行博物館 D16",code:"待預約",ok:0,note:"17:00 閉館；10 人可洽團體票"},
+ {cat:"證件",nm:"美國 ESTA（全家 4 人）",code:"已核准 Approved",ok:1,note:"7/15 送件；陸路入境另需 I-94（$30）"},
+ {cat:"證件",nm:"加拿大 eTA",code:"免申請",ok:1,note:"陸路入境不需 eTA（僅搭機才需要）"},
 ];
 
 const TODOS = [
- {id:"t1",p:"red",cat:"接駁預約",tx:"夢蓮湖接駁 8/7 22:00（台灣時間）開賣，設好手機提醒"},
- {id:"t2",p:"red",cat:"營地訂位",tx:"自訂 Kamloops 營地（D4）、冰原沿線營地（D7 先到先停備案）"},
- {id:"t3",p:"red",cat:"球票驗證",tx:"MLB Ballpark App 登入確認 2 張票有動態條碼（截圖無效）"},
- {id:"t4",p:"red",cat:"門票預約",tx:"太空針塔 + Chihuly 聯票與時段（D1 傍晚）、飛行博物館（D2）"},
- {id:"t5",p:"red",cat:"飯店",tx:"跟 D1 飯店確認可寄放行李 + 爭取 early check-in（下午補眠用）"},
- {id:"t6",p:"done",cat:"營地訂位",tx:"Whistlers D5/D6、露易絲湖 D8、Protection Mtn D9"},
- {id:"t7",p:"done",cat:"簽證",tx:"全員 ESTA 已確認 Authorization Approved；陸路入加不需 eTA"},
- {id:"t8",p:"done",cat:"球票",tx:"TickPick #1072480835 已完成轉讓領取"},
- {id:"t9",p:"red",cat:"跨境巴士",tx:"確認 8/3 改早後的巴士班次時刻（需 17:30 前抵溫哥華）"},
- {id:"t10",p:"red",cat:"門票預約",tx:"FlyOver Canada 8/3 傍晚場次（確認當日最晚場）"},
- {id:"t11",p:"orange",cat:"邊境",tx:"I-94 陸路入境預先申辦（D3 入加、D16 返美各一次，$30）"},
- {id:"t12",p:"orange",cat:"溫哥華",tx:"史丹利公園家庭單車/拖車租借（8/14 下午，Denman 街口）"},
- {id:"t13",p:"orange",cat:"溫哥華",tx:"Yaletown 餐廳訂位（8/14 晚，露天座）"},
- {id:"t14",p:"orange",cat:"溫哥華",tx:"確認本拿比朋友家聚會時間與地址（8/15 中午）"},
- {id:"t15",p:"orange",cat:"交通",tx:"8/16 05:45 UberXL 預約（Pacific Central Station）"},
- {id:"t16",p:"orange",cat:"駕照",tx:"備妥國際駕照（IDP）＋ 台灣正本駕照"},
- {id:"t17",p:"orange",cat:"保險",tx:"投保旅遊平安險/醫療險（含海外就醫、行李）"},
- {id:"t18",p:"orange",cat:"航班",tx:"Fly Delta App 確認去程新時刻（09:10）與 4 座位；華航確認 CI21 選位"},
- {id:"t19",p:"yellow",cat:"露營車",tx:"完成 CanaDream Online Check-in；確認車長"},
- {id:"t20",p:"yellow",cat:"跨境",tx:"訂 D3（西雅圖→溫哥華）與 D16（Cascades 517）車票"},
- {id:"t21",p:"yellow",cat:"住宿",tx:"確認西雅圖（D1-2）、溫哥華（D3, D14-15）、西雅圖機場（D16）飯店"},
- {id:"t22",p:"yellow",cat:"行程",tx:"下載離線地圖（冰原大道全程無訊號）"},
- {id:"t23",p:"yellow",cat:"通訊",tx:"辦理漫遊/eSIM（美加雙國方案）"},
- {id:"t24",p:"green",cat:"金錢",tx:"備少量加幣現金＋確認信用卡開通海外交易"},
- {id:"t25",p:"green",cat:"藥品",tx:"常備藥、暈車藥、個人處方藥（附英文處方）"},
- {id:"t26",p:"green",cat:"打包",tx:"分層衣物（見天氣穿搭表）、防熊食物收納觀念先跟家人講"},
- {id:"t27",p:"green",cat:"電器",tx:"北美插座轉接頭（Type A/B）、行動電源、充電線"},
- {id:"t28",p:"white",cat:"文件",tx:"列印行程表、機票、露營車 confirmation、飯店訂單"},
- {id:"t29",p:"white",cat:"確認",tx:"線上報到（華航起飛前 48hr / 赴美 24hr；Delta 比照）"},
- {id:"t30",p:"white",cat:"行李",tx:"託運行李秤重（兩端均 2×23kg）、手提 7kg"},
+ {id:"n01",p:"done",cat:"營地訂位",tx:"露易絲湖 D8+D9 兩晚已訂（D9 為 Protection Mountain，需移營）"},
+ {id:"n02",p:"done",cat:"營地訂位",tx:"Whistlers D5（INPC26-3596246B1）、D6（INPC26-20961278B1）已訂"},
+ {id:"n03",p:"done",cat:"證件",tx:"美國 ESTA 全家 4 人已申請並核准（Authorization Approved，7/15 送件）"},
+ {id:"n04",p:"done",cat:"證件",tx:"加拿大 eTA 免申請（陸路入境不需 eTA，僅搭機才需要）"},
+ {id:"n05",p:"done",cat:"球票",tx:"大聯盟門票已購（TickPick #1072480835，Sec 137 Row 14 Seat 5-6，$164）"},
+ {id:"n06",p:"red",cat:"接駁預約",tx:"★夢蓮湖 D9 接駁：8/7（五）22:00 台灣時間開放，屆時（人在冰原營地）須有網路即刻搶"},
+ {id:"n07",p:"red",cat:"營地訂位",tx:"自訂 Kamloops 營地（D4）、冰原沿線營地（D7）"},
+ {id:"n08",p:"orange",cat:"證件",tx:"確認全員護照效期距回程（8/18）至少 6 個月"},
+ {id:"n09",p:"orange",cat:"證件",tx:"★陸路入境美國需 I-94：可上 i94.cbp.dhs.gov 或 CBP Link App 預先申請（$30），省邊境時間"},
+ {id:"n10",p:"orange",cat:"駕照",tx:"備妥國際駕照（IDP）＋台灣正本駕照（授權駕駛）"},
+ {id:"n11",p:"orange",cat:"保險",tx:"投保旅遊平安險/醫療險（含海外就醫、行李）"},
+ {id:"n12",p:"orange",cat:"航班",tx:"Fly Delta App 確認去程 Delta 68 新時刻（09:10）與 4 座位"},
+ {id:"n13",p:"orange",cat:"航班",tx:"華航官網確認回程 CI21（8/17 01:55）與選位"},
+ {id:"n14",p:"yellow",cat:"球票",tx:"確認 TickPick 電子票已透過 MLB Ballpark App 轉入手機（8/1 前交付）"},
+ {id:"n15",p:"yellow",cat:"露營車",tx:"完成 CanaDream Online Check-in"},
+ {id:"n16",p:"yellow",cat:"跨境",tx:"訂 D3（西雅圖→溫哥華）與 D16（溫哥華→西雅圖）跨境巴士/列車"},
+ {id:"n17",p:"yellow",cat:"住宿",tx:"確認西雅圖（D1-2）、溫哥華（D3, D14-15）、西雅圖機場（D16）飯店"},
+ {id:"n18",p:"yellow",cat:"行程",tx:"下載離線地圖（Google Maps / Maps.me）洛磯山脈無訊號區"},
+ {id:"n19",p:"yellow",cat:"通訊",tx:"辦理漫遊/eSIM（加拿大+美國）；★確認 8/7 晚冰原營地有無訊號，備搶票方案"},
+ {id:"n20",p:"green",cat:"金錢",tx:"備少量加幣現金＋確認信用卡開通海外交易"},
+ {id:"n21",p:"green",cat:"藥品",tx:"常備藥、暈車藥、個人處方藥（附英文處方）"},
+ {id:"n22",p:"green",cat:"打包",tx:"分層衣物（見天氣穿搭表）、防熊食物收納觀念先跟家人講"},
+ {id:"n23",p:"green",cat:"電器",tx:"北美插座轉接頭（Type A/B）、行動電源、各式充電線"},
+ {id:"n24",p:"white",cat:"文件",tx:"列印本行程表、機票、露營車 confirmation、飯店訂單"},
+ {id:"n25",p:"white",cat:"確認",tx:"線上報到（華航起飛前 48hr / 赴美 24hr；Delta 比照）"},
+ {id:"n26",p:"white",cat:"行李",tx:"託運行李秤重（去程 Delta / 回程華航均 2×23kg）、手提 7kg"},
 ];
-const PRIO = {red:["🔴 立即辦","red"],orange:["🟠 高","amber"],yellow:["🟡 中","amber"],green:["🟢 1 週前","green"],white:["⚪ 出發前 1 天","mut"],done:["✅ 已完成","green"]};
+const PRIO = {red:["🔴 立即辦","red"],orange:["🟠 1 個月前","amber"],yellow:["🟡 2 週前","amber"],green:["🟢 1 週前","green"],white:["⚪ 出發前 1 天","mut"],done:["✅ 已完成","green"]};
 
 const TRAILS = [
- {day:"D5 賈斯珀（抵達日）",nm:"Whistlers 湖畔散步",lv:"輕鬆",dist:"自訂 / 30-60 分",climb:"平緩",who:"全員",note:"長途開車後鬆筋骨，營地周邊即可"},
- {day:"D5 賈斯珀（加碼）",nm:"Whistlers SkyTram 上山步道",lv:"中等",dist:"纜車+短程",climb:"纜車代步",who:"體力佳者",note:"山頂看賈斯珀全景（纜車另購票）"},
- {day:"D6 賈斯珀（首選）",nm:"★Valley of the Five Lakes 五湖谷",lv:"輕鬆-中等",dist:"4.5km 環線 / 1.5-2h",climb:"80m",who:"全員（含小孩）",note:"2026 重開！CP 值最高；莓果季留意黑熊，備熊噴霧"},
- {day:"D6 賈斯珀（替代）",nm:"金字塔湖環湖 Pyramid Lake",lv:"輕鬆",dist:"自訂 / 1h",climb:"平緩",who:"全員/長輩",note:"湖面倒影美、易達，適合半日"},
- {day:"D6 賈斯珀（加碼）",nm:"瑪琳湖遊船 + Moose Lake Loop",lv:"輕鬆",dist:"2.7km / 1-2h",climb:"平緩",who:"全員",note:"精靈島遊船須預約；木棧道親子友善"},
- {day:"D7 冰原大道（首選）",nm:"★Wilcox Pass 威爾考斯隘口",lv:"中等",dist:"至觀景點約 4km / 2-3h",climb:"登高",who:"體力佳/大孩",note:"冰原大道最佳展望，常見大角羊。RV 停車位少，早到"},
- {day:"D7 冰原大道（全員替代）",nm:"Athabasca Glacier 冰川步道",lv:"輕鬆",dist:"4.6km / 1h",climb:"平緩",who:"全員",note:"最易近距離看冰川；此段最冷，保暖防風"},
- {day:"D7 冰原大道（順路）",nm:"Sunwapta Falls / Athabasca Falls",lv:"輕鬆",dist:"5-15 分",climb:"平緩",who:"全員/長輩",note:"路邊瀑布幾乎免走；無護欄看好小孩"},
- {day:"D8 冰原大道（首選）",nm:"★Peyto Lake 佩托湖觀景",lv:"輕鬆",dist:"1.3km 來回 / 15-30 分",climb:"平緩（鋪面）",who:"全員/輪椅推車",note:"狼頭形湖；停車 9-10 點前滿，早到"},
- {day:"D8 冰原大道（加碼）",nm:"Bow Summit Lookout",lv:"中等",dist:"6.8km 來回 / 2-3h",climb:"287m",who:"體力佳者",note:"一次看 Peyto+Bow 兩湖高處視角"},
- {day:"D8 冰原大道（全員）",nm:"Bow Lake 弓湖湖畔",lv:"輕鬆",dist:"自訂 / 30-60 分",climb:"平緩",who:"全員",note:"Num-Ti-Jah Lodge 可休息；風大帶外套"},
- {day:"D9 夢蓮湖（首選）",nm:"★Rockpile Trail 岩堆觀景",lv:"輕鬆",dist:"0.7km 環 / 30 分",climb:"35m",who:"全員",note:"十峰谷經典明信片視角；須預約接駁，勿爬岩石"},
- {day:"D9 夢蓮湖（全員）",nm:"Moraine Lake 湖畔步道",lv:"輕鬆",dist:"1.3km / 45 分",climb:"極少",who:"全員/長輩",note:"平走看 Mount Fay 冰川"},
- {day:"D9 露易絲湖（首選）",nm:"★Lake Agnes 湖上茶屋",lv:"中等",dist:"3.5km 單程 / 2.5-3h",climb:"400m",who:"體力佳/大孩",note:"1901 百年茶屋，途經 Mirror Lake；持續爬升"},
- {day:"D9 露易絲湖（全員替代）",nm:"Lake Louise 湖畔平走",lv:"輕鬆",dist:"自訂 / 1h",climb:"平緩",who:"全員/長輩",note:"看 Victoria 冰川，Fairmont 城堡下午茶"},
- {day:"D9 露易絲湖（加碼）",nm:"Plain of Six Glaciers 六冰川",lv:"挑戰",dist:"5.5km 單程 / 半日",climb:"365m",who:"資深健行者",note:"可與 Agnes 連走環線"},
- {day:"D10 班夫（首選）",nm:"Tunnel Mountain 隧道山",lv:"中等",dist:"2.3km 單程 / 1.5-2h",climb:"260m",who:"體力佳/大孩",note:"鎮上即登山口，看弓河谷全景"},
- {day:"D10 班夫（全員）",nm:"Bow Falls + 硫磺山纜車",lv:"輕鬆",dist:"纜車+短走",climb:"纜車代步",who:"全員/長輩",note:"纜車上硫磺山免爬看群峰"},
- {day:"D10 班夫（加碼）",nm:"Hoodoos 胡毒石步道",lv:"輕鬆-中等",dist:"自訂",climb:"起伏",who:"全員",note:"奇岩地貌+弓河景"},
- {day:"D11 優鶴（首選）",nm:"★Emerald Lake Loop 翡翠湖環湖",lv:"輕鬆",dist:"5.2km 環 / 1.5h",climb:"平緩",who:"全員（含小孩）",note:"平緩環湖；可加租獨木舟（$100+/hr）"},
- {day:"D11 優鶴（順路）",nm:"Takakkaw Falls 塔卡考瀑布",lv:"輕鬆",dist:"1.3km 來回 / 30 分",climb:"平緩",who:"全員/長輩",note:"加拿大最高瀑布之一；Yoho Valley Road 大車留意"},
- {day:"D11 優鶴（順路）",nm:"Natural Bridge 天然橋",lv:"輕鬆",dist:"5-10 分",climb:"平緩",who:"全員",note:"Kicking Horse 河切穿岩石"},
+ {day:"D5 賈斯珀（抵達日）",nm:"★Whistlers 抵達後湖畔散步",lv:"輕鬆",dist:"自訂 / 30-60 分",climb:"平緩",who:"全員",note:"長途開車後鬆筋骨；營地周邊即可，不必再開車"},
+ {day:"D5 賈斯珀（加碼）",nm:"Whistlers SkyTram 上山步道",lv:"中等",dist:"纜車 + 短程",climb:"纜車代步",who:"體力佳者",note:"搭空中纜車上山，山頂短走看賈斯珀全景（纜車另購票）"},
+ {day:"D6 賈斯珀（首選）",nm:"★Valley of the Five Lakes 五湖谷",lv:"輕鬆-中等",dist:"4.5km 環線 / 1.5-2h",climb:"80m",who:"全員（含小孩）",note:"★2026 重開！五個藍綠湖，景色 CP 值最高；晨間或傍晚人少。留意黑熊（莓果季）備熊噴霧"},
+ {day:"D6 賈斯珀（替代）",nm:"金字塔湖環湖 Pyramid Lake",lv:"輕鬆",dist:"自訂 / 1h",climb:"平緩",who:"全員/長輩",note:"湖面倒影美、易達、可結合鎮上行程，適合半日"},
+ {day:"D6 賈斯珀（加碼）",nm:"瑪琳湖遊船 + Moose Lake Loop",lv:"輕鬆",dist:"2.7km / 1-2h",climb:"平緩",who:"全員",note:"精靈島遊船須預約；環湖木棧道平緩親子友善"},
+ {day:"D7 冰原大道（首選）",nm:"★Wilcox Pass 威爾考斯隘口",lv:"中等",dist:"至觀景點約 4km / 2-3h",climb:"登高",who:"體力佳/大孩",note:"★冰原大道最佳展望！above treeline 看 Athabasca 冰川與群峰，常見大角羊。RV 停車位少，早到"},
+ {day:"D7 冰原大道（全員替代）",nm:"Athabasca Glacier 冰川步道",lv:"輕鬆",dist:"4.6km / 1h",climb:"平緩",who:"全員",note:"最易近距離看冰川；付費雪車可上冰面。此段最冷，保暖防風"},
+ {day:"D7 冰原大道（順路短停）",nm:"Sunwapta Falls / Athabasca Falls",lv:"輕鬆",dist:"5-15 分",climb:"平緩",who:"全員/長輩",note:"路邊瀑布，幾乎免走；無護欄看好小孩"},
+ {day:"D8 冰原大道（首選）",nm:"★Peyto Lake 佩托湖觀景",lv:"輕鬆",dist:"1.3km 來回 / 15-30 分",climb:"平緩（鋪面）",who:"全員/輪椅推車",note:"★狼頭形 turquoise 湖，鋪面步道輪椅可行；停車 9-10 點前滿，早到"},
+ {day:"D8 冰原大道（加碼）",nm:"Bow Summit Lookout",lv:"中等",dist:"6.8km 來回 / 2-3h",climb:"287m",who:"體力佳者",note:"從佩托湖續行，一次看 Peyto+Bow 兩湖高處視角"},
+ {day:"D8 冰原大道（全員）",nm:"Bow Lake 弓湖湖畔",lv:"輕鬆",dist:"自訂 / 30-60 分",climb:"平緩",who:"全員",note:"湖畔平緩，Num-Ti-Jah Lodge 可休息補給；風大帶外套"},
+ {day:"D9 夢蓮湖（首選）",nm:"★Rockpile Trail 岩堆觀景",lv:"輕鬆",dist:"0.7km 環 / 30 分",climb:"35m",who:"全員",note:"★十峰谷經典明信片視角；★私家車禁入須預約接駁！勿爬岩石"},
+ {day:"D9 夢蓮湖（全員）",nm:"Moraine Lake 湖畔步道",lv:"輕鬆",dist:"1.3km / 45 分",climb:"極少",who:"全員/長輩",note:"湖畔平走看 Mount Fay 冰川，親子長輩皆宜"},
+ {day:"D9 露易絲湖（首選）",nm:"★Lake Agnes 湖上茶屋",lv:"中等",dist:"3.5km 單程 / 2.5-3h",climb:"400m",who:"體力佳/大孩",note:"★1901 百年茶屋，途經 Mirror Lake；步道寬好走但持續爬升，長輩量力"},
+ {day:"D9 露易絲湖（全員替代）",nm:"Lake Louise 湖畔平走",lv:"輕鬆",dist:"自訂 / 1h",climb:"平緩",who:"全員/長輩",note:"沿湖面平走看 Victoria 冰川，Fairmont 城堡下午茶。長輩留守此段最佳"},
+ {day:"D9 露易絲湖（加碼）",nm:"Plain of Six Glaciers 六冰川",lv:"挑戰",dist:"5.5km 單程 / 半日",climb:"365m",who:"資深健行者",note:"另一座百年茶屋 + 六冰川展望；體力好者可與 Agnes 連走環線"},
+ {day:"D10 班夫（首選）",nm:"Tunnel Mountain 隧道山",lv:"中等",dist:"2.3km 單程 / 1.5-2h",climb:"260m",who:"體力佳/大孩",note:"鎮上即登山口，短程登頂看弓河谷全景"},
+ {day:"D10 班夫（全員）",nm:"Bow Falls + 硫磺山纜車",lv:"輕鬆",dist:"纜車 + 短走",climb:"纜車代步",who:"全員/長輩",note:"纜車上硫磺山看群峰（免爬），Bow Falls 平走。長輩親子輕鬆"},
+ {day:"D10 班夫（加碼）",nm:"Hoodoos 胡毒石步道",lv:"輕鬆-中等",dist:"自訂",climb:"起伏",who:"全員",note:"奇岩地貌 + 弓河景，沿途觀景點多"},
+ {day:"D11 優鶴（首選）",nm:"★Emerald Lake Loop 翡翠湖環湖",lv:"輕鬆",dist:"5.2km 環 / 1.5h",climb:"平緩",who:"全員（含小孩）",note:"★平緩環湖一圈，翡翠色湖水；可加租獨木舟（$100+/hr）"},
+ {day:"D11 優鶴（順路）",nm:"Takakkaw Falls 塔卡考瀑布",lv:"輕鬆",dist:"1.3km 來回 / 30 分",climb:"平緩",who:"全員/長輩",note:"加拿大最高瀑布之一，近路邊；Yoho Valley Road 大車留意"},
+ {day:"D11 優鶴（順路）",nm:"Natural Bridge 天然橋",lv:"輕鬆",dist:"5-10 分",climb:"平緩",who:"全員",note:"Kicking Horse 河切穿岩石，幾乎免走"},
  {day:"D12 過渡日（首選）",nm:"Revelstoke 溫泉泡湯",lv:"輕鬆",dist:"泡湯",climb:"—",who:"全員",note:"長程開車後放鬆；備泳衣拖鞋快乾毛巾"},
- {day:"D12 加碼",nm:"Rogers Pass 周邊短步道",lv:"輕鬆-中等",dist:"自訂",climb:"起伏",who:"體力佳者",note:"過境時短停伸展；留意路況與時間"},
+ {day:"D12 加碼",nm:"Rogers Pass 周邊短步道",lv:"輕鬆-中等",dist:"自訂",climb:"起伏",who:"體力佳者",note:"過境 Rogers Pass 時可短停伸展；留意路況與時間"},
+];
+const TRAILTIPS = [
+ ["🐻 熊蹤","洛磯山脈全域備熊噴霧（bear spray），尤其五湖谷莓果季；勿獨行、發出聲響"],
+ ["🅿️ 停車","熱門步道（Peyto／五湖谷）停車 9-10 點前滿；RV 車位更少，務必早到"],
+ ["📵 通訊","冰原大道全程幾乎無手機訊號，先下載離線地圖（GemTrek／Maps.me）"],
+ ["🌡️ 天氣","山區日夜溫差大、午後易變天；洋蔥式穿搭、隨身防風防水外層"],
+ ["🚫 2026 關閉","瑪琳峽谷、Edith Cavell（野火）；出發前再查 Parks Canada 即時 trail conditions"],
+ ["♿ 長輩選項","Peyto 湖（鋪面）、各湖畔平走、纜車（SkyTram／硫磺山）為免爬替代方案"],
 ];
 
 const WEATHER = [
- ["西雅圖（D1-D2）","約 25°C","約 14°C","低（~13%）","短袖+輕薄外套；傍晚微涼。太空針塔夜間風大加件外套"],
- ["溫哥華（D3, D14-16）","約 22°C","約 13°C","低（~8%）","短袖為主+薄長袖；市區步行舒適"],
+ ["西雅圖（D1-D2）","約 25°C","約 14°C","低（~13%）","短袖+輕薄外套；傍晚微涼。舒適乾爽，防曬太陽眼鏡"],
+ ["溫哥華（D3, D14-16）","約 22°C","約 13°C","低（~8%）","短袖為主+薄長袖；晴朗宜人，市區步行舒適"],
  ["Kamloops（D4）","約 28°C","約 14°C","低","內陸最熱、乾燥；短袖短褲、補水、防曬"],
- ["賈斯珀（D5-D7）","約 17°C","約 3–5°C","中（~38%）","★洋蔥式穿搭；夜間需保暖外套+毛帽。備雨具"],
- ["冰原大道（D7-D8）","約 12–15°C","約 2–5°C","中","★全程最冷；防風防水外套、保暖中層、手套。雪車體驗更冷"],
- ["露易絲湖/班夫（D8-D11）","約 16–17°C","約 5°C","中（~30%）","★洋蔥式；湖邊風大。D9 夜宿無電，睡袋加厚"],
- ["優鶴/Revelstoke（D11-13）","約 18–22°C","約 5–8°C","中","薄長袖+外套；溫泉備泳衣、拖鞋、快乾毛巾"],
+ ["賈斯珀（D5-D7）","約 17°C","約 3–5°C","中（~38%，14 雨日）","★洋蔥式穿搭；夜間需保暖外套+毛帽。備雨具"],
+ ["冰原大道（D7-D8）","約 12–15°C","約 2–5°C","中","★全程最冷、海拔最高；防風防水外套、保暖中層、手套。雪車體驗更冷"],
+ ["露易絲湖/班夫（D8-D11）","約 16–17°C","約 5°C","中（~30%）","★洋蔥式；白天薄長袖，清晨傍晚加保暖層。湖邊風大"],
+ ["優鶴/Revelstoke（D11-13）","約 18–22°C","約 5–8°C","中","薄長袖+外套；溫泉泡湯備泳衣、拖鞋、快乾毛巾"],
 ];
 
 const PACKING = [
  ["基礎層","排汗短袖/長袖 T 恤數件、透氣長褲＋短褲"],
- ["保暖中層","刷毛外套或薄羽絨"],
- ["防護外層","防風防水外套、輕便雨衣/折傘"],
- ["配件","毛帽、手套、太陽眼鏡、遮陽帽"],
- ["鞋","健行鞋、營地拖鞋、泡湯拖鞋"],
- ["其他","泳衣、快乾毛巾、防曬乳、護唇膏"],
- ["健行","小背包、水壺、防蚊液、熊噴霧"],
+ ["保暖中層","刷毛外套或薄羽絨（山區早晚與冰原必備）"],
+ ["防護外層","防風防水外套（rain jacket）、輕便雨衣/折傘"],
+ ["配件","毛帽、手套（冰原用）、太陽眼鏡、遮陽帽、圍巾"],
+ ["鞋","好走的健行鞋/運動鞋、營地拖鞋、溫泉泡湯拖鞋"],
+ ["其他","泳衣（Revelstoke 溫泉）、快乾毛巾、防曬乳（高海拔 UV 強）、保濕護唇膏（乾燥）"],
+ ["健行","小背包、水壺、防蚊液、簡易雨罩、熊噴霧"],
 ];
 
 const RISKS = [
- ["✅ 已完成","Whistlers D5+D6 兩晚","D5 INPC26-3596246B1、D6 INPC26-20961278B1"],
- ["✅ 已完成","露易絲湖 D8 / Protection Mtn D9","8/8→8/9 已確認；8/9→8/10 INPC26-2262842B2"],
- ["✅ 已完成","MLB 球票（D2）","TickPick #1072480835 已轉讓領取；仍須確認 Ballpark App 有動態條碼"],
- ["🔴 最高","夢蓮湖接駁車（D9）","私家車全面禁入；48 小時滾動釋票 08:00 MT = 台灣時間 8/7 22:00（當晚在 Whistlers 有訊號）"],
- ["🔴 最高","Kamloops 營地（D4）","旺季須先訂；選擇多較好訂"],
- ["🟠 高","冰原核心區營地（D7）","首選 Wilcox Creek（距冰原中心 3km）；備案序：Silverhorn Creek → Rampart Creek → Jonas Creek → Honeymoon Lake"],
- ["🟠 高","露營車車長 vs 營地限制","Wilcox Creek 限 8.2 公尺，須先向 CanaDream 確認 MH-B 實際車長"],
- ["🟡 中","D9 拔營東移","露易絲湖 → Protection Mountain 約 25-30 分，接駁日傍晚需移車，且無電力"],
- ["🟡 中","取還車地點確認","CanaDream Delta：溫哥華取＝溫哥華還，勿誤訂跨省/跨境"],
- ["🟡 中","賈斯珀野火恢復","瑪琳峽谷、Edith Cavell 2026 仍關閉；出發前查 Parks Canada"],
- ["🟡 中","防熊食物收納","營地食物存放規定嚴格，露營車內食物不可外露"],
- ["🟡 中","回程紅眼待命（D16）","8/17 凌晨 01:55 起飛，8/16 白天就要過境西雅圖"],
- ["🟢 提醒","兩張分離票","Delta 與華航無聯程，任一端延誤不自動保護另一端"],
+ ["✅ 已完成","Whistlers D5+D6 兩晚已訂","D5 INPC26-3596246B1、D6 INPC26-20961278B1；賈斯珀兩晚確定"],
+ ["✅ 已完成","露易絲湖 D8+D9 兩晚已訂","D8 Lake Louise Soft/Hard-Sided、D9 Protection Mountain（INPC26-2262842B2）；★注意兩晚不同營地，D9 傍晚需移營約 25-30 分鐘，Protection Mountain 無電"],
+ ["🔴 最高","夢蓮湖 Moraine Lake 接駁車（D9）","私家車全面禁入，須線上預約 Moraine Lake 專線（非只到 Lake Louise），熱門時段秒殺"],
+ ["🟠 高","冰原核心區營地（D7）","Wilcox Creek / Waterfowl Lakes 多為先到先停，中午前就滿→早上務必離開 Jasper 卡位"],
+ ["🟠 高","Kamloops 營地（D4）","旺季須先訂；Kamloops 選擇多較好訂"],
+ ["🟡 中","取還車地點確認","CanaDream Delta：溫哥華取＝溫哥華還，勿誤訂跨省/跨境（跨境還車超貴）"],
+ ["🟡 中","賈斯珀 2024 野火恢復","出發前上 Parks Canada 查最新營地/步道開放狀況"],
+ ["🟡 中","防熊食物收納","洛磯山脈營地食物存放規定嚴格，露營車內食物不可外露，先跟家人講清楚"],
+ ["🟡 中","回程紅眼待命（D16）","8/17 凌晨 01:55 起飛，8/16 白天就要過境西雅圖、當晚機場待命"],
+ ["🟢 提醒","兩張分離票","Delta 與華航無聯程，任一端延誤不自動保護另一端，回程跨境接駁留足緩衝"],
 ];
 
 const FLIGHT = [
@@ -555,16 +517,17 @@ const FLIGHT = [
 
 const RV = [
  ["訂位代號","KXE664251-1（訂於 2026/6/6）"],
- ["車型","MH-B Midi Motorhome ★須確認實際車長（營地限長 8.2m）"],
- ["乘客 / 駕駛","4 人 / 1 位授權駕駛"],
- ["取車","8/4（二）13:00–16:00 · Vancouver – 8223 92 Street, Delta, BC, V4G 0A4"],
- ["還車","8/14（五）08:00–10:00 · 同址溫哥華 Delta"],
+ ["車型","MH-B Midi Motorhome（照片僅供參考，實車可能不同）"],
+ ["乘客 / 駕駛","4 人 / 1 位授權駕駛 ★訂位登記 4 人；若實際同行人數更多需再與租車行確認"],
+ ["取車","8/4（二）13:00–16:00 · Vancouver – 8223 92 Street, Delta, BC, V4G 0A4（下午時段）"],
+ ["還車","8/14（五）08:00–10:00 · 同址溫哥華 Delta；上午時段，確認為溫哥華取還"],
  ["租期","10 晚（8/4–8/14）· Flex F5 7晚×$419 + Flex F4 3晚×$415"],
- ["里程方案","已升級 250km/晚 ★D5(440km)、D13(560km) 單日超標，靠其他天結餘平衡"],
- ["保險","Liability Reduction Zero（10 晚），自負額已降到最低"],
- ["含帶配備","廚房組、寢具組、2 張草坪椅"],
+ ["里程方案","已升級 250km/晚 ★D5(440km)、D13(560km) 單日超過 250km，靠其他天結餘平衡，留意總里程"],
+ ["保險","Liability Reduction Zero（10 晚）· 已含 Included Insurance；責任險已降到最低自負額"],
+ ["含帶配備","廚房組、寢具組、2 張草坪椅（Linen Kit + Kitchen Kit + 2 Lawn Chair）"],
  ["國家公園通行","免費（Canada Strong 促銷）★不需另購 Parks Canada Pass"],
  ["總金額","CAD $6,371.68 · 已全額付清（Final Balance $0）"],
+ ["付款","訂金 $5,800.48(6/6) + 尾款 $571.20(7/4) · Mastercard 540805…0474"],
  ["租車行聯絡","1-800-347-7126 / 403-259-5447（CanaDream Inc, Calgary AB）"],
  ["線上報到","出發前完成 Online Check-in，可加速 8/4 下午取車手續"],
 ];
@@ -588,13 +551,13 @@ const STAYNAV = {
 
 /* 行事曆提醒（UTC 時間；alarm = 提前分鐘數） */
 const CALEV = [
- {t:"🔴 夢蓮湖接駁票開賣（台灣 8/7 22:00）",s:"20260807T140000Z",e:"20260807T143000Z",alarm:15,d:"08:00 MT 滾動釋票。當晚在 Whistlers 營地有訊號，準時搶票！"},
- {t:"✈️ Delta 68 出發 TPE→SEA（09:10）",s:"20260801T011000Z",e:"20260801T130000Z",alarm:180,d:"訂位 GER5AC · 座 46A-D · 託運 2×23kg"},
- {t:"🎬 FlyOver Canada 4D（8/3 18:30）",s:"20260804T013000Z",e:"20260804T023000Z",alarm:60,d:"加拿大廣場內；先線上訂場次"},
- {t:"🚐 露營車取車 CanaDream（8/4 13:00-16:00）",s:"20260804T200000Z",e:"20260804T230000Z",alarm:90,d:"合約 KXE664251-1 · 8223 92 St, Delta BC · 先完成 Online Check-in"},
- {t:"🚐 露營車還車（8/14 08:00-10:00）",s:"20260814T150000Z",e:"20260814T170000Z",alarm:60,d:"還車前排灰/黑水箱、清潔內裝"},
- {t:"🚕 叫 UberXL 去車站（8/16 05:45）",s:"20260816T124500Z",e:"20260816T130000Z",alarm:30,d:"06:00 抵 Pacific Central Station 辦美國入境預檢；07:25 Cascades 517"},
- {t:"🛫 CI21 機場報到（8/16 22:30）",s:"20260817T053000Z",e:"20260817T063000Z",alarm:60,d:"訂位 EGLOQC · 8/17 01:55 起飛 · 託運 2×23kg"},
+ {t:"🔴 夢蓮湖 D9 接駁票開賣",s:"20260807T140000Z",e:"20260807T143000Z",alarm:15,tz:"America/Edmonton",tzl:"MT",d:"台灣時間 8/7(五) 22:00 = 08:00 MT 滾動釋票。當晚人在冰原營地，訊號差先想備案，準時搶 9-10am 場！"},
+ {t:"✈️ Delta 68 出發 TPE→SEA",s:"20260801T011000Z",e:"20260801T130000Z",alarm:180,tz:"Asia/Taipei",tzl:"台灣",d:"訂位 GER5AC · 座 46A-D · 託運 2×23kg"},
+ {t:"⚾ 水手 vs 雙城 開賽",s:"20260802T190000Z",e:"20260802T231000Z",alarm:60,tz:"America/Los_Angeles",tzl:"西雅圖",d:"12:00 前到 T-Mobile Park 領 J-Rod 公仔；TickPick #1072480835 · Sec 137 Row 14 Seat 5-6"},
+ {t:"🚐 露營車取車 CanaDream",s:"20260804T200000Z",e:"20260804T230000Z",alarm:90,tz:"America/Vancouver",tzl:"溫哥華",d:"取車窗口 13:00-16:00 · 合約 KXE664251-1 · 8223 92 St, Delta BC · 先完成 Online Check-in"},
+ {t:"🚐 露營車還車",s:"20260814T150000Z",e:"20260814T170000Z",alarm:60,tz:"America/Vancouver",tzl:"溫哥華",d:"還車窗口 08:00-10:00 · 還車前排灰/黑水箱、清潔內裝"},
+ {t:"🚆 Amtrak Cascades 517 出發",s:"20260816T142500Z",e:"20260816T184000Z",alarm:120,tz:"America/Vancouver",tzl:"溫哥華",d:"訂位 8977A3；Pacific Central Station 需辦美國入境預檢，請提早 60-90 分鐘到站、清晨先叫好車。11:40 抵 King St"},
+ {t:"🛫 CI21 機場報到",s:"20260817T053000Z",e:"20260817T063000Z",alarm:60,tz:"America/Los_Angeles",tzl:"西雅圖",d:"報到 22:30 · 訂位 EGLOQC · 8/17 01:55 起飛 · 託運 2×23kg"},
 ];
 
 /* ===================== 工具 ===================== */
@@ -672,7 +635,7 @@ function renderHome(){
     <h2 class="sec">重要提醒</h2>${alerts}${todayDetail}
     <h2 class="sec">旅程一覽</h2>
     <div class="card tight small" style="line-height:2">
-      ✈️ 8/1 Delta 68 出發 → 🏙️ 西雅圖 2 天 → 🚌 跨境 → 🌆 溫哥華 → 🚐 露營車 10 晚（Kamloops・Jasper・冰原大道・露易絲湖・班夫・優鶴・Revelstoke）→ 🚲 溫哥華 2 天 → 🚆 Amtrak 返美 → ✈️ 8/17 CI21 紅眼返台
+      ✈️ 8/1 Delta 68 出發 → 🏙️ 西雅圖 2 天（派克市場・水族館・水手主場）→ 🚆 跨境 → 🌆 溫哥華 → 🚐 露營車 10 晚（Kamloops・Jasper・冰原大道・露易絲湖・班夫・優鶴・Revelstoke）→ 🚲 溫哥華 2 天（蓋士鎮・史丹利公園・Lynn Canyon）→ 🚆 Amtrak 返美 + 飛行博物館 → ✈️ 8/17 CI21 紅眼返台
     </div>`;
   tickClocks();
   $("#wxSel").addEventListener("change",e=>loadWeather(e.target.value));
@@ -833,11 +796,12 @@ function renderMore(){
        <button class="fbtn" data-lv="輕鬆">輕鬆</button>
        <button class="fbtn" data-lv="中等">中等</button>
        <button class="fbtn" data-lv="挑戰">挑戰</button></div>
-     <div class="small" style="margin-bottom:6px">★2026 野火關閉：瑪琳峽谷、Edith Cavell。全域備熊噴霧；熱門步道停車 9-10 點前滿；冰原大道幾乎無訊號。</div>`+
+     <div class="small" style="margin-bottom:6px">多代同堂以「輕鬆～中等」為主軸，每天首選一條全員可行步道，另附加碼選項。</div>`+
     TRAILS.map(t=>`<div class="trailcard" data-lv="${esc(t.lv)}">
        <div class="tt">${esc(t.nm)} <span class="pill ${t.lv.includes("挑戰")?"red":t.lv.includes("中等")?"amber":"acc"}">${esc(t.lv)}</span></div>
        <div class="tm2">${esc(t.day)} · ${esc(t.dist)} · 爬升 ${esc(t.climb)} · 適合：${esc(t.who)}</div>
-       <div style="font-size:12.5px;margin-top:2px">${esc(t.note)}</div></div>`).join("");
+       <div style="font-size:12.5px;margin-top:2px">${esc(t.note)}</div></div>`).join("")+
+    `<div class="notebox" style="margin-top:12px">`+TRAILTIPS.map(t=>`<p><b>${esc(t[0])}</b> ${esc(t[1])}</p>`).join("")+`</div>`;
   const weatherBody=`<div class="tscroll"><table class="tb"><tr><th>地區 / 天數</th><th>日高</th><th>夜低</th><th>降雨</th><th>穿搭重點</th></tr>`+
     WEATHER.map(w=>`<tr><td><b>${esc(w[0])}</b></td><td class="num">${esc(w[1])}</td><td class="num">${esc(w[2])}</td><td>${esc(w[3])}</td><td>${esc(w[4])}</td></tr>`).join("")+
     `</table></div><div class="small" style="margin-top:8px">以上為 8 月歷史均值；出發前 3-5 天請再查即時預報。山區日夜溫差大。</div>`;
@@ -1091,12 +1055,12 @@ function gcalUrl(ev){
 }
 function calWhen(ev){
   const d=new Date(ev.s.replace(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/,"$1-$2-$3T$4:$5:$6Z"));
-  return new Intl.DateTimeFormat("zh-TW",{timeZone:"Asia/Taipei",month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false}).format(d)+" 台灣";
+  return new Intl.DateTimeFormat("zh-TW",{timeZone:ev.tz||"Asia/Taipei",month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false}).format(d)+" "+(ev.tzl||"台灣");
 }
 function renderCal(){
   const box=$("#calBox"); if(!box)return;
   box.innerHTML=
-    `<div class="small" style="margin-bottom:6px">關鍵時刻先進手機行事曆，時間到自動提醒（顯示為台灣時間，加入後會自動換算當地時區）。</div>`+
+    `<div class="small" style="margin-bottom:6px">關鍵時刻先進手機行事曆，時間到自動提醒。以下顯示各事件的<b>當地時間</b>，加入行事曆後會依你手機所在時區自動換算。</div>`+
     CALEV.map(ev=>`<div class="calrow"><span class="when num">${calWhen(ev)}</span>
       <span style="flex:1">${esc(ev.t)}${ev.d?`<span class="small" style="display:block">${esc(ev.d)}</span>`:""}</span>
       <a class="gc" target="_blank" rel="noopener" href="${gcalUrl(ev)}">＋Google</a></div>`).join("")+
@@ -1114,8 +1078,10 @@ function renderCal(){
 }
 
 /* 位置分享 */
-const MEETS=[["The Crab Pot（D2 會合晚餐）","The Crab Pot Seattle"],["T-Mobile Park 球場","T-Mobile Park Seattle"],
- ["派克市場","Pike Place Market Seattle"],["加拿大廣場","Canada Place Vancouver"],["固蘭湖島市集","Granville Island Public Market"]];
+const MEETS=[["The Crab Pot（D2 會合晚餐）","The Crab Pot Seattle"],["T-Mobile Park 球場（D2 男生組）","T-Mobile Park Seattle"],
+ ["Westlake Center（D2 女生組）","Westlake Center Seattle"],["派克市場（D1）","Pike Place Market Seattle"],
+ ["蓋士鎮蒸汽鐘（D14）","Gastown Steam Clock Vancouver"],["格蘭佛島市場（D15）","Granville Island Public Market"],
+ ["飛行博物館（D16）","Museum of Flight Seattle"]];
 function renderLoc(){
   const box=$("#locBox"); if(!box)return;
   box.innerHTML=

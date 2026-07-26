@@ -1,5 +1,5 @@
 /* SEJZ 北美壯遊 · offline cache（冰原大道無訊號也能開） */
-const CACHE = "sejz-natrip-v2";
+const CACHE = "sejz-natrip-v3";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", (e) => {
