@@ -33,11 +33,13 @@ SEJZ 家族美加露營車畢業旅行（2026/08/01–08/18）的手機行程 Ap
 3. 首次開啟即完成離線快取，之後沒網路也能查行程
 4. **出發前記得在「行程」頁按一次「⬇ 預載地圖」**，冰原大道無訊號路段才看得到地圖
 
-### 部署注意
+### 部署
 
-GitHub Pages 目前發佈來源是 `claude/sejz-north-america-app-features-yhyafh` 分支（Settings → Pages）。
-若日後把這個分支合併進 `main` 並刪除分支，網站會失效——請同時把 Pages 來源改成 `main`。
-每次推送到該分支後，Pages 會自動重新建置（約 1 分鐘）。
+GitHub Pages 發佈來源為 **`main` 分支的 `/ (root)`**（Settings → Pages）。
+推送到 `main` 後 Pages 會自動重新建置，約 1 分鐘後生效，網址不變。
+
+改行程的流程：從 `main` 開分支 → 修改 → 開 PR → 合併回 `main` → Pages 自動更新。
+記得同時更新 `sw.js` 的 `CACHE` 版本號，成員手機才會換到新版。
 
 ## 檔案結構
 
@@ -54,14 +56,14 @@ GitHub Pages 目前發佈來源是 `claude/sejz-north-america-app-features-yhyaf
 
 ## 資料版本
 
-行程資料以第 8 版（2026/07 底，住宿全確認版）為基礎，套用於 D1（寬鬆版時間軸）、D2（上午改西雅圖水族館）、D16（飛行博物館移入，保留 05:45 叫車 + 入境預檢）與訂位／待辦／步道等分頁。
+目前對應「定案版每日行程表」**第 9 版**（2026/07）。
+
+- **第 9 版**：D1 加入派克市場美食巡禮（The Crumpet Shop／Beecher's／Hellenika，備選 Cafe Hagen）；D4 採買地點由 Walmart/Costco 改為大統華 T&T Surrey；新增「西雅圖彈性候補」（Ooink／Hot Cakes／Dué Cucina）；記帳新增「哥哥」付款人以配合 CAD$150 財務長任務。
+- **第 8 版**：住宿全確認——EVEN Hotels（D1-2）、Hotel Belmont（D3）、民宿 Mount Pleasant（D14-15）；D4 Kamloops 改 Costco／Silver Sage 二選一；D7 營地改 Waterfowl／Icefields Ctr 彈性；D12 改 Golden Skybridge 09:00 早鳥（07:00 拔營）；D16 不住宿；D15 補本拿比 Wong 家聯絡資料。
+- **第 7 版**：D1 寬鬆版時間軸、D2 上午改西雅圖水族館、D16 飛行博物館移入（保留 05:45 叫車 + 入境預檢）。
 
 D3、D14、D15 依使用者指示**維持原版行程**：D3 早班巴士 13:00 出發 + FlyOver Canada + 煤氣鎮蒸氣鐘、D14 史丹利公園海堤單車 + Yaletown 晚餐、D15 固蘭湖島 + 本拿比朋友聚會。
 
-第 8 版新增：EVEN Hotels（D1-2）、Hotel Belmont（D3）、民宿 Mount Pleasant（D14-15）皆已確認；D4 Kamloops 改 Costco/Silver Sage 二選一；D7 營地改 Waterfowl/Icefields Ctr 彈性；D12 改 Golden Skybridge 09:00 早鳥（07:00 拔營）；D16 不住宿；D15 本拿比 Wong 家聯絡資料。
-
 ## 地圖
 
-地圖用 [Leaflet](https://leafletjs.com/)（BSD-2-Clause，已內嵌）搭配 [CARTO](https://carto.com/attributions) 的 OpenStreetMap 圖磚，兩者皆免費且不需 API 金鑰。圖磚在執行時載入，因此需網路；按「預載地圖」可把路線範圍 zoom 5–9 的圖磚（約 190 塊）存進 Cache Storage，冰原大道無訊號時仍可瀏覽。圖磚載入失敗時會自動改用內建的 SVG 路線示意圖，離線也不會空白。
-
-第 9 版更新：D1 加入派克市場美食巡禮（The Crumpet Shop／Beecher's／Hellenika，備選 Cafe Hagen）；D4 採買地點由 Walmart/Costco 改為**大統華 T&T Surrey**；新增「西雅圖彈性候補」（Ooink／Hot Cakes／Dué Cucina）；記帳新增「哥哥」付款人以配合 CAD$150 財務長任務。
+地圖用 [Leaflet](https://leafletjs.com/)（BSD-2-Clause，已內嵌）搭配 [CARTO](https://carto.com/attributions) 的 OpenStreetMap 圖磚與 [OpenTopoMap](https://opentopomap.org) 地形圖，全部免費且不需 API 金鑰。圖磚在執行時載入，因此需網路；按「預載地圖」可把路線範圍 zoom 5–9 的圖磚（約 190 塊）存進 Cache Storage，冰原大道無訊號時仍可瀏覽。圖磚載入失敗時會自動改用內建的 SVG 路線示意圖，離線也不會空白。
