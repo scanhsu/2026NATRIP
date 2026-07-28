@@ -58,7 +58,7 @@ GitHub Pages 發佈來源為 **`main` 分支的 `/ (root)`**（Settings → Page
 
 目前對應「定案版每日行程表」**第 9 版**（2026/07）。
 
-- **第 9 版**：D1 加入派克市場美食巡禮（The Crumpet Shop／Beecher's／Hellenika，備選 Cafe Hagen）；D4 採買地點由 Walmart/Costco 改為大統華 T&T Surrey；新增「西雅圖彈性候補」（Ooink／Hot Cakes／Dué Cucina）；記帳新增「哥哥」付款人以配合 CAD$150 財務長任務。
+- **第 9 版**：D1 加入派克市場美食巡禮（The Crumpet Shop／初代星巴克 1912 Pike Place／Beecher's／Hellenika，備選 Cafe Hagen；Starbucks Reserve Roastery 移入西雅圖彈性候補）；D4 採買地點由 Walmart/Costco 改為大統華 T&T Surrey；新增「西雅圖彈性候補」（Ooink／Hot Cakes／Dué Cucina）；記帳新增「哥哥」付款人以配合 CAD$150 財務長任務。
 - **第 8 版**：住宿全確認——EVEN Hotels（D1-2）、Hotel Belmont（D3）、民宿 Mount Pleasant（D14-15）；D4 Kamloops 改 Costco／Silver Sage 二選一；D7 營地改 Waterfowl／Icefields Ctr 彈性；D12 改 Golden Skybridge 09:00 早鳥（07:00 拔營）；D16 不住宿；D15 補本拿比 Wong 家聯絡資料。
 - **第 7 版**：D1 寬鬆版時間軸、D2 上午改西雅圖水族館、D16 飛行博物館移入（保留 05:45 叫車 + 入境預檢）。
 
